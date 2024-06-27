@@ -1,6 +1,5 @@
 import requests
 import base64
-import responses
 import pytest
 
 BASE_URI = 'https://espo.spartan-soft.com/api/v1'
@@ -23,15 +22,26 @@ def encoded(username, password):
     encode = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
     return encode
 
-@responses.activate
-def test_get_login_success():
-    responses.add(
-        responses.GET,
-        'https://espo.spartan-soft.com/api/v1/App/user',
-        json={"user": "info"},
-        status=200
-    )
+@pytest.fixture
+def mock_requests_get(monkeypatch):
+    def mock_get(*args, **kwargs):
+        class MockResponse:
+            def __init__(self, json_data, status_code):
+                self.json_data = json_data
+                self.status_code = status_code
 
+            def json(self):
+                return self.json_data
+
+        if args[0] == f'{BASE_URI}/App/user':
+            if kwargs['headers']['Espo-Authorization'] == encoded('jeyson', 'Tesing.123!'):
+                return MockResponse({"user": "info"}, 200)
+            else:
+                return MockResponse({"error": "Unauthorized"}, 401)
+
+    monkeypatch.setattr(requests, "get", mock_get)
+
+def test_get_login_success(mock_requests_get):
     username = 'jeyson'
     password = 'Tesing.123!'
     response = get_login(username, password)
@@ -39,15 +49,7 @@ def test_get_login_success():
     assert response.status_code == 200
     assert response.json() == {"user": "info"}
 
-@responses.activate
-def test_get_login_invalid_username():
-    responses.add(
-        responses.GET,
-        'https://espo.spartan-soft.com/api/v1/App/user',
-        json={"error": "Unauthorized"},
-        status=401
-    )
-
+def test_get_login_invalid_username(mock_requests_get):
     username = 'invalid_user'
     password = 'Tesing.123!'
     response = get_login(username, password)
@@ -55,15 +57,7 @@ def test_get_login_invalid_username():
     assert response.status_code == 401
     assert response.json() == {"error": "Unauthorized"}
 
-@responses.activate
-def test_get_login_invalid_password():
-    responses.add(
-        responses.GET,
-        'https://espo.spartan-soft.com/api/v1/App/user',
-        json={"error": "Unauthorized"},
-        status=401
-    )
-
+def test_get_login_invalid_password(mock_requests_get):
     username = 'jeyson'
     password = 'invalid_password'
     response = get_login(username, password)
@@ -71,21 +65,10 @@ def test_get_login_invalid_password():
     assert response.status_code == 401
     assert response.json() == {"error": "Unauthorized"}
 
-@responses.activate
-def test_get_login_invalid_username_and_password():
-    responses.add(
-        responses.GET,
-        'https://espo.spartan-soft.com/api/v1/App/user',
-        json={"error": "Unauthorized"},
-        status=401
-    )
-
+def test_get_login_invalid_username_and_password(mock_requests_get):
     username = 'invalid_user'
     password = 'invalid_password'
     response = get_login(username, password)
 
     assert response.status_code == 401
     assert response.json() == {"error": "Unauthorized"}
-
-if __name__ == '__main__':
-    pytest.main()
