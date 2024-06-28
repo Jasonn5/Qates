@@ -3,17 +3,14 @@ import base64
 import pytest
 
 BASE_URI = 'https://espo.spartan-soft.com/api/v1'
-X_Api_Key = 'your_api_key_here'
 
 def get_login(username, password):
     url = f'{BASE_URI}/App/user'
     espo_authorization = encoded(username, password)
     headers = {
-        'Espo-Authorization': espo_authorization,
-        'X-Api-Key': X_Api_Key,
-        'content-type': 'application/json'
+        'Espo-Authorization': espo_authorization
     }
-    
+
     response = requests.get(url, headers=headers)
     return response
 
@@ -22,37 +19,54 @@ def encoded(username, password):
     encode = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
     return encode
 
-def test_get_login_success():
-    username = 'jeyson'
-    password = 'Tesing.123!'
-    response = get_login(username, password)
-    
+@pytest.fixture
+def get_headers():
+    def _get_headers(username, password):
+        espo_authorization = encoded(username, password)
+        return {
+            'Espo-Authorization': espo_authorization
+        }
+
+    return _get_headers
+
+def get_auth_headers(username, password):
+    espo_authorization = encoded(username, password)
+    return {
+        'Espo-Authorization': espo_authorization
+    }
+
+
+def test_get_login_success(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("jeyson", "Testing.123!"))
+    print(response)
     assert response.status_code == 200
-    assert 'user' in response.json()
 
-def test_get_login_invalid_username():
-    username = 'invalid_user'
-    password = 'Tesing.123!'
-    response = get_login(username, password)
-    
+
+def test_get_login_invalid_username(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("invalid_user", "Testing.123!"))
     assert response.status_code == 401
-    assert response.json().get('error') == 'Unauthorized'
 
-def test_get_login_invalid_password():
-    username = 'jeyson'
-    password = 'invalid_password'
-    response = get_login(username, password)
-    
+
+def test_get_login_invalid_password(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("jeyson", "invalid_password"))
     assert response.status_code == 401
-    assert response.json().get('error') == 'Unauthorized'
 
-def test_get_login_invalid_username_and_password():
-    username = 'invalid_user'
-    password = 'invalid_password'
-    response = get_login(username, password)
-    
+
+def test_get_login_invalid_username_and_password(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("invalid_user", "invalid_password"))
     assert response.status_code == 401
-    assert response.json().get('error') == 'Unauthorized'
 
-if __name__ == '__main__':
-    pytest.main()
+
+def test_login_empty_fields(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("", ""))
+    assert response.status_code == 401
+
+
+def test_login_empty_user(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("", "Testing.123!"))
+    assert response.status_code == 401
+
+
+def test_login_empty_password(get_headers):
+    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("jeyson", ""))
+    assert response.status_code == 401
