@@ -1,0 +1,1 @@
+BASE_URI = 'https://espo.spartan-soft.com/api/v1'
