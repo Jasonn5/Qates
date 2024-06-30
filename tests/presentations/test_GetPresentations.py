@@ -1,7 +1,7 @@
 from src.assertions.assertion_schemas import assert_schema_presentation
 import requests
 from config import BASE_URI
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
+from src.assertions.assertion_status import *
 from src.assertions.assertion_content import assert_content_type_json
 from src.assertions.assertion_comparison import *
 
@@ -80,10 +80,18 @@ def test_get_meetings_order_desc(get_headers):
 def test_get_meetings_order_asc(get_headers):
     url = f"{BASE_URI}/Meeting?select=id,name,status,dateStart,dateEnd,dateStartDate,dateEndDate,parentId,parentType,parentName,createdById,assignedUserId,assignedUserName&maxSize=20&offset=0&orderBy=dateStart&order=asc"
     response = requests.get(url, headers=get_headers("jeyson", "Testing.123!"))
+
     assert_status_code_ok(response)
 
     data = response.json()
     meetings_list = data["list"]
-
     dates = [item['dateStart'] for item in meetings_list]
+
     assert_equal_to(dates, sorted(dates))
+
+#It's a bug the API is accepting invalid parameters, current result 200, expected result 400
+def test_get_meetings_invalid_param(get_headers):
+    url = f"{BASE_URI}/Meeting?invalidParam=value"
+    response = requests.get(url, headers=get_headers("jeyson", "Testing.123!"))
+
+    assert_status_bad_request(response)
