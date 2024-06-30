@@ -2,10 +2,11 @@ import requests
 import pytest
 from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
 from config import BASE_URI
+from src.resources.auth.auth import Auth
 
 
 def test_get_login_success(get_headers):
-    response = requests.get(f'{BASE_URI}/App/user', headers=get_headers("jeyson", "Testing.123!"))
+    response = requests.get(f'{BASE_URI}/App/user', headers= Auth.auth_valid_credential(get_headers))
     print(response)
     assert_status_code_ok(response)
 
