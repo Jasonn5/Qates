@@ -1,18 +1,22 @@
 import pytest
 import requests
 
+from config import BASE_URI, USERNAME, PASSWORD, calls_params
+from conftest import encoded
 from src.assertions.assertion_schemas import assert_schema_calls_without_params
 from src.assertions.assert_headers import assert_content_type_applicationJson
-from config import  BASE_URI, USERNAME, PASSWORD, calls_params
-from conftest import encoded
 from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, \
     assert_status_bad_request, assert_status_code_internal_server_error
+from src.espocrm_api.api_request import EspoCRMRequest
+from src.espocrm_api.calls_endpoints import EndpointCalls
 
 
 @pytest.mark.smoke
 def test_get_allCalls_withNoParams_success(get_headers):
-    url = f"{BASE_URI}/Call"
-    response = requests.get(url, headers=get_headers(USERNAME, PASSWORD))
+    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+    thisheaders = get_headers(USERNAME, PASSWORD)
+    response = EspoCRMRequest.get_with_url_headers(url, thisheaders)
+    #print(response.status_code)
     assert_status_code_ok(response)
 
 @pytest.mark.smoke
@@ -79,7 +83,7 @@ def test_get_calls_with_param_select_empty(get_header_cookie):
 def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
     url = f"{BASE_URI}/Call?"
     headers = get_header_cookie(USERNAME, PASSWORD)
-    calls_params['select'] = '1'
+    calls_params['maxsize'] = '5'
     response = requests.get(url, params=calls_params, headers=headers)
     assert_status_code_ok(response)
 
