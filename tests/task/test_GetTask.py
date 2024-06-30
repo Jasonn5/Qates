@@ -28,3 +28,4 @@ def test_get_task_invalid_auth(get_headers):
     headers = get_headers("invalid_user", "invalid_password")
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
+
