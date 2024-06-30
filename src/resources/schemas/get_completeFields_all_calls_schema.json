@@ -1,0 +1,110 @@
+{
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "number"
+    },
+    "list": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "dateStart": {
+            "type": "string"
+          },
+          "dateEnd": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "modifiedAt": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "parentType": {
+            "type": "string"
+          },
+          "parentName": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "createdById": {
+            "type": "string"
+          },
+          "createdByName": {
+            "type": "string"
+          },
+          "modifiedById": {
+            "type": "string"
+          },
+          "modifiedByName": {
+            "type": "string"
+          },
+          "assignedUserId": {
+            "type": "string"
+          },
+          "assignedUserName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "deleted",
+          "status",
+          "dateStart",
+          "dateEnd",
+          "duration",
+          "direction",
+          "description",
+          "createdAt",
+          "modifiedAt",
+          "parentId",
+          "parentType",
+          "parentName",
+          "accountId",
+          "accountName",
+          "createdById",
+          "createdByName",
+          "modifiedById",
+          "modifiedByName",
+          "assignedUserId",
+          "assignedUserName"
+        ]
+      }
+    }
+  },
+  "required": [
+    "total",
+    "list"
+  ]
+}
