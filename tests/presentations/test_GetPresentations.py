@@ -76,3 +76,14 @@ def test_get_meetings_order_desc(get_headers):
     dates = [item['dateStart'] for item in meetings_list]
 
     assert_equal_to(dates, sorted(dates, reverse=True))
+
+def test_get_meetings_order_asc(get_headers):
+    url = f"{BASE_URI}/Meeting?select=id,name,status,dateStart,dateEnd,dateStartDate,dateEndDate,parentId,parentType,parentName,createdById,assignedUserId,assignedUserName&maxSize=20&offset=0&orderBy=dateStart&order=asc"
+    response = requests.get(url, headers=get_headers("jeyson", "Testing.123!"))
+    assert_status_code_ok(response)
+
+    data = response.json()
+    meetings_list = data["list"]
+
+    dates = [item['dateStart'] for item in meetings_list]
+    assert_equal_to(dates, sorted(dates))
