@@ -163,6 +163,7 @@ def test_get_calls_with_param_order_invalidData(get_header_cookie):
     headers = get_header_cookie(USERNAME, PASSWORD)
     calls_params['order'] = ('lpo/*-!"$$/%&(//&)(%$$<<')
     response = requests.get(url, params=calls_params, headers=headers)
+
     assert_status_bad_request(response)
 
 def test_get_calls_with_param_order_empty(get_header_cookie):
