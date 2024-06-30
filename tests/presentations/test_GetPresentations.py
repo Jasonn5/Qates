@@ -39,7 +39,6 @@ def test_get_meetings_invalid_auth(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
-
 def test_get_meetings_pagination(get_headers):
     offset = 1
     max_size = 2
@@ -64,3 +63,16 @@ def test_get_meetings_pagination(get_headers):
         expected_first_item_with_offset = data_list_without_offset[offset]
         actual_first_item_with_offset = data_list_with_offset[0]
         assert_equal_to(actual_first_item_with_offset["id"], expected_first_item_with_offset["id"])
+
+
+def test_get_meetings_order_desc(get_headers):
+    url = f"{BASE_URI}/Meeting?select=id,name,status,dateStart,dateEnd,dateStartDate,dateEndDate,parentId,parentType,parentName,createdById,assignedUserId,assignedUserName&maxSize=20&offset=0&orderBy=dateStart&order=desc"
+    response = requests.get(url, headers=get_headers("jeyson", "Testing.123!"))
+
+    assert_status_code_ok(response)
+
+    data = response.json()
+    meetings_list = data["list"]
+    dates = [item['dateStart'] for item in meetings_list]
+
+    assert_equal_to(dates, sorted(dates, reverse=True))
