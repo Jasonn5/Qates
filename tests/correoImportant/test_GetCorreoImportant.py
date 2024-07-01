@@ -52,7 +52,7 @@ def test_get_email_invalid_authorization_in_headers(get_header_cookie):
     assert_status_code_unauthorized(response)
 
 @pytest.mark.regression
-def test_get_mail_invalid_order_parameter(get_headers):
+def test_get_email_invalid_authorization_in_headers(get_headers):
     # Prueba que verifica si un parámetro de orden incorrecto devuelve un estado de solicitud incorrecta (400).
     url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=20&offset=0&orderBy=dateSent&order=invalidOrder"
     response = requests.get(url, headers=get_headers("admin", "admin"))
