@@ -165,7 +165,7 @@ def test_get_calls_with_param_offset_invalidData(get_header_cookie):
     print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
 '''
-Este error se encuentra reportado en el BUG-28
+Este error se encuentra reportado en el BUG-28 
 '''
 
 @pytest.mark.functional

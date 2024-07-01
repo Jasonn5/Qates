@@ -8,13 +8,12 @@ def assert_schema_presentation(instance):
 def assert_schema_task(instance):
     with open("src/resources/schemas/task.json", "r") as schema_file:
         schema = json.load(schema_file)
-        validate(instance=instance, schema=schema)
+    validate(instance=instance, schema=schema)
 
 def assert_schema_calls_without_filters(instance):
-
-def assert_schema_task(instance):
-    with open("src/resources/schemas/task.json", "r") as schema_file:
+    with open("src/resources/schemas/get_completeFields_all_calls_schema.json", "r") as schema_file:
         schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
 
 def assert_schema_correoImportant(instance):
     with open("src/resources/schemas/correoImportant.json", "r") as schema_file:
@@ -46,7 +45,7 @@ def assert_schema_call_with_specifiedFilters(instance, fieldsToKeep):
                     list_items['required'] = [field for field in list_items['required'] if field in fields_to_keep]
 
     print("\n New schema segun filtros \n"+ str(schema))
-
+    validate(instance=instance, schema=schema)
 def assert_schema_activity(instance):
     with open("src/resources/schemas/activity.json", "r") as schema_file:
         schema = json.load(schema_file)
