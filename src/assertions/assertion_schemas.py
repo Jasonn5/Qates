@@ -1,5 +1,3 @@
-import pytest
-import jsonschema
 import json
 from jsonschema import validate
 

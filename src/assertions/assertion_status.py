@@ -1,5 +1,3 @@
-import pytest
-
 def assert_status_code_ok(response):
     assert response.status_code == 200
 
