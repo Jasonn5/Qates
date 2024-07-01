@@ -6,10 +6,10 @@ def assert_schema_presentation(instance):
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
-
 def assert_schema_email(instance):
     with open("src/resources/schemas/email.json", "r") as schema_file:
         schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
 
 def assert_schema_task(instance):
     with open("src/resources/schemas/task.json", "r") as schema_file:
