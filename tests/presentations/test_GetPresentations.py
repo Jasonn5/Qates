@@ -1,5 +1,6 @@
 from src.assertions.assertion_schemas import assert_schema_presentation
 import requests
+import pytest
 from config import BASE_URI, MEETING_PARAM
 from src.assertions.assertion_status import *
 from src.assertions.assertion_headers import assert_content_type_applicationJson
@@ -7,21 +8,27 @@ from src.assertions.assertion_comparison import *
 from src.resources.auth.auth import Auth
 from src.espocrm_api.meetring_endpoints import EndpointMeetings
 
+@pytest.mark.smoke
+@pytest.mark.functional
 def test_get_meetings_success(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITHOUT_PARAMS.value}"
     response = requests.get(url, headers=Auth().auth_valid_credential(get_headers))
     assert_status_code_ok(response)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_meetings_schema_validation(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITHOUT_PARAMS.value}"
     response = requests.get(url, headers= Auth().auth_valid_credential(get_headers))
     assert_schema_presentation(response.json())
 
+@pytest.mark.functional
 def test_get_meetings_response_format(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITHOUT_PARAMS.value}"
     response = requests.get(url, headers=Auth().auth_valid_credential(get_headers))
     assert_content_type_applicationJson(response)
 
+@pytest.mark.functional
 def test_get_meetings_max_size(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITH_PARAMS.value}"
     max_size = 1
@@ -30,18 +37,22 @@ def test_get_meetings_max_size(get_headers):
     data = response.json()['list']
     assert_less_than_or_equal_to(len(data), max_size)
 
+@pytest.mark.smoke
+@pytest.mark.functional
 def test_get_meetings_unauthorized():
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITHOUT_PARAMS.value}"
     response = requests.get(url)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.smoke
+@pytest.mark.functional
 def test_get_meetings_invalid_auth(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITHOUT_PARAMS.value}"
     headers = Auth().auth_invalid_credentials(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
-
+@pytest.mark.functional
 def test_get_meetings_pagination(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     max_size = 2
@@ -69,7 +80,8 @@ def test_get_meetings_pagination(get_headers):
         actual_first_item_with_offset = data_list_with_offset[0]
         assert_equal_to(actual_first_item_with_offset["id"], expected_first_item_with_offset["id"])
 
-
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_meetings_order_desc(get_headers):
     MEETING_PARAM['order'] = 'desc'
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITH_PARAMS.value}"
@@ -83,6 +95,8 @@ def test_get_meetings_order_desc(get_headers):
 
     assert_equal_to(dates, sorted(dates, reverse=True))
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_meetings_order_asc(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITH_PARAMS.value}"
     MEETING_PARAM['order'] = 'asc'
@@ -97,6 +111,7 @@ def test_get_meetings_order_asc(get_headers):
     assert_equal_to(dates, sorted(dates))
 
 #It's a bug the API is accepting invalid parameters, current result 200, expected result 400
+@pytest.mark.functional
 def test_get_meetings_invalid_param(get_headers):
     url = f"{BASE_URI}{EndpointMeetings.GET_MEETINGS_WITH_PARAMS.value}invalidParam=value"
     response = requests.get(url, headers=Auth().auth_valid_credential(get_headers))

@@ -19,3 +19,6 @@ def assert_status_code_forbidden(response):
 def assert_status_bad_request(response):
     assert response.status_code == 400
 
+def assert_status_code_method_not_allowed(response):
+    assert response.status_code == 405
+
