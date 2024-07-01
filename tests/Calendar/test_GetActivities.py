@@ -11,13 +11,13 @@ from src.espocrm_api.activities_endpoints import ActivitiesEndpoint
 
 url = f"{BASE_URI}{ActivitiesEndpoint.MAIN_ROUTE.value}?"
 
-
+@pytest.mark.regression
 def test_get_activity_success(get_headers):
     headers = get_headers("admin", "admin")
     response = requests.get(url, params=ACTIVITIES_PARAM, headers=headers)
     assert_status_code_ok(response)
 
-
+@pytest.mark.regression
 def test_get_activity_empty_from(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -25,7 +25,7 @@ def test_get_activity_empty_from(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.regression
 def test_get_activity_invalid_from(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -33,7 +33,7 @@ def test_get_activity_invalid_from(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.functional
 def test_get_activity_scopeListEmpty(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -42,7 +42,7 @@ def test_get_activity_scopeListEmpty(get_headers):
     assert_status_code_ok(response)
     assert_empty_array(response)
 
-
+@pytest.mark.regression
 def test_get_activity_invalid_to(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -50,7 +50,7 @@ def test_get_activity_invalid_to(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.regression
 def test_get_activity_empty_to(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -58,7 +58,7 @@ def test_get_activity_empty_to(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.regression
 def test_get_activity_success_with_scopeList_meeting(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -67,7 +67,7 @@ def test_get_activity_success_with_scopeList_meeting(get_headers):
     assert_status_code_ok(response)
     assert_scope_meeting(response)
 
-
+@pytest.mark.regression
 def test_get_activity_success_with_scopeList_task(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -76,7 +76,7 @@ def test_get_activity_success_with_scopeList_task(get_headers):
     assert_status_code_ok(response)
     assert_scope_task(response)
 
-
+@pytest.mark.regression
 def test_get_activity_success_with_scopeList_call(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -85,7 +85,7 @@ def test_get_activity_success_with_scopeList_call(get_headers):
     assert_status_code_ok(response)
     assert_scope_call(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_only_from_param(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -95,7 +95,7 @@ def test_get_activity_with_only_from_param(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_only_to_param(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -112,7 +112,7 @@ def test_get_activity_schema_validation(get_headers):
     response = requests.get(url, params=ACTIVITIES_PARAM, headers=headers)
     assert_schema_activity(response.json())
 
-
+@pytest.mark.functional 
 def test_get_activity_without_params(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -123,7 +123,7 @@ def test_get_activity_without_params(get_headers):
     response = requests.get(url, params=test_params, headers=headers)
     assert_status_bad_request(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_agenda_empty(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -132,7 +132,7 @@ def test_get_activity_with_agenda_empty(get_headers):
     assert_status_code_ok(response)
     assert_size_array(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_agenda_true(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -141,7 +141,7 @@ def test_get_activity_with_agenda_true(get_headers):
     assert_status_code_ok(response)
     assert_size_array(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_agenda_false(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
@@ -150,7 +150,7 @@ def test_get_activity_with_agenda_false(get_headers):
     assert_status_code_ok(response)
     assert_size_array(response)
 
-
+@pytest.mark.functional
 def test_get_activity_with_agenda_any_value(get_headers):
     headers = get_headers("admin", "admin")
     test_params = ACTIVITIES_PARAM.copy()
