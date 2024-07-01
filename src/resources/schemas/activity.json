@@ -1,0 +1,51 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "scope": {
+        "type": "string",
+        "enum": ["Meeting", "Call", "Task"]
+      },
+      "dateStart": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "dateEnd": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "dateStartDate": {
+        "type": ["string", "null"],
+        "format": "date"
+      },
+      "dateEndDate": {
+        "type": ["string", "null"],
+        "format": "date"
+      },
+      "parentType": {
+        "type": ["string", "null"]
+      },
+      "parentId": {
+        "type": ["string", "null"]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "color": {
+        "type": ["string", "null"]
+      }
+    },
+    "required": ["scope", "dateStart", "dateEnd", "id", "name", "status", "createdAt"]
+  }
+}
