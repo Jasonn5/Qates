@@ -1,5 +1,3 @@
-import pytest
-
 def assert_status_code_ok(response):
     assert response.status_code == 200
 
@@ -20,3 +18,4 @@ def assert_status_code_forbidden(response):
 
 def assert_status_bad_request(response):
     assert response.status_code == 400
+
