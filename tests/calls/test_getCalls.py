@@ -5,7 +5,7 @@ from config import BASE_URI, USERNAME, PASSWORD, CALL_PARAM
 from conftest import encoded
 from src.assertions.assertion_schemas import assert_schema_calls_without_filters
 from src.assertions.assertion_response_data import assert_itemList_size_is_maxsize, \
-    assert_list_acsOrder_with_OrderBy_Order_params
+    assert_list_acsOrder_with_OrderBy_Order_params, assert_offset_pagination_correctData
 from src.assertions.assertion_schemas import assert_schema_call_with_specifiedFilters
 from src.assertions.assertion_headers import assert_content_type_applicationJson
 from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, \
@@ -54,13 +54,13 @@ def test_get_calls_with_default_param(get_header_cookie):
 
 def test_get_calls_with_param_select_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
-    selectData= 'id%2Cname%2CcreatedById%2Cstatus'
+    selectData= "id%2Cname%2CcreatedById%2Cstatus"
     test_params = CALL_PARAM.copy()
     test_params['select'] = selectData
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
-    #print("\n Response con filtros del get: \n"+str(response.json()))
-    #assert_schema_call_with_specifiedFilters(response.json(), selectData)
+    print("\n Response con filtros del get: \n"+str(response.json()))
+    assert_schema_call_with_specifiedFilters(response.json(), selectData)
     '''
 This assert fail because the response given doesn´t match the schema, there for its a BUG
     '''
@@ -87,14 +87,11 @@ def test_get_calls_with_param_select_empty(get_header_cookie):
 
 def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
-    test_params = CALL_PARAM.copy()
-    test_params['maxsize'] = '1'
-    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
+    test_params_maxsize_changed = CALL_PARAM.copy()
+    test_params_maxsize_changed['maxSize'] = 1
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_maxsize_changed, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
-    assert_itemList_size_is_maxsize(response.json(), test_params['maxsize'])
-    '''
-This test case fails, because the request isn´t able to only show the maxsize asked, its stills shows all three calls in the response
-    '''
+    assert_itemList_size_is_maxsize(response.json(), test_params_maxsize_changed['maxSize'])
 
 def test_get_calls_with_param_maxsize_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
@@ -117,31 +114,18 @@ def test_get_calls_with_param_maxsize_empty(get_header_cookie):
 
 def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
-    max_size = 2
-    test_params_maxsize = CALL_PARAM.copy()
-    test_params_maxsize['maxsize'] = max_size
-    response_without_offset = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_maxsize, headers=get_header_cookie(USERNAME, PASSWORD))
+    test_params = CALL_PARAM.copy()
+    response_without_offset = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
 
     offset = 1
     test_params_offset = CALL_PARAM.copy()
     test_params_offset['offset'] = offset
-    response_with_offset = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_maxsize, headers=get_header_cookie(USERNAME, PASSWORD))
+    response_with_offset = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_offset, headers=get_header_cookie(USERNAME, PASSWORD))
 
     assert_status_code_ok(response_without_offset)
     assert_status_code_ok(response_with_offset)
 
-    data_with_offset = response_with_offset.json()
-    data_without_offset = response_without_offset.json()
-    data_list_with_offset = data_with_offset['list']
-    data_list_without_offset = data_without_offset['list']
-
-    #assert_less_than_or_equal_to(len(data_list_with_offset, max_size))
-
-    if len(data_list_without_offset) > offset:
-        expected_first_item_with_offset = data_list_without_offset[offset]
-
-        actual_first_item_with_offset = data_list_with_offset[0]
-        #assert_equal_to(actual_first_item_with_offset['id'], expected_first_item_with_offset['id'])
+    assert_offset_pagination_correctData(response_without_offset.json(), response_with_offset.json(), offset)
 
 def test_get_calls_with_param_offset_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
@@ -165,9 +149,9 @@ def test_get_calls_with_param_offset_empty(get_header_cookie):
 def test_get_calls_with_param_orderBy_and_order_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
-    CALL_PARAM['orderBy'] = 'dateEnd'
-    CALL_PARAM['order'] = 'asc'
-    response = EspoCRMRequest.get_with_url_headers_params(url, params=CALL_PARAM, headers=get_header_cookie(USERNAME, PASSWORD))
+    test_params['orderBy'] = 'dateEnd'
+    test_params['order'] = 'asc'
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
     assert_list_acsOrder_with_OrderBy_Order_params(response.json())
 
