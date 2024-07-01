@@ -1,0 +1,189 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "list",
+        "total",
+        "additionalData"
+    ],
+    "properties": {
+        "total": {
+            "type": "integer"
+        },
+        "list": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "string"
+                    },
+                    "dateEnd": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "dateEndDate": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "parentId": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "parentType": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "parentName": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "createdById": {
+                        "type": "string"
+                    },
+                    "assignedUserId": {
+                        "type": "string"
+                    },
+                    "assignedUserName": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "status",
+                    "priority",
+                    "dateEnd",
+                    "dateEndDate",
+                    "createdAt",
+                    "createdById",
+                    "assignedUserId",
+                    "parentName"
+                ]
+            }
+        },
+        "additionalData": {
+            "type": "object",
+            "required": [
+                "groupList"
+            ],
+            "properties": {
+                "groupList": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "total": {
+                                "type": "integer"
+                            },
+                            "list": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "priority": {
+                                            "type": "string"
+                                        },
+                                        "dateEnd": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "dateEndDate": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "parentId": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "parentType": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "parentName": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "createdById": {
+                                            "type": "string"
+                                        },
+                                        "assignedUserId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "name",
+                                        "status",
+                                        "priority",
+                                        "dateEnd",
+                                        "dateEndDate",
+                                        "createdAt",
+                                        "createdById",
+                                        "assignedUserId",
+                                        "parentName"
+                                    ]
+                                }
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "total",
+                            "list"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
