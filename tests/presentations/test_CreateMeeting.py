@@ -30,3 +30,9 @@ def test_create_meeting_no_date_end(get_headers):
     assert_status_code_created(response)
     response_data = response.json()
     assert_equal_to(response_data["status"], "Planned")
+
+def test_create_meeting_all_day_event(get_headers):
+    response = create_meeting_with_payload(get_headers, {"isAllDay": True})
+    assert_status_code_created(response)
+    response_data = response.json()
+    assert_equal_to(response_data["status"],"Planned")
