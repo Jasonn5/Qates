@@ -35,6 +35,10 @@ def test_get_drafts_with_wrong_basic_auth(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+    '''
+    Este error se encuentra reportado en el BUG-45
+    '''
+
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_without_auth_token_secret(get_headers):
@@ -45,6 +49,10 @@ def test_get_drafts_without_auth_token_secret(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+    '''
+    Este error se encuentra reportado en el BUG-44
+    '''
+
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -54,6 +62,10 @@ def test_get_drafts_with_wrong_content_type(get_headers):
     headers["Content-Type"] = "text/plain"
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
+
+    '''
+    Este error se encuentra reportado en el BUG-40
+    '''
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -70,6 +82,10 @@ def test_get_drafts_with_empty_search_param(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
+
+    '''
+    Este error se encuentra reportado en el BUG-43
+    '''
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -97,6 +113,10 @@ def test_get_drafts_with_valid_maxsize_param(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
 
+    '''
+    Este error se encuentra reportado en el BUG-41
+    '''
+
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -105,6 +125,10 @@ def test_get_drafts_with_invalid_maxsize_param(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
+
+    '''
+    Este error se encuentra reportado en el BUG-42
+    '''
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -121,6 +145,10 @@ def test_get_drafts_with_invalid_order_type(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
+
+    '''
+    Este error se encuentra reportado en el BUG-46
+    '''
 
 @pytest.mark.smoke
 @pytest.mark.functional
