@@ -10,40 +10,47 @@ from src.espocrm_api.api_request import EspoCRMRequest
 from src.espocrm_api.correo_important_endpoint import EndpointCorreoImportant
 
 @pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_email_success(get_headers):
-    # Prueba que verifica si se pueden obtener correos que son importantes exitosamente.
+    """
+    Verificar que obtenga todos los mensajes marcados como Importantes - Status code 200 OK
+    """
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     headers = get_headers(USERNAME, PASSWORD)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
 @pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_email_schema_validation(get_headers):
-    # Prueba que verifica si la estructura del JSON de respuesta coincide con el esquema esperado.
+    """
+    Verificar que el parámetro 'select' contenga algunos campos válidos - Status code 200 OK
+    """
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     response = requests.get(url, headers=get_headers(USERNAME, PASSWORD))
-    print("\n reponce del Get de correos \n"+str(response.json()))
+    print("\n reponce del Get de correos \n" + str(response.json()))
     assert_schema_correoImportant(response.json())
 
+@pytest.mark.smoke
+@pytest.mark.functional
 @pytest.mark.regression
 def test_get_email_response_format(get_headers):
-    # Prueba que verifica si el formato de la respuesta es 'application/json'.
+    """
+    Verificar que el formato de la respuesta sea 'application/json'
+    """
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     response = requests.get(url, headers=get_headers(USERNAME, PASSWORD))
     assert_content_type_applicationJson(response)
 
-@pytest.mark.regression
-def test_get_email_invalid_cookie_in_headers(get_header_cookie):
-    # Prueba que verifica si una cookie incorrecta en los encabezados devuelve un estado no autorizado (401).
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
-    headers = get_header_cookie(USERNAME, PASSWORD)
-    headers['Cookie'] = 'wrongCookie'
-    response = requests.get(url, headers=headers)
-    assert_status_code_unauthorized(response)
-
+@pytest.mark.smoke
+@pytest.mark.functional
 @pytest.mark.regression
 def test_get_email_invalid_authorization_in_headers(get_header_cookie):
-    # Prueba que verifica si una autorización básica incorrecta devuelve un estado no autorizado (401).
+    """
+    Verificar que el header tenga una BasicAuthorization errónea - Status code 401 Unauthorized
+    """
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     headers = get_header_cookie(USERNAME, PASSWORD)
     invalidAuth = base64.b64encode(b"invalidUser1232:invalidPassword456").decode('utf-8')
@@ -51,47 +58,67 @@ def test_get_email_invalid_authorization_in_headers(get_header_cookie):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.functional
 @pytest.mark.regression
-def test_get_email_invalid_authorization_in_headers(get_headers):
-    # Prueba que verifica si un parámetro de orden incorrecto devuelve un estado de solicitud incorrecta (400).
-    url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=20&offset=0&orderBy=dateSent&order=invalidOrder"
+def test_get_email_invalid_cookie_in_headers(get_header_cookie):
+    """
+    Verificar que el header tenga una cookie sin auth-token-secret - Status code 401 Unauthorized
+    """
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    headers = get_header_cookie(USERNAME, PASSWORD)
+    headers['Cookie'] = 'wrongCookie'
+    response = requests.get(url, headers=headers)
+    assert_status_code_unauthorized(response)
+
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_mail_valid_offset_parameter(get_headers):
+    """
+    Verificar que el parámetro 'offset' tenga un valor máximo válido - Status code 200 OK
+    """
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_OFFSET_1000.value}"
+    response = requests.get(url, headers=get_headers("admin", "admin"))
+    assert_status_code_ok(response)
+
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_mail_valid_maxsize_parameter(get_headers):
+    """
+    Verificar que el parámetro 'maxsize' tenga un valor mínimo válido - Status code 200 OK
+    """
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_MAXSIZE_1.value}"
+    response = requests.get(url, headers=get_headers("admin", "admin"))
+    assert_status_code_ok(response)
+
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_mail_invalid_order_parameter(get_headers):
+    """
+    Verificar que el parámetro 'order' contenga valores numéricos/booleanos/strings - Status code 400 Bad Request
+    """
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_INVALID_ORDER.value}"
     response = requests.get(url, headers=get_headers("admin", "admin"))
     assert response.status_code == 400
 
-@pytest.mark.regression
-def test_get_mail_valid_maxsize_parameter(get_headers):
-    # Prueba que verifica si un parámetro de tamaño máximo válido devuelve un estado exitoso (200).
-    url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=1&offset=0&orderBy=dateSent&order=desc"
-    response = requests.get(url, headers=get_headers("admin", "admin"))
-    assert_status_code_ok(response)
-
+@pytest.mark.functional
 @pytest.mark.regression
 def test_get_mail_missing_auth_token_secret():
-    # Prueba que verifica si falta el token de autenticación devuelve un estado no autorizado (401).
+    """
+    Verificar que el header tenga una cookie sin auth-token-secret - Status code 401 Unauthorized
+    """
     url = f"{BASE_URI}/Email"
     headers = {"Cookie": "some_other_cookie=some_value"}
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
-
-@pytest.mark.regression
-def test_get_mail_valid_offset_parameter(get_headers):
-    # Prueba que verifica si un parámetro de desplazamiento válido devuelve un estado exitoso (200).
-    url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=20&offset=1000&orderBy=dateSent&order=desc"
-    response = requests.get(url, headers=get_headers("admin", "admin"))
-    assert_status_code_ok(response)
 
 @pytest.mark.regression
 def test_get_mail_invalid_basic_authorization():
-    # Prueba que verifica si una autorización básica incorrecta devuelve un estado no autorizado (401).
+    """
+    Verificar que el header tenga una cookie sin auth-token-secret - Status code 401 Unauthorized
+    """
     url = f"{BASE_URI}/Email"
     headers = {"Authorization": "Basic invalidcredentials"}
-    response = requests.get(url, headers=headers)
-    assert_status_code_unauthorized(response)
-
-@pytest.mark.regression
-def test_get_mail_missing_auth_token_secret():
-    # Prueba que verifica si falta el token de autenticación devuelve un estado no autorizado (401).
-    url = f"{BASE_URI}/Email"
-    headers = {"Cookie": "some_other_cookie=some_value"}
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
