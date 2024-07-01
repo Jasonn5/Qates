@@ -1,5 +1,3 @@
-import pytest
-import jsonschema
 import json
 from jsonschema import validate
 
@@ -12,6 +10,7 @@ def assert_schema_calls_without_filters(instance):
     with open("src/resources/schemas/get_completeFields_all_calls_schema.json", "r") as schema_file:
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
+
 def assert_schema_call_with_specifiedFilters(instance, fieldsToKeep):
     with open("src/resources/schemas/get_completeFields_all_calls_schema.json", "r") as schema_file:
         schema = json.load(schema_file)
@@ -29,4 +28,9 @@ def assert_schema_call_with_specifiedFilters(instance, fieldsToKeep):
                     list_items['required'] = [field for field in list_items['required'] if field in fields_to_keep]
 
     print("\n New schema segun filtros \n"+ str(schema))
+
+def assert_schema_activity(instance):
+    with open("src/resources/schemas/activity.json", "r") as schema_file:
+        schema = json.load(schema_file)
+
     validate(instance=instance, schema=schema)
