@@ -21,3 +21,4 @@ def assert_status_bad_request(response):
 
 def assert_status_code_method_not_allowed(response):
     assert response.status_code == 405
+
