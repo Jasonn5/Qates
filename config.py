@@ -18,3 +18,12 @@ EMAIL_IMPORTAN_PARAM = {
     "where[0][attribute]": "folderId",
     "where[0][value]": "important"
 }
+
+MEETING_PARAM = {
+    'select': 'id,name,status,dateStart,dateEnd,dateStartDate,dateEndDate,parentId,parentType,parentName,createdById,assignedUserId,assignedUserName',
+    'maxSize': '20',
+    'offset': '0',
+    'orderBy': 'dateStart',
+    'order': 'asc'
+
+}
