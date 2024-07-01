@@ -25,12 +25,14 @@ def test_get_email_schema_validation(get_headers):
     print("\n reponce del Get de correos \n"+str(response.json()))
     assert_schema_correoImportant(response.json())
 
+@pytest.mark.regression
 def test_get_email_response_format(get_headers):
     # Prueba que verifica si el formato de la respuesta es 'application/json'.
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     response = requests.get(url, headers=get_headers(USERNAME, PASSWORD))
     assert_content_type_applicationJson(response)
 
+@pytest.mark.regression
 def test_get_email_invalid_cookie_in_headers(get_header_cookie):
     # Prueba que verifica si una cookie incorrecta en los encabezados devuelve un estado no autorizado (401).
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
@@ -39,6 +41,7 @@ def test_get_email_invalid_cookie_in_headers(get_header_cookie):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.regression
 def test_get_email_invalid_authorization_in_headers(get_header_cookie):
     # Prueba que verifica si una autorización básica incorrecta devuelve un estado no autorizado (401).
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
@@ -48,18 +51,21 @@ def test_get_email_invalid_authorization_in_headers(get_header_cookie):
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.regression
 def test_get_mail_invalid_order_parameter(get_headers):
     # Prueba que verifica si un parámetro de orden incorrecto devuelve un estado de solicitud incorrecta (400).
     url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=20&offset=0&orderBy=dateSent&order=invalidOrder"
     response = requests.get(url, headers=get_headers("admin", "admin"))
     assert response.status_code == 400
 
+@pytest.mark.regression
 def test_get_mail_valid_maxsize_parameter(get_headers):
     # Prueba que verifica si un parámetro de tamaño máximo válido devuelve un estado exitoso (200).
     url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=1&offset=0&orderBy=dateSent&order=desc"
     response = requests.get(url, headers=get_headers("admin", "admin"))
     assert_status_code_ok(response)
 
+@pytest.mark.regression
 def test_get_mail_missing_auth_token_secret():
     # Prueba que verifica si falta el token de autenticación devuelve un estado no autorizado (401).
     url = f"{BASE_URI}/Email"
@@ -67,12 +73,14 @@ def test_get_mail_missing_auth_token_secret():
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.regression
 def test_get_mail_valid_offset_parameter(get_headers):
     # Prueba que verifica si un parámetro de desplazamiento válido devuelve un estado exitoso (200).
     url = f"{BASE_URI}/Email?select=dateSent%2Csubject%2CfromName&maxSize=20&offset=1000&orderBy=dateSent&order=desc"
     response = requests.get(url, headers=get_headers("admin", "admin"))
     assert_status_code_ok(response)
 
+@pytest.mark.regression
 def test_get_mail_invalid_basic_authorization():
     # Prueba que verifica si una autorización básica incorrecta devuelve un estado no autorizado (401).
     url = f"{BASE_URI}/Email"
@@ -80,6 +88,7 @@ def test_get_mail_invalid_basic_authorization():
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.regression
 def test_get_mail_missing_auth_token_secret():
     # Prueba que verifica si falta el token de autenticación devuelve un estado no autorizado (401).
     url = f"{BASE_URI}/Email"
