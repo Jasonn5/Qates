@@ -37,3 +37,11 @@ class Auth:
     def auth_empty_password(self, get_headers):
         user = self.get_user("empty_password")
         return get_headers(user["username"], user["password"])
+
+    def auth_valid_username_empty_password(self, get_headers):
+        user = self.get_user("valid_username_empty_password")
+        return get_headers(user["username"], user["password"])
+
+    def auth_empty_username_valid_password(self, get_headers):
+        user = self.get_user("empty_username_valid_password")
+        return get_headers(user["username"], user["password"])

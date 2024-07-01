@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "properties": {
+        "total": {"type": "integer"},
+        "list": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "name": {"type": "string"},
+                    "subject": {"type": "string"},
+                    "fromName": {"type": ["string", "null"]},
+                    "fromAddress": {"type": "string"},
+                    "fromString": {"type": ["string", "null"]},
+                    "replyToString": {"type": ["string", "null"]},
+                    "replyToName": {"type": ["string", "null"]},
+                    "replyToAddress": {"type": ["string", "null"]},
+                    "personStringData": {"type": "string"},
+                    "isReplied": {"type": "boolean"},
+                    "messageId": {"type": "string"},
+                    "isHtml": {"type": "boolean"},
+                    "status": {"type": "string"},
+                    "hasAttachment": {"type": "boolean"},
+                    "dateSent": {"type": ["string", "null"]},
+                    "fromEmailAddressId": {"type": "string"},
+                    "fromEmailAddressName": {"type": "string"},
+                    "parentId": {"type": ["string", "null"]},
+                    "parentType": {"type": ["string", "null"]},
+                    "parentName": {"type": ["string", "null"]},
+                    "createdById": {"type": "string"},
+                    "sentById": {"type": ["string", "null"]},
+                    "assignedUserId": {"type": ["string", "null"]},
+                    "createdEventName": {"type": ["string", "null"]},
+                    "groupFolderId": {"type": ["string", "null"]},
+                    "accountId": {"type": ["string", "null"]}
+                },
+                "required": ["id", "name", "subject", "fromAddress", "personStringData", "isReplied", "messageId", "isHtml", "status", "hasAttachment", "fromEmailAddressId", "fromEmailAddressName", "createdById"]
+            }
+        }
+    },
+    "required": ["total", "list"]
+}
