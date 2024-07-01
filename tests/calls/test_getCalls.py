@@ -14,24 +14,33 @@ from src.espocrm_api.api_request import EspoCRMRequest
 from src.espocrm_api.calls_endpoints import EndpointCalls
 
 
-#Verificar que obtenga todos las llamadas sin filtros
 @pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_withNoParams_success(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
 @pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_withNoParams_schema_validation(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_schema_calls_without_filters(response.json())
 
+
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_allCalls_withNoParams_format(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_content_type_applicationJson(response)
 
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_invalid_cookie_in_headers(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     headers = get_header_cookie(USERNAME, PASSWORD)
@@ -39,6 +48,9 @@ def test_get_calls_invalid_cookie_in_headers(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_invalid_authorization_in_headers(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     headers = get_header_cookie(USERNAME, PASSWORD)
@@ -47,11 +59,15 @@ def test_get_calls_invalid_authorization_in_headers(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_default_param(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers_params(url, params=CALL_PARAM, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_select_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     selectData= "id%2Cname%2CcreatedById%2Cstatus"
@@ -65,6 +81,8 @@ def test_get_calls_with_param_select_otherValidData(get_header_cookie):
 This assert fail because the response given doesn´t match the schema, there for its a BUG
     '''
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_select_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
@@ -76,7 +94,9 @@ This test case fails, and its correct because the field sent in 'select" doesn´
 it should return a bad request, but actually returns a status code 200
     '''
 
-def test_get_calls_with_param_select_empty(get_header_cookie):
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_param_select_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
     if 'select' in test_params:
@@ -85,6 +105,8 @@ def test_get_calls_with_param_select_empty(get_header_cookie):
     assert_status_code_ok(response)
     assert_schema_calls_without_filters(response.json())
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params_maxsize_changed = CALL_PARAM.copy()
@@ -93,6 +115,8 @@ def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
     assert_status_code_ok(response)
     assert_itemList_size_is_maxsize(response.json(), test_params_maxsize_changed['maxSize'])
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_maxsize_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
@@ -104,7 +128,9 @@ This test case fails because the data sent in 'maxsize" invalid
 therefore it should return a 400 bad request, but actually returns a status code 403 forbidden
      '''
 
-def test_get_calls_with_param_maxsize_empty(get_header_cookie):
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
     if 'maxsize' in test_params:
@@ -112,6 +138,8 @@ def test_get_calls_with_param_maxsize_empty(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
@@ -127,6 +155,8 @@ def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
 
     assert_offset_pagination_correctData(response_without_offset.json(), response_with_offset.json(), offset)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_offset_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
@@ -138,7 +168,9 @@ This test case fails, and its correct because the field sent in 'select" doesn´
 it should return a bad request, but actually returns a status code 403
 '''
 
-def test_get_calls_with_param_offset_empty(get_header_cookie):
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_param_offset_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
     if 'offset' in test_params:
@@ -146,6 +178,8 @@ def test_get_calls_with_param_offset_empty(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_orderBy_and_order_otherValidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
@@ -155,6 +189,8 @@ def test_get_calls_with_param_orderBy_and_order_otherValidData(get_header_cookie
     assert_status_code_ok(response)
     assert_list_acsOrder_with_OrderBy_Order_params(response.json())
 
+@pytest.mark.functional
+@pytest.mark.regression
 def test_get_calls_with_param_orderBy_and_order_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params_change_orderBy = CALL_PARAM.copy()
@@ -166,7 +202,9 @@ def test_get_calls_with_param_orderBy_and_order_invalidData(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_change_order, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_bad_request(response)
 
-def test_get_calls_with_param_orderBy_empty(get_header_cookie):
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_param_orderBy_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
     if 'orderBy' in test_params:
@@ -174,7 +212,9 @@ def test_get_calls_with_param_orderBy_empty(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
-def test_get_calls_with_param_order_empty(get_header_cookie):
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_param_order_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
     if 'order' in test_params:
