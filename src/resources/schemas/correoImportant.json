@@ -1,0 +1,174 @@
+{
+
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer"
+    },
+    "list": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "fromName": {
+              "type": "string"
+            },
+            "fromAddress": {
+              "type": "string"
+            },
+            "fromString": {
+              "type": "string"
+            },
+            "replyToString": {
+              "type": "null"
+            },
+            "replyToName": {
+              "type": "null"
+            },
+            "replyToAddress": {
+              "type": "null"
+            },
+            "personStringData": {
+              "type": "string"
+            },
+            "isRead": {
+              "type": "boolean"
+            },
+            "isReplied": {
+              "type": "boolean"
+            },
+            "isImportant": {
+              "type": "boolean"
+            },
+            "inTrash": {
+              "type": "boolean"
+            },
+            "folderId": {
+              "type": "null"
+            },
+            "isUsers": {
+              "type": "boolean"
+            },
+            "messageId": {
+              "type": "string"
+            },
+            "isHtml": {
+              "type": "boolean"
+            },
+            "status": {
+              "type": "string"
+            },
+            "hasAttachment": {
+              "type": "boolean"
+            },
+            "dateSent": {
+              "type": "string"
+            },
+            "fromEmailAddressId": {
+              "type": "string"
+            },
+            "fromEmailAddressName": {
+              "type": "string"
+            },
+            "toEmailAddressesIds": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "toEmailAddressesNames": {
+              "type": "object",
+              "properties": {
+                "66797ce4383f4c8f9": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "66797ce4383f4c8f9"
+              ]
+            },
+            "parentId": {
+              "type": "null"
+            },
+            "parentType": {
+              "type": "null"
+            },
+            "parentName": {
+              "type": "null"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "sentById": {
+              "type": "null"
+            },
+            "assignedUserId": {
+              "type": "null"
+            },
+            "createdEventName": {
+              "type": "null"
+            },
+            "groupFolderId": {
+              "type": "null"
+            },
+            "accountId": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "subject",
+            "fromName",
+            "fromAddress",
+            "fromString",
+            "replyToString",
+            "replyToName",
+            "replyToAddress",
+            "personStringData",
+            "isRead",
+            "isReplied",
+            "isImportant",
+            "inTrash",
+            "folderId",
+            "isUsers",
+            "messageId",
+            "isHtml",
+            "status",
+            "hasAttachment",
+            "dateSent",
+            "fromEmailAddressId",
+            "fromEmailAddressName",
+            "toEmailAddressesIds",
+            "toEmailAddressesNames",
+            "parentId",
+            "parentType",
+            "parentName",
+            "createdById",
+            "sentById",
+            "assignedUserId",
+            "createdEventName",
+            "groupFolderId",
+            "accountId"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "total",
+    "list"
+  ]
+}
