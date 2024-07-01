@@ -78,7 +78,7 @@ def test_get_calls_with_param_select_otherValidData(get_header_cookie):
     print("\n Response con filtros del get: \n"+str(response.json()))
     assert_schema_call_with_specifiedFilters(response.json(), selectData)
     '''
-This assert fail because the response given doesn´t match the schema, there for its a BUG
+    Este error se encuentra reportado en el BUG-35
     '''
 
 @pytest.mark.functional
@@ -86,12 +86,12 @@ This assert fail because the response given doesn´t match the schema, there for
 def test_get_calls_with_param_select_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
-    test_params['select'] = 'testCallsTest'
+    test_params['select'] = '¡?=(¡)??578788787'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
+    print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
     '''
-This test case fails, and its correct because the field sent in 'select" doesn´t exist therefore 
-it should return a bad request, but actually returns a status code 200
+    Este error se encuentra reportado en el BUG-31
     '''
 
 @pytest.mark.functional
@@ -120,12 +120,12 @@ def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
 def test_get_calls_with_param_maxsize_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
-    test_params['maxsize'] = '2032+-*-/*-489589438345'
+    test_params['maxSize'] = '2032+-*-/*-489589438345'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
+    print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
     '''
-This test case fails because the data sent in 'maxsize" invalid
-therefore it should return a 400 bad request, but actually returns a status code 403 forbidden
+    Este error se encuentra reportado en el BUG-27
      '''
 
 @pytest.mark.functional
@@ -133,8 +133,8 @@ therefore it should return a 400 bad request, but actually returns a status code
 def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
-    if 'maxsize' in test_params:
-        del test_params['maxsize']
+    if 'maxSize' in test_params:
+        del test_params['maxSize']
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
@@ -160,12 +160,12 @@ def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
 def test_get_calls_with_param_offset_invalidData(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
     test_params = CALL_PARAM.copy()
-    test_params['offset'] = 'lpo/*-!"$$/%&(//&)(%$$<<'
+    test_params['offset'] = '0.2356-*/¡?¿'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
+    print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
 '''
-This test case fails, and its correct because the field sent in 'select" doesn´t exist therefore
-it should return a bad request, but actually returns a status code 403
+Este error se encuentra reportado en el BUG-28
 '''
 
 @pytest.mark.functional
