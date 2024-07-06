@@ -1,13 +1,13 @@
 import pytest
 
-from conftest import get_headers
-from src.assertions.assertion_calendar import assert_scope_meeting, assert_scope_task, assert_scope_call
-from src.assertions.assertion_content import assert_empty_array, assert_size_array
-from src.assertions.assertion_schemas import assert_schema_activity
+from tests.conftest import get_headers
+from assertions.assertion_calendar import assert_scope_meeting, assert_scope_task, assert_scope_call
+from assertions.assertion_content import assert_empty_array, assert_size_array
+from assertions.assertion_schemas import assert_schema_activity
 import requests
-from config import BASE_URI, ACTIVITIES_PARAM
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_bad_request
-from src.espocrm_api.activities_endpoints import ActivitiesEndpoint
+from config.config import BASE_URI, ACTIVITIES_PARAM
+from assertions.assertion_status import assert_status_code_ok, assert_status_bad_request
+from api_endpoints.activities_endpoints import ActivitiesEndpoint
 
 url = f"{BASE_URI}{ActivitiesEndpoint.MAIN_ROUTE.value}?"
 

@@ -1,10 +1,10 @@
 import pytest
 import requests
 
-from config import BASE_URI, USERNAME, PASSWORD, TASK_PARAM, TASK_PARAM_LIST
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_code_internal_server_error, assert_status_code_method_not_allowed, assert_status_bad_request
-from src.espocrm_api.task_ednpoints import EndpointTask
-from src.assertions.assertion_schemas import assert_schema_task
+from config.config import BASE_URI, USERNAME, PASSWORD, TASK_PARAM, TASK_PARAM_LIST
+from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_code_internal_server_error, assert_status_code_method_not_allowed, assert_status_bad_request
+from api_endpoints.task_ednpoints import EndpointTask
+from assertions.assertion_schemas import assert_schema_task
 
 
 @pytest.mark.smoke

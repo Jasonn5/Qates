@@ -1,14 +1,14 @@
 import pytest
 import requests
-from config import BASE_URI
-from src.assertions.assertion_status import (
+from config.config import BASE_URI
+from assertions.assertion_status import (
     assert_status_code_ok,
     assert_status_code_unauthorized,
     assert_status_bad_request
 )
-from src.resources.auth.auth import Auth
-from src.espocrm_api.email_endpoints import EndpointEmail
-from src.assertions.assertion_headers import assert_content_type_applicationJson
+from resources.auth.auth import Auth
+from api_endpoints.email_endpoints import EndpointEmail
+from assertions.assertion_headers import assert_content_type_application_json
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -196,4 +196,4 @@ def test_response_format_application_json(get_headers):
     url = f"{BASE_URI}{EndpointEmail.GET_EMAIL_WITH_PARAMS.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
-    assert_content_type_applicationJson(response)
+    assert_content_type_application_json(response)
