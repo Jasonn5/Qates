@@ -22,7 +22,7 @@ def assert_schema_calls_without_filters(instance):
     validate(instance=instance, schema=schema)
 
 def assert_schema_correoImportant(instance):
-    with open("resources/schemas/correoImportant.json", "r") as schema_file:
+    with open("resources/schemas/mail_important.json", "r") as schema_file:
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
