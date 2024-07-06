@@ -1,8 +1,7 @@
 import requests
-import pytest
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
-from config import BASE_URI
-from src.resources.auth.auth import Auth
+from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
+from config.config import BASE_URI
+from resources.auth.auth import Auth
 
 
 def test_get_login_success(get_headers):

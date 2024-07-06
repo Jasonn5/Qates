@@ -20,7 +20,7 @@ El proyecto tiene la siguiente estructura:
 ```bash 
 ├── src
 │ ├── assertions
-│ ├── espocrm_api
+│ ├── api_endpoints
 │ ├── resources
 │   ├── auth
 │   ├── credentials
@@ -33,7 +33,7 @@ El proyecto tiene la siguiente estructura:
 │ ├── coreo_importante
 │ ├── login
 │ ├── presentations
-│ ├── task
+│ ├── tasks
 ├── .gitignore
 ├── config.py
 ├── conftest.py
