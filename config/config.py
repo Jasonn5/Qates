@@ -3,7 +3,7 @@ USERNAME = "admin"
 PASSWORD = "admin"
 
 CALL_PARAM = {
-    'select': 'id,name,deleted,status,dateStart,dateEnd,duration,direction,description,createdAt,modifiedAt,parentId,parentType,parentName,accountId,accountName,createdById,createdByName,modifiedById,modifiedByName,assignedUserId,assignedUserName',
+    'select': 'id%2Cname%2Cdeleted%2Cstatus%2CdateStart%2CdateEnd%2Cduration%2Cdirection%2Cdescription%2CcreatedAt"%2CmodifiedAt%2CparentId%2CparentType%2CparentName%2CaccountId%2CaccountName%2CcreatedById%2CcreatedByName%2CmodifiedById"%2CmodifiedByName%2CassignedUserId%2CassignedUserName',
     'maxsize': '20',
     'offset': '0',
     'orderBy': 'dateStart',
@@ -11,7 +11,7 @@ CALL_PARAM = {
 }
 
 TASK_PARAM = {
-    'select': 'dateEnd,dateEndDate,parentId,parentType,parentName,priority,name,status',
+    'select': 'dateEnd%2CdateEndDate%2CparentId%2CparentType%2CparentName%2Cpriority%2Cname%2Cstatus',
     'maxsize': '5',
     'offset': '0',
     'orderBy': 'createdAt',
@@ -19,7 +19,7 @@ TASK_PARAM = {
 }
 
 TASK_PARAM_LIST = {
-    'select': 'createdAt,assignedUserId,assignedUserName,dateEnd,dateEndDate,priority,status,name',
+    'select': 'createdAt%2CassignedUserId%2CassignedUserName%2CdateEnd%2CdateEndDate%2Cpriority%2Cstatus%2Cname',
     'maxsize': '20',
     'offset': '0',
     'orderBy': 'createdAt',
@@ -36,5 +36,5 @@ MEETING_PARAM = {
 
 ACTIVITIES_PARAM = {
     'from': '2024-06-24 04:00',
-    'to': '2024-07-01 04:00'
+    'to': '2024-07-01 04:00',
 }
