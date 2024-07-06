@@ -7,7 +7,7 @@ from assertions.assertion_schemas import assert_schema_correoImportant
 from assertions.assertion_headers import assert_content_type_application_json
 from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
 from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.correo_important_endpoint import EndpointCorreoImportant
+from api_endpoints.mail_important_endpoints import EndpointCorreoImportant
 
 @pytest.mark.smoke
 @pytest.mark.functional

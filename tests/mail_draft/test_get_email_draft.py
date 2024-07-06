@@ -7,7 +7,7 @@ from assertions.assertion_status import (
     assert_status_bad_request
 )
 from resources.auth.auth import Auth
-from api_endpoints.email_endpoints import EndpointEmail
+from api_endpoints.mail_draft_endpoints import EndpointEmail
 from assertions.assertion_headers import assert_content_type_application_json
 
 @pytest.mark.smoke
