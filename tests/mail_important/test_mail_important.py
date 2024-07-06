@@ -2,12 +2,12 @@ import pytest
 import requests
 import base64
 
-from config import BASE_URI, USERNAME, PASSWORD
-from src.assertions.assertion_schemas import assert_schema_correoImportant
-from src.assertions.assertion_headers import assert_content_type_applicationJson
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_bad_request
-from src.espocrm_api.api_request import EspoCRMRequest
-from src.espocrm_api.correo_important_endpoint import EndpointCorreoImportant
+from config.config import BASE_URI, USERNAME, PASSWORD
+from assertions.assertion_schemas import assert_schema_correoImportant
+from assertions.assertion_headers import assert_content_type_application_json
+from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
+from api_endpoints.api_request import EspoCRMRequest
+from api_endpoints.mail_important_endpoints import EndpointCorreoImportant
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -42,7 +42,7 @@ def test_get_email_response_format(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
     response = requests.get(url, headers=get_headers(USERNAME, PASSWORD))
-    assert_content_type_applicationJson(response)
+    assert_content_type_application_json(response)
 
 @pytest.mark.smoke
 @pytest.mark.functional

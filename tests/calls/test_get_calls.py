@@ -1,17 +1,16 @@
 import pytest
-import requests
 
-from config import BASE_URI, USERNAME, PASSWORD, CALL_PARAM
-from conftest import encoded
-from src.assertions.assertion_schemas import assert_schema_calls_without_filters
-from src.assertions.assertion_response_data import assert_itemList_size_is_maxsize, \
+from config.config import BASE_URI, CALL_PARAM, USERNAME, PASSWORD
+from tests.conftest import encoded
+from assertions.assertion_schemas import assert_schema_calls_without_filters
+from assertions.assertion_response_data import assert_itemList_size_is_maxsize, \
     assert_list_acsOrder_with_OrderBy_Order_params, assert_offset_pagination_correctData
-from src.assertions.assertion_schemas import assert_schema_call_with_specifiedFilters
-from src.assertions.assertion_headers import assert_content_type_applicationJson
-from src.assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, \
-    assert_status_bad_request, assert_status_code_internal_server_error
-from src.espocrm_api.api_request import EspoCRMRequest
-from src.espocrm_api.calls_endpoints import EndpointCalls
+from assertions.assertion_schemas import assert_schema_call_with_specifiedFilters
+from assertions.assertion_headers import assert_content_type_application_json
+from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, \
+    assert_status_bad_request
+from api_endpoints.api_request import EspoCRMRequest
+from api_endpoints.calls_endpoints import EndpointCalls
 
 
 @pytest.mark.smoke
@@ -36,7 +35,7 @@ def test_get_calls_withNoParams_schema_validation(get_header_cookie):
 def test_get_allCalls_withNoParams_format(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
-    assert_content_type_applicationJson(response)
+    assert_content_type_application_json(response)
 
 @pytest.mark.smoke
 @pytest.mark.functional
