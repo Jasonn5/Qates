@@ -10,3 +10,4 @@ def resources_credential_path(path):
 def load_credential_resource(filename):
     with resources_credential_path(filename).open() as f:
         return json.load(f)
+

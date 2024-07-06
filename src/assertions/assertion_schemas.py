@@ -5,6 +5,12 @@ def assert_schema_presentation(instance):
     with open("src/resources/schemas/presentation.json", "r") as schema_file:
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
+
+def assert_schema_email(instance):
+    with open("src/resources/schemas/email.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
 def assert_schema_task(instance):
     with open("src/resources/schemas/task.json", "r") as schema_file:
         schema = json.load(schema_file)
@@ -19,6 +25,7 @@ def assert_schema_correoImportant(instance):
     with open("src/resources/schemas/correoImportant.json", "r") as schema_file:
         schema = json.load(schema_file)
     print("\n schema de correo \n" + str(schema))
+
     validate(instance=instance, schema=schema)
 
 def assert_schema_calls_without_params(instance):
@@ -51,4 +58,5 @@ def assert_schema_activity(instance):
         schema = json.load(schema_file)
 
     validate(instance=instance, schema=schema)
+
 
