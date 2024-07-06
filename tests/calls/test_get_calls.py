@@ -35,7 +35,7 @@ def test_get_calls_withNoParams_schema_validation(get_header_cookie):
 def test_get_allCalls_withNoParams_format(get_header_cookie):
     url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
-    assert_content_type_applicationJson(response)
+    assert_content_type_application_json(response)
 
 @pytest.mark.smoke
 @pytest.mark.functional
