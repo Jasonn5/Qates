@@ -45,8 +45,13 @@ def assert_schema_activity(instance):
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
+def assert_schema_post_call_response(instance):
+    with open("resources/schemas/post_call_schema_response.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
 
 def assert_payload_presentation_schema(instance):
     with open("resources/schemas/payload_meeting_schema.json", "r") as schema_file:
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
+

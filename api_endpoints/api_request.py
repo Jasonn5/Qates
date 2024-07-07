@@ -21,7 +21,6 @@ class EspoCRMRequest:
         response = requests.post(url, headers=headers, data=payload)
         return response
 
-    @staticmethod
     def post_json(url, headers, payload):
         response = requests.post(url, headers=headers, json=payload)
         return response
@@ -35,3 +34,4 @@ class EspoCRMRequest:
     def delete(url, headers):
         response = requests.delete(url, headers=headers)
         return response
+

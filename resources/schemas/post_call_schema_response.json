@@ -1,0 +1,172 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    },
+    "dateStart": {
+      "type": "string"
+    },
+    "dateEnd": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "number"
+    },
+    "reminders": {
+      "type": "array",
+      "items": {}
+    },
+    "direction": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "acceptanceStatus": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "modifiedAt": {
+      "type": "string"
+    },
+    "phoneNumbersMap": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "parentName": {},
+    "accountName": {},
+    "usersIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "usersNames": {
+      "type": "object",
+      "properties": {
+        "6676212784e8d2cf5": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "6676212784e8d2cf5"
+      ]
+    },
+    "usersColumns": {
+      "type": "object",
+      "properties": {
+        "6676212784e8d2cf5": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "6676212784e8d2cf5"
+      ]
+    },
+    "contactsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "contactsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "contactsColumns": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "leadsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "leadsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "leadsColumns": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "createdById": {
+      "type": "string"
+    },
+    "createdByName": {
+      "type": "string"
+    },
+    "modifiedByName": {},
+    "assignedUserId": {
+      "type": "string"
+    },
+    "assignedUserName": {
+      "type": "string"
+    },
+    "teamsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "teamsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "deleted",
+    "status",
+    "dateStart",
+    "dateEnd",
+    "duration",
+    "reminders",
+    "direction",
+    "description",
+    "acceptanceStatus",
+    "createdAt",
+    "modifiedAt",
+    "phoneNumbersMap",
+    "parentName",
+    "accountName",
+    "usersIds",
+    "usersNames",
+    "usersColumns",
+    "contactsIds",
+    "contactsNames",
+    "contactsColumns",
+    "leadsIds",
+    "leadsNames",
+    "leadsColumns",
+    "createdById",
+    "createdByName",
+    "modifiedByName",
+    "assignedUserId",
+    "assignedUserName",
+    "teamsIds",
+    "teamsNames"
+  ]
+}
