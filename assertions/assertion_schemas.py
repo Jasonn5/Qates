@@ -55,7 +55,19 @@ def assert_payload_presentation_schema(instance):
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
+def assert_schema_contact_post(instance):
+    with open("resources/schemas/contact_post.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
+
+def assert_schema_error_contact_post(instance):
+    with open("resources/schemas/contact_error_post.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
 def assert_payload_schema_task(instance):
     with open("payloads/tasks/payload_schema_task.json", "r") as schema_file:
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
+
