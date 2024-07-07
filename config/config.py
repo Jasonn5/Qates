@@ -39,7 +39,6 @@ ACTIVITIES_PARAM = {
     'to': '2024-07-01 04:00',
 }
 
-
 CALL_REQUIRED_AND_OPTIONAL_DATA = {
     "status": "Planned",
     "dateStart": "2024-07-07 02:45:00",
@@ -119,3 +118,4 @@ CALL_REQUIRED_AND_OPTIONAL_DATA = {
         }
     }
 }
+
