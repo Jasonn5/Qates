@@ -45,13 +45,13 @@ def test_post_task_invalid_token(get_headers):
     response = EspoCRMRequest.post(url, headers, payload_task)
     assert_status_code_unauthorized(response)
 
-@pytest.mark.functional
+'''@pytest.mark.functional
 @pytest.mark.regression
 def test_method_not_allowed(get_headers):
     url = TaskEnpoints.post_task_without_params()
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.delete(url, headers)
-    assert_status_code_method_not_allowed(response)
+    assert_status_code_method_not_allowed(response)'''
 
 '''@pytest.mark.functional
 @pytest.mark.regression

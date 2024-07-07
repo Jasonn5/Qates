@@ -20,3 +20,8 @@ class EspoCRMRequest:
     def post(url, headers, payload):
         response = requests.post(url, headers=headers, data=payload)
         return response
+
+    @staticmethod
+    def delete(url, headers):
+        response = requests.post(url, headers=headers)
+        return response
