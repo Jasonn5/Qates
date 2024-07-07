@@ -38,3 +38,11 @@ ACTIVITIES_PARAM = {
     'from': '2024-06-24 04:00',
     'to': '2024-07-01 04:00',
 }
+
+EMAIL_IMPORTANT_PARAM = {
+    'select': 'id,name,status,dateStart,dateEnd,dateStartDate,dateEndDate,parentId,parentType,parentName,createdById,assignedUserId,assignedUserName',
+    'maxSize': '20',
+    'offset': '0',
+    'orderBy': 'dateStart',
+    'order': 'asc'
+}
