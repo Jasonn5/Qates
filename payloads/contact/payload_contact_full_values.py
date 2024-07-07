@@ -1,8 +1,7 @@
 CONTACT_FULL_PAYLOAD={
     "salutationName": "Ms.",
-    "firstName": "Maddy",
-    "lastName": "Test",
-    "name": "Maddy Test",
+    "firstName": "Michi",
+    "lastName": "Berta2",
     "accountsIds": [
         "667621a206fd7e668"
     ],
@@ -19,16 +18,8 @@ CONTACT_FULL_PAYLOAD={
     "accountName": "EspoCRM",
     "title": None,
     "accountIsInactive": False,
-    "emailAddressData": [
-        {
-            "emailAddress": "test@test.com",
-            "primary": True,
-            "optOut": False,
-            "invalid": False,
-            "lower": "test@test.com"
-        }
-    ],
-    "emailAddress": "test@test.com",
+    "emailAddressData": [],
+    "emailAddress": "",
     "emailAddressIsOptedOut": False,
     "emailAddressIsInvalid": False,
     "phoneNumberData": [

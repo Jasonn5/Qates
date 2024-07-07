@@ -71,3 +71,9 @@ def assert_payload_schema_task(instance):
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
+def assert_schema_contact_put(instance):
+    with open("resources/schemas/contact_put.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
+

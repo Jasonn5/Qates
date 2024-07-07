@@ -36,3 +36,8 @@ class EspoCRMRequest:
     def post_without_headers(url, payload):
         response = requests.post(url, json=payload)
         return response
+
+    @staticmethod
+    def put(url, headers, payload):
+        response = requests.put(url, headers=headers, data=payload)
+        return response
