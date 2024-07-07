@@ -6,7 +6,7 @@ class MeetingEndpoints:
         return f"{BASE_URI}/Meeting"
 
     @staticmethod
-    def get_meeting_with_params(params: str) -> str:
+    def get_meeting_with_params(params) -> str:
         return f"{BASE_URI}/Meeting?{params}"
 
     @staticmethod
@@ -14,9 +14,5 @@ class MeetingEndpoints:
         return f"{BASE_URI}/Meeting"
 
     @staticmethod
-    def update_meeting(meeting_id: str) -> str:
-        return f"{BASE_URI}/Meeting/{meeting_id}"
-
-    @staticmethod
-    def delete_meeting(meeting_id: str) -> str:
+    def delete_meeting(meeting_id) -> str:
         return f"{BASE_URI}/Meeting/{meeting_id}"

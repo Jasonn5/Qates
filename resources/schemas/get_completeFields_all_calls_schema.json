@@ -34,28 +34,28 @@
             "type": "string"
           },
           "description": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "createdAt": {
             "type": "string"
           },
           "modifiedAt": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "parentId": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "parentType": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "parentName": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "accountId": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "accountName": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "createdById": {
             "type": "string"
@@ -64,10 +64,10 @@
             "type": "string"
           },
           "modifiedById": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "modifiedByName": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "assignedUserId": {
             "type": "string"
@@ -79,24 +79,13 @@
         "required": [
           "id",
           "name",
-          "deleted",
           "status",
           "dateStart",
           "dateEnd",
-          "duration",
           "direction",
-          "description",
           "createdAt",
-          "modifiedAt",
-          "parentId",
-          "parentType",
-          "parentName",
-          "accountId",
-          "accountName",
           "createdById",
           "createdByName",
-          "modifiedById",
-          "modifiedByName",
           "assignedUserId",
           "assignedUserName"
         ]

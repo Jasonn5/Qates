@@ -1,5 +1,23 @@
 from enum import Enum
 
-class EndpointCalls(Enum):
-    GET_CALLS_WITHOUT_PARAMS = "/Call"
-    GET_CALLS_WITH_PARAMS = "/Call?"
+from config.config import BASE_URI
+
+
+class EndpointCalls:
+    @staticmethod
+    def get_call_without_params() -> str:
+        return f"{BASE_URI}/Call"
+
+    @staticmethod
+    def get_call_with_params() -> str:
+        return f"{BASE_URI}/Call?"
+
+    @staticmethod
+    def post_call() -> str:
+        return f"{BASE_URI}/Call"
+
+    @staticmethod
+    def delete_call() -> str:
+        return f"{BASE_URI}/Call"
+
+
