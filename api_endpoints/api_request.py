@@ -1,5 +1,6 @@
 import requests
 
+
 class EspoCRMRequest:
     @staticmethod
     def get_with_url(url):
@@ -19,4 +20,9 @@ class EspoCRMRequest:
     @staticmethod
     def post(url, headers, payload):
         response = requests.post(url, headers=headers, data=payload)
+        return response
+
+    @staticmethod
+    def delete(url, headers):
+        response = requests.delete(url, headers=headers)
         return response

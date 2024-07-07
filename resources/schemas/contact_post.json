@@ -1,0 +1,159 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "salutationName": {
+      "type": ["string", "null"]
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "emailAddress": {
+      "type": ["string", "null"]
+    },
+    "phoneNumber": {
+      "type": ["string", "null"]
+    },
+    "doNotCall": {
+      "type": "boolean"
+    },
+    "addressStreet": {
+      "type": ["string", "null"]
+    },
+    "addressCity": {
+      "type": ["string", "null"]
+    },
+    "addressState": {
+      "type": ["string", "null"]
+    },
+    "addressCountry": {
+      "type": ["string", "null"]
+    },
+    "addressPostalCode": {
+      "type": ["string", "null"]
+    },
+    "accountIsInactive": {
+      "type": ["boolean", "null"]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "modifiedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hasPortalUser": {
+      "type": "boolean"
+    },
+    "targetListIsOptedOut": {
+      "type": "boolean"
+    },
+    "emailAddressIsOptedOut": {
+      "type": ["boolean", "null"]
+    },
+    "emailAddressIsInvalid": {
+      "type": ["boolean", "null"]
+    },
+    "phoneNumberIsOptedOut": {
+      "type": ["boolean", "null"]
+    },
+    "phoneNumberIsInvalid": {
+      "type": ["boolean", "null"]
+    },
+    "emailAddressData": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phoneNumberData": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accountName": {
+      "type": ["string", "null"]
+    },
+    "accountsIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accountsNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "accountsColumns": {
+      "type": "object"
+    },
+    "campaignName": {
+      "type": ["string", "null"]
+    },
+    "createdById": {
+      "type": "string"
+    },
+    "createdByName": {
+      "type": "string"
+    },
+    "modifiedByName": {
+      "type": ["string", "null"]
+    },
+    "assignedUserId": {
+      "type": ["string", "null"]
+    },
+    "assignedUserName": {
+      "type": ["string", "null"]
+    },
+    "teamsIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "teamsNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "isFollowed": {
+      "type": "boolean"
+    },
+    "followersIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "followersNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["id", "name", "deleted", "firstName", "lastName", "doNotCall", "createdAt", "modifiedAt", "hasPortalUser", "targetListIsOptedOut", "createdById", "createdByName", "isFollowed"]
+}
+
