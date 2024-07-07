@@ -16,24 +16,24 @@ from api_endpoints.calls_endpoints import EndpointCalls
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_withNoParams_success(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+def test_get_calls_with_no_params_success(get_header_cookie):
+    url = EndpointCalls.get_call_without_params()
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_withNoParams_schema_validation(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+def test_get_calls_with_no_params_schema_validation(get_header_cookie):
+    url = EndpointCalls.get_call_without_params()
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_schema_calls_without_filters(response.json())
 
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_allCalls_withNoParams_format(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+def test_get_allCalls_with_no_params_format(get_header_cookie):
+    url = EndpointCalls.get_call_without_params()
     response = EspoCRMRequest.get_with_url_headers(url, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_content_type_application_json(response)
 
@@ -41,7 +41,7 @@ def test_get_allCalls_withNoParams_format(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_invalid_cookie_in_headers(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+    url = EndpointCalls.get_call_without_params()
     headers = get_header_cookie(USERNAME, PASSWORD)
     headers['Cookie'] = 'wrongCookie'
     response = EspoCRMRequest.get_with_url_headers(url, headers)
@@ -51,7 +51,7 @@ def test_get_calls_invalid_cookie_in_headers(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_invalid_authorization_in_headers(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITHOUT_PARAMS.value}"
+    url = EndpointCalls.get_call_without_params()
     headers = get_header_cookie(USERNAME, PASSWORD)
     invalidAuth = encoded("invalidUser1232","invalidPassword456")
     headers['Authorization'] = 'Basic '+invalidAuth
@@ -61,29 +61,29 @@ def test_get_calls_invalid_authorization_in_headers(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_default_param(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+    url = EndpointCalls.get_call_with_params()
     response = EspoCRMRequest.get_with_url_headers_params(url, params=CALL_PARAM, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_select_otherValidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
-    selectData= "id%2Cname%2CcreatedById%2Cstatus"
+def test_get_calls_with_param_select_other_valid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
+    select_data= "id%2Cname%2CcreatedById%2Cstatus"
     test_params = CALL_PARAM.copy()
-    test_params['select'] = selectData
+    test_params['select'] = select_data
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_code_ok(response)
     print("\n Response con filtros del get: \n"+str(response.json()))
-    assert_schema_call_with_specifiedFilters(response.json(), selectData)
+    assert_schema_call_with_specifiedFilters(response.json(), select_data)
     '''
     Este error se encuentra reportado en el BUG-35
     '''
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_select_invalidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_select_invalid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     test_params['select'] = '¡?=(¡)??578788787'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
@@ -96,7 +96,7 @@ def test_get_calls_with_param_select_invalidData(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_select_eliminated(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     if 'select' in test_params:
         del test_params['select']
@@ -106,8 +106,8 @@ def test_get_calls_with_param_select_eliminated(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_maxsize_other_valid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params_maxsize_changed = CALL_PARAM.copy()
     test_params_maxsize_changed['maxSize'] = 1
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_maxsize_changed, headers=get_header_cookie(USERNAME, PASSWORD))
@@ -116,8 +116,8 @@ def test_get_calls_with_param_maxsize_otherValidData(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_maxsize_invalidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_maxsize_invalid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     test_params['maxSize'] = '2032+-*-/*-489589438345'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
@@ -130,7 +130,7 @@ def test_get_calls_with_param_maxsize_invalidData(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     if 'maxSize' in test_params:
         del test_params['maxSize']
@@ -139,8 +139,8 @@ def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_offset_other_valid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     response_without_offset = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
 
@@ -156,8 +156,8 @@ def test_get_calls_with_param_offset_otherValidData(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_offset_invalidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_offset_invalid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     test_params['offset'] = '0.2356-*/¡?¿'
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=get_header_cookie(USERNAME, PASSWORD))
@@ -170,7 +170,7 @@ Este error se encuentra reportado en el BUG-28
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_offset_eliminated(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     if 'offset' in test_params:
         del test_params['offset']
@@ -179,8 +179,8 @@ def test_get_calls_with_param_offset_eliminated(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_orderBy_and_order_otherValidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_order_by_and_order_other_valid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     test_params['orderBy'] = 'dateEnd'
     test_params['order'] = 'asc'
@@ -190,11 +190,11 @@ def test_get_calls_with_param_orderBy_and_order_otherValidData(get_header_cookie
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_orderBy_and_order_invalidData(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
-    test_params_change_orderBy = CALL_PARAM.copy()
-    test_params_change_orderBy['orderBy'] = 'lpo/*-!"$$/%&(//&)(%$$<<'
-    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_change_orderBy, headers=get_header_cookie(USERNAME, PASSWORD))
+def test_get_calls_with_param_order_by_and_order_invalid_data(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
+    test_params_change_order_by = CALL_PARAM.copy()
+    test_params_change_order_by['orderBy'] = 'lpo/*-!"$$/%&(//&)(%$$<<'
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_change_order_by, headers=get_header_cookie(USERNAME, PASSWORD))
     assert_status_bad_request(response)
     test_params_change_order = CALL_PARAM.copy()
     test_params_change_order['order']='-*/*-/*-/*-"!"#%%&(/%&%9'
@@ -203,8 +203,8 @@ def test_get_calls_with_param_orderBy_and_order_invalidData(get_header_cookie):
 
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_param_orderBy_eliminated(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+def test_get_calls_with_param_order_by_eliminated(get_header_cookie):
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     if 'orderBy' in test_params:
         del test_params['orderBy']
@@ -214,7 +214,7 @@ def test_get_calls_with_param_orderBy_eliminated(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_order_eliminated(get_header_cookie):
-    url = f"{BASE_URI}{EndpointCalls.GET_CALLS_WITH_PARAMS.value}"
+    url = EndpointCalls.get_call_with_params()
     test_params = CALL_PARAM.copy()
     if 'order' in test_params:
         del test_params['order']

@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "completed"]
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "assignedUserId": {
+      "type": "string"
+    },
+    "assignedUserName": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parentType": {
+      "type": ["string", "null"]
+    },
+    "parentName": {
+      "type": ["string", "null"]
+    },
+    "parentId": {
+      "type": ["string", "null"]
+    },
+    "dateStartDate": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "dateStart": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "dateEndDate": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "dateEnd": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "attachmentsIds": {
+      "type": "array",
+      "items": {},
+      "minItems": 0
+    },
+    "teamsIds": {
+      "type": "array",
+      "items": {},
+      "minItems": 0
+    },
+    "teamsNames": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "status",
+    "priority",
+    "assignedUserId",
+    "assignedUserName",
+    "name"
+  ]
+}
