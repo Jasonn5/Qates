@@ -39,7 +39,4 @@ ACTIVITIES_PARAM = {
     'to': '2024-07-01 04:00',
 }
 
-EndpointEmail = {
-    'POST_EMAIL_DRAFT': '/Email',
-    'GET_EMAIL_WITH_PARAMS': '/Email?maxSize=10'
-}
+

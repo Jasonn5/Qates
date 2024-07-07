@@ -1,7 +1,8 @@
 import base64
 import pytest
 import requests
-from config.config import BASE_URI, USERNAME, PASSWORD, EndpointEmail
+from config.config import BASE_URI, USERNAME, PASSWORD
+from api_endpoints.mail_draft_endpoints import EndpointEmail
 
 @pytest.fixture(scope="function", autouse=True)
 def teardown():
@@ -26,7 +27,7 @@ def delete_created_drafts():
 
     print(f"Teardown: Headers prepared for deletion: {headers}")
 
-    url = f"{BASE_URI}{EndpointEmail['GET_EMAIL_WITH_PARAMS']}"
+    url = f"{BASE_URI}{EndpointEmail.GET_EMAIL_WITH_PARAMS.value}"
     response = requests.get(url, headers=headers)
 
     print(f"Teardown: Response status code: {response.status_code}, Response: {response.text}")
@@ -35,7 +36,7 @@ def delete_created_drafts():
         drafts = response.json().get('list', [])
         for draft in drafts:
             draft_id = draft['id']
-            delete_url = f"{BASE_URI}/Email/{draft_id}"
+            delete_url = f"{BASE_URI}{EndpointEmail.DELETE_EMAIL_DRAFT.value.format(id=draft_id)}"
             delete_response = requests.delete(delete_url, headers=headers)
             print(f"Teardown: Delete draft ID {draft_id} response status code: {delete_response.status_code}")
             if delete_response.status_code == 200:
