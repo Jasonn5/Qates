@@ -24,7 +24,7 @@ class EspoCRMRequest:
 
     @staticmethod
     def delete(url, headers):
-        response = requests.post(url, headers=headers)
+        response = requests.delete(url, headers=headers)
         return response
 
     @staticmethod
