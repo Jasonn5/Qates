@@ -38,3 +38,6 @@ def assert_status_code_gateway_timeout(response):
 
 def assert_status_code_service_unavailable(response):
     assert response.status_code == 503
+
+def assert_status_code_unprocessable_entity(response):
+    assert response.status_code == 422, f"Expected status code 409 but got {response.status_code}"

@@ -82,3 +82,9 @@ email_insert_image_schema = load_schema("payloads/mail_important/payload_schema_
 
 
 
+def assert_schema_contact_put(instance):
+    with open("resources/schemas/contact_put.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
+
