@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "dateStart": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "assignedUserId": {
+      "type": "string"
+    },
+    "assignedUserName": {
+      "type": "string"
+    },
+    "acceptanceStatus": {
+      "type": "string"
+    },
+    "dateEnd": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parentType": {
+      "type": "string"
+    },
+    "parentName": {
+      "type": "string"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "dateStartDate": {
+      "type": ["string", "null"]
+    },
+    "isAllDay": {
+      "type": "boolean"
+    },
+    "dateEndDate": {
+      "type": ["string", "null"]
+    },
+    "reminders": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "usersIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "usersNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "usersColumns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": ["status"]
+      }
+    },
+    "contactsIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contactsNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "contactsColumns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "leadsIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "leadsNames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "leadsColumns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": ["status"]
+      }
+    }
+  },
+  "required": [
+    "status",
+    "dateStart",
+    "duration",
+    "assignedUserId",
+    "assignedUserName",
+    "acceptanceStatus",
+    "dateEnd",
+    "name",
+    "parentType",
+    "parentName",
+    "parentId",
+    "dateStartDate",
+    "isAllDay",
+    "dateEndDate",
+    "reminders",
+    "description",
+    "usersIds",
+    "usersNames",
+    "usersColumns",
+    "contactsIds",
+    "contactsNames",
+    "contactsColumns",
+    "leadsIds",
+    "leadsNames",
+    "leadsColumns"
+  ]
+}

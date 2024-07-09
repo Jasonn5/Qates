@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "messageTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "scope": {
+          "type": ["string", "null"]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": ["field", "type"]
+        }
+      },
+      "required": ["label", "scope", "data"]
+    }
+  },
+  "required": ["messageTranslation"]
+}

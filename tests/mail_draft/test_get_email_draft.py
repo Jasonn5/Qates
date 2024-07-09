@@ -1,5 +1,6 @@
 import pytest
 import requests
+
 from config.config import BASE_URI
 from assertions.assertion_status import (
     assert_status_code_ok,
@@ -14,7 +15,8 @@ from assertions.assertion_headers import assert_content_type_application_json
 @pytest.mark.functional
 def test_get_email_succed(get_headers):
     url = f"{BASE_URI}{EndpointEmail.GET_EMAIL_WITHOUT_PARAMS.value}"
-    response = requests.get(url, headers=Auth().auth_valid_credential(get_headers))
+    headers = Auth().auth_valid_credential(get_headers)
+    response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
 
 @pytest.mark.smoke
@@ -34,7 +36,6 @@ def test_get_drafts_with_wrong_basic_auth(get_headers):
     headers = Auth().auth_invalid_credentials(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
-
     '''
     Este error se encuentra reportado en el BUG-45
     '''
@@ -44,11 +45,10 @@ def test_get_drafts_with_wrong_basic_auth(get_headers):
 def test_get_drafts_without_auth_token_secret(get_headers):
     url = f"{BASE_URI}{EndpointEmail.GET_EMAIL_WITH_PARAMS.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    if "cookie" in headers:
-        headers.pop("cookie")
+    if "Cookie" in headers:
+        del headers["Cookie"]
     response = requests.get(url, headers=headers)
     assert_status_code_unauthorized(response)
-
     '''
     Este error se encuentra reportado en el BUG-44
     '''
@@ -62,7 +62,6 @@ def test_get_drafts_with_wrong_content_type(get_headers):
     headers["Content-Type"] = "text/plain"
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
-
     '''
     Este error se encuentra reportado en el BUG-40
     '''
@@ -82,7 +81,6 @@ def test_get_drafts_with_empty_search_param(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
-
     '''
     Este error se encuentra reportado en el BUG-43
     '''
@@ -112,7 +110,6 @@ def test_get_drafts_with_valid_maxsize_param(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
-
     '''
     Este error se encuentra reportado en el BUG-41
     '''
@@ -125,7 +122,6 @@ def test_get_drafts_with_invalid_maxsize_param(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
-
     '''
     Este error se encuentra reportado en el BUG-42
     '''
@@ -145,7 +141,6 @@ def test_get_drafts_with_invalid_order_type(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
-
     '''
     Este error se encuentra reportado en el BUG-46
     '''
@@ -162,18 +157,14 @@ def test_search_term_present_in_drafts(get_headers):
     for item in data['list']:
         assert "Luis" in item['subject'] or "Luis" in item['personStringData']
 
-
-
 @pytest.mark.functional
 @pytest.mark.regression
 def test_search_partial_term_in_drafts(get_headers):
     url = f"{BASE_URI}{EndpointEmail.GET_EMAIL_WITH_PARAMS.value}&search=Lu"
     headers = Auth().auth_valid_credential(get_headers)
-    print("Request URL for partial search term:", url)  # Agregado para depuración
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
     data = response.json()
-    print("Response Data for partial search term:", data)  # Agregado para depuración
     for item in data['list']:
         assert "Lu" in item['subject'] or "Lu" in item['personStringData'], f"Expected 'Lu' in subject or personStringData, but got {item}"
 
@@ -185,9 +176,7 @@ def test_search_no_term_present_in_drafts(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
     data = response.json()
-    print("Response Data for no search term:", data)  # Agregado para depuración
     assert len(data['list']) == 0, f"Expected 0 results, but got {len(data['list'])}. Data: {data['list']}"
-
 
 @pytest.mark.smoke
 @pytest.mark.functional
