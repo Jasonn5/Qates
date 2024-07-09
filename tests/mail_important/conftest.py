@@ -1,26 +1,51 @@
 import pytest
 import base64
+import requests
+from config.config import USERNAME, PASSWORD
 
 @pytest.fixture
-def get_headers():
-    def _get_headers(username, password):
-        espo_authorization = encoded(username, password)
-        return {
-            'Espo-Authorization': espo_authorization
-        }
-    return _get_headers
-
-def encoded(username, password):
-    credentials = f'{username}:{password}'
-    encode = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
-    return encode
+def email_insert_image_payload():
+    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
 
 @pytest.fixture
-def get_header_cookie():
-    def _get_headers_withCookie_and_auth(username, password):
-        encodedAuth = encoded(username, password)
-        return {
-            'Authorization': 'Basic ' + encodedAuth,
-            'Cookie': 'auth-token-secret=b51d5dc9ee9eafa0aaa329612425ad63; auth-token=288eacade0b7e816569a85a5d07f165a'
-        }
-    return _get_headers_withCookie_and_auth
+def invalid_email_id_payload():
+    return {"emailId": "invalidEmailId", "imageData": "base64ImageData"}
+
+@pytest.fixture
+def large_image_payload():
+    return {"emailId": "validEmailId", "imageData": "largeBase64ImageData"}
+
+@pytest.fixture
+def empty_body_payload():
+    return {}
+
+@pytest.fixture
+def valid_email_payload():
+    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+
+@pytest.fixture
+def teardown_email(get_headers):
+    created_emails = []
+
+    yield created_emails
+
+    for email_id in created_emails:
+        url = f"https://espo.spartan-soft.com/api/v1/Email/{email_id}"
+        headers = get_headers(USERNAME, PASSWORD)
+        response = requests.delete(url, headers=headers)
+        assert response.status_code == 200, f"Failed to delete email {email_id}"
+
+@pytest.fixture
+def valid_email_payload():
+    return {
+        "emailId": "validEmailId",
+        "imageData": "base64ImageData"
+    }
+
+@pytest.fixture
+def large_image_payload():
+    return {
+        "emailId": "validEmailId",
+        "imageData": "largeBase64ImageData"  # Simulated large image data
+    }
+
