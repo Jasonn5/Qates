@@ -71,3 +71,20 @@ def assert_payload_schema_task(instance):
         schema = json.load(schema_file)
     validate(instance=instance, schema=schema)
 
+def assert_valid_schema(instance, schema):
+    validate(instance=instance, schema=schema)
+
+def load_schema(schema_path):
+    with open(schema_path, "r") as schema_file:
+        return json.load(schema_file)
+
+email_insert_image_schema = load_schema("payloads/mail_important/payload_schema_email_insert_image.json")
+
+
+
+def assert_schema_contact_put(instance):
+    with open("resources/schemas/contact_put.json", "r") as schema_file:
+        schema = json.load(schema_file)
+    validate(instance=instance, schema=schema)
+
+

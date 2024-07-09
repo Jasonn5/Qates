@@ -1,26 +1,82 @@
 import pytest
 import base64
+import requests
+from config.config import USERNAME, PASSWORD, BASE_URI
+
+@pytest.fixture
+def email_insert_image_payload():
+    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+
+@pytest.fixture
+def invalid_email_id_payload():
+    return {"emailId": "invalidEmailId", "imageData": "base64ImageData"}
+
+@pytest.fixture
+def large_image_payload():
+    return {"emailId": "validEmailId", "imageData": "largeBase64ImageData"}
+
+@pytest.fixture
+def empty_body_payload():
+    return {}
+
+@pytest.fixture
+def valid_email_payload():
+    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+
+@pytest.fixture
+def teardown_email(get_headers):
+    created_emails = []
+
+    yield created_emails
+
+    for email_id in created_emails:
+        url = f"https://espo.spartan-soft.com/api/v1/Email/{email_id}"
+        headers = get_headers(USERNAME, PASSWORD)
+        response = requests.delete(url, headers=headers)
+        assert response.status_code == 200, f"Failed to delete email {email_id}"
+
+@pytest.fixture
+def valid_email_payload():
+    return {
+        "emailId": "validEmailId",
+        "imageData": "base64ImageData"
+    }
+
+@pytest.fixture
+def large_image_payload():
+    return {
+        "emailId": "validEmailId",
+        "imageData": "largeBase64ImageData"  # Simulated large image data
+    }
+@pytest.fixture
+def create_important_email(get_headers):
+    created_emails = []
+
+    def _create_important_email():
+        url = f"{BASE_URI}/Email"
+        headers = get_headers()
+        payload = {"emailId": "importantEmailId", "isImportant": True}
+        response = requests.post(url, headers=headers, json=payload)
+        assert response.status_code == 200, "Failed to create important email"
+        email_id = response.json().get('id')
+        created_emails.append(email_id)
+        return email_id
+
+    yield _create_important_email
+
+    # Teardown: Eliminar correos importantes creados
+    for email_id in created_emails:
+        url = f"{BASE_URI}/Email/inbox/important/{email_id}"
+        headers = get_headers()
+        response = requests.delete(url, headers=headers)
+        assert response.status_code == 200, f"Failed to delete important email {email_id}"
 
 @pytest.fixture
 def get_headers():
-    def _get_headers(username, password):
-        espo_authorization = encoded(username, password)
+    def _get_headers(username=USERNAME, password=PASSWORD):
+        auth = base64.b64encode(f"{username}:{password}".encode()).decode()
         return {
-            'Espo-Authorization': espo_authorization
+            "Authorization": f"Basic {auth}",
+            "Content-Type": "application/json"
         }
     return _get_headers
-
-def encoded(username, password):
-    credentials = f'{username}:{password}'
-    encode = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
-    return encode
-
-@pytest.fixture
-def get_header_cookie():
-    def _get_headers_withCookie_and_auth(username, password):
-        encodedAuth = encoded(username, password)
-        return {
-            'Authorization': 'Basic ' + encodedAuth,
-            'Cookie': 'auth-token-secret=b51d5dc9ee9eafa0aaa329612425ad63; auth-token=288eacade0b7e816569a85a5d07f165a'
-        }
-    return _get_headers_withCookie_and_auth

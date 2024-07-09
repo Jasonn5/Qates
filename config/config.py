@@ -127,3 +127,7 @@ CALL_REQUIRED_AND_OPTIONAL_DATA = {
         }
     }
 }
+IMPORTANT_EMAIL_PAYLOAD = {
+    "emailId": "importantEmailId",
+    "isImportant": True
+}
