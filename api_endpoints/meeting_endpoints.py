@@ -10,6 +10,10 @@ class MeetingEndpoints:
         return f"{BASE_URI}/Meeting?{params}"
 
     @staticmethod
+    def get_meeting_by_id(meeting_id):
+        return f"{BASE_URI}/Meeting/{meeting_id}"
+
+    @staticmethod
     def create_meeting() -> str:
         return f"{BASE_URI}/Meeting"
 
