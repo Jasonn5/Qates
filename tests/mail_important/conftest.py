@@ -4,16 +4,6 @@ import requests
 from config.config import USERNAME, PASSWORD
 
 @pytest.fixture
-def get_headers():
-    def _get_headers(username=USERNAME, password=PASSWORD):
-        credentials = f'{username}:{password}'
-        encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
-        return {
-            'Espo-Authorization': f'Basic {encoded_credentials}'
-        }
-    return _get_headers
-
-@pytest.fixture
 def teardown_email():
     created_emails = []
 
