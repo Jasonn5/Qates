@@ -2,7 +2,7 @@ import pytest
 import allure
 from api_endpoints.api_request import EspoCRMRequest
 from api_endpoints.mail_important_endpoints import EndpointCorreoImportant
-from assertions.assertion_important import *
+from assertions.assertion_status import *
 from assertions.assertion_schemas import assert_valid_schema, email_insert_image_schema
 from config.config import BASE_URI, USERNAME, PASSWORD
 from resources.auth.auth import Auth
@@ -38,7 +38,7 @@ def test_post_email_insert_image_invalid_email_id(get_headers):
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.post_json(url, headers, invalid_email_id_payload)
-    assert_status_code_bad_request(response)
+    assert_status_bad_request(response)
 
 
 @pytest.mark.smoke
@@ -133,7 +133,7 @@ def test_post_email_insert_image_empty_request_body(get_headers):
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.post_json(url, headers, empty_body_payload)
-    assert_status_code_bad_request(response)
+    assert_status_bad_request(response)
 
 
 @pytest.mark.functional
