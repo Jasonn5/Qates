@@ -1,20 +1,48 @@
-def assert_status_code_ok(response):
-    assert response.status_code == 200
+from utils.load_resources import load_credential_resource
 
-def assert_status_code_unauthorized(response):
-    assert response.status_code == 401
+class Auth:
+    def __init__(self):
+        self.users = self.load_file()
 
-def assert_status_code_bad_request(response):
-    assert response.status_code == 400
+    @staticmethod
+    def load_file() -> dict:
+        return load_credential_resource("user.json")
 
-def assert_status_code_forbidden(response):
-    assert response.status_code == 403
+    def get_user(self, user_type: str) -> dict:
+        return self.users.get(user_type)
 
-def assert_status_code_gateway_timeout(response):
-    assert response.status_code == 504
+    def auth_valid_credential(self, get_headers) -> dict:
+        user = self.get_user("valid_credentials")
+        return get_headers(user["username"], user["password"])
 
-def assert_status_code_service_unavailable(response):
-    assert response.status_code == 503
+    def auth_invalid_username(self, get_headers) -> dict:
+        user = self.get_user("invalid_username")
+        return get_headers(user["username"], user["password"])
 
-def assert_content_type_applicationJson(response):
-    assert response.headers['Content-Type'] == 'application/json'
+    def auth_invalid_password(self, get_headers) -> dict:
+        user = self.get_user("invalid_password")
+        return get_headers(user["username"], user["password"])
+
+    def auth_invalid_credentials(self, get_headers) -> dict:
+        user = self.get_user("invalid_credentials")
+        return get_headers(user["username"], user["password"])
+
+    def auth_empty_fields(self, get_headers) -> dict:
+        user = self.get_user("empty_fields")
+        return get_headers(user["username"], user["password"])
+
+    def auth_empty_user(self, get_headers) -> dict:
+        user = self.get_user("empty_username")
+        return get_headers(user["username"], user["password"])
+
+    def auth_empty_password(self, get_headers) -> dict:
+        user = self.get_user("empty_password")
+        return get_headers(user["username"], user["password"])
+
+    def auth_valid_username_empty_password(self, get_headers) -> dict:
+        user = self.get_user("valid_username_empty_password")
+        return get_headers(user["username"], user["password"])
+
+    def auth_empty_username_valid_password(self, get_headers) -> dict:
+        user = self.get_user("empty_username_valid_password")
+        return get_headers(user["username"], user["password"])
