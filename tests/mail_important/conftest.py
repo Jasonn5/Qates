@@ -1,7 +1,7 @@
 import pytest
 import base64
 import requests
-from config.config import USERNAME, PASSWORD
+from config.config import USERNAME, PASSWORD, BASE_URI
 
 @pytest.fixture
 def email_insert_image_payload():
@@ -48,4 +48,35 @@ def large_image_payload():
         "emailId": "validEmailId",
         "imageData": "largeBase64ImageData"  # Simulated large image data
     }
+@pytest.fixture
+def create_important_email(get_headers):
+    created_emails = []
 
+    def _create_important_email():
+        url = f"{BASE_URI}/Email"
+        headers = get_headers()
+        payload = {"emailId": "importantEmailId", "isImportant": True}
+        response = requests.post(url, headers=headers, json=payload)
+        assert response.status_code == 200, "Failed to create important email"
+        email_id = response.json().get('id')
+        created_emails.append(email_id)
+        return email_id
+
+    yield _create_important_email
+
+    # Teardown: Eliminar correos importantes creados
+    for email_id in created_emails:
+        url = f"{BASE_URI}/Email/inbox/important/{email_id}"
+        headers = get_headers()
+        response = requests.delete(url, headers=headers)
+        assert response.status_code == 200, f"Failed to delete important email {email_id}"
+
+@pytest.fixture
+def get_headers():
+    def _get_headers(username=USERNAME, password=PASSWORD):
+        auth = base64.b64encode(f"{username}:{password}".encode()).decode()
+        return {
+            "Authorization": f"Basic {auth}",
+            "Content-Type": "application/json"
+        }
+    return _get_headers
