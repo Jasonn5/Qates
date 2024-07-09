@@ -4,6 +4,7 @@ import requests
 from config.config import BASE_URI, USERNAME, PASSWORD
 from api_endpoints.mail_draft_endpoints import EndpointEmail
 
+
 @pytest.fixture(scope="function", autouse=True)
 def teardown():
     print("Setup: Test is starting")
@@ -12,11 +13,13 @@ def teardown():
     delete_created_drafts()
     print("Teardown: Cleanup finished")
 
+
 def encoded(username, password):
     credentials = f"{username}:{password}"
     encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
     print(f"Encoded Credentials: {encoded_credentials}")
     return encoded_credentials
+
 
 def delete_created_drafts():
     print("Teardown: Preparing to delete drafts")
@@ -46,6 +49,7 @@ def delete_created_drafts():
     else:
         print(f"Teardown: Failed to retrieve drafts, status code: {response.status_code}, response: {response.text}")
 
+
 @pytest.fixture
 def get_headers():
     def _get_headers(username, password):
@@ -58,3 +62,34 @@ def get_headers():
         return headers
 
     return _get_headers
+
+
+@pytest.fixture(scope="function")
+def setup_email_draft(get_headers):
+    url = f"{BASE_URI}{EndpointEmail.POST_EMAIL_DRAFT.value}"
+    headers = get_headers(USERNAME, PASSWORD)
+    payload_success = {
+        "subject": "Test Draft",
+        "body": "This is a test draft",
+        "from": "test@example.com",
+        "to": ["recipient@example.com"]
+    }
+    response = requests.post(url, headers=headers, json=payload_success)
+
+    if response.status_code != 201:
+        print(f"Error: Received status code {response.status_code}")
+        print(f"Response content: {response.text}")
+        pytest.fail(f"Setup failed: Unable to create email draft. Status code: {response.status_code}")
+
+    draft_id = response.json().get('id')
+    yield draft_id
+    delete_draft(draft_id)  # Cleanup after test
+
+
+def delete_draft(draft_id):
+    headers = {
+        'Authorization': f'Basic {encoded(USERNAME, PASSWORD)}',
+        'Content-Type': 'application/json'
+    }
+    delete_url = f"{BASE_URI}{EndpointEmail.DELETE_EMAIL_DRAFT.value.format(id=draft_id)}"
+    requests.delete(delete_url, headers=headers)
