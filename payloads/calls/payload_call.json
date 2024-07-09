@@ -1,0 +1,116 @@
+{
+    "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "dateStart": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "number"
+    },
+    "direction": {
+      "type": "string"
+    },
+    "assignedUserId": {
+      "type": "string"
+    },
+    "assignedUserName": {
+      "type": "string"
+    },
+    "acceptanceStatus": {
+      "type": "string"
+    },
+    "dateEnd": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "reminders": {
+      "type": "array",
+      "items": {}
+    },
+    "description": {
+      "type": "string"
+    },
+    "teamsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "teamsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "usersIds": {
+      "type": "array",
+      "items": {}
+    },
+    "usersNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "usersColumns": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "contactsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "contactsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "contactsColumns": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "leadsIds": {
+      "type": "array",
+      "items": {}
+    },
+    "leadsNames": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "leadsColumns": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "dateEndDate": {}
+  },
+  "required": [
+    "status",
+    "dateStart",
+    "duration",
+    "direction",
+    "assignedUserId",
+    "assignedUserName",
+    "acceptanceStatus",
+    "dateEnd",
+    "name",
+    "reminders",
+    "description",
+    "teamsIds",
+    "teamsNames",
+    "usersIds",
+    "usersNames",
+    "usersColumns",
+    "contactsIds",
+    "contactsNames",
+    "contactsColumns",
+    "leadsIds",
+    "leadsNames",
+    "leadsColumns",
+    "dateEndDate"
+  ]
+}
