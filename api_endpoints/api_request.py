@@ -23,11 +23,6 @@ class EspoCRMRequest:
 
 
     @staticmethod
-    def delete(url, headers):
-        response = requests.post(url, headers=headers)
-        return response
-
-    @staticmethod
     def post_json(url, headers, payload):
         response = requests.post(url, headers=headers, json=payload)
         return response
@@ -35,4 +30,14 @@ class EspoCRMRequest:
     @staticmethod
     def post_without_headers(url, payload):
         response = requests.post(url, json=payload)
+        return response
+
+    @staticmethod
+    def delete(url, headers):
+        response = requests.delete(url, headers=headers)
+        return response
+
+    @staticmethod
+    def delete_without_headers(url):
+        response = requests.delete(url)
         return response
