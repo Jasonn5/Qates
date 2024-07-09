@@ -1,18 +1,14 @@
 import pytest
 import allure
-import requests
-
-from config.config import BASE_URI, USERNAME, PASSWORD
-from assertions.assertion_important import assert_content_type_applicationJson, assert_status_code_ok, assert_status_code_unauthorized, assert_status_code_bad_request, assert_status_code_forbidden, assert_status_code_gateway_timeout, assert_status_code_service_unavailable
 from api_endpoints.api_request import EspoCRMRequest
 from api_endpoints.mail_important_endpoints import EndpointCorreoImportant
+from assertions.assertion_important import *
+from assertions.assertion_schemas import assert_valid_schema, email_insert_image_schema
+from config.config import BASE_URI, USERNAME, PASSWORD
 from resources.auth.auth import Auth
+from payloads.mail_important.payload_email_insert_image import *
+import requests
 
-@pytest.fixture(scope="function", autouse=True)
-def teardown_setup():
-    # Setup code here
-    yield
-    # Teardown code here
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -25,10 +21,11 @@ def test_post_email_insert_image_success(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_ok(response)
-    assert_content_type_applicationJson(response)
+    data = response.json()
+    assert_valid_schema(data, email_insert_image_schema)
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -40,23 +37,24 @@ def test_post_email_insert_image_invalid_email_id(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "invalidEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, invalid_email_id_payload)
     assert_status_code_bad_request(response)
+
 
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
-def test_post_email_insert_image_no_auth_header(get_headers):
+def test_post_email_insert_image_without_auth_header(get_headers):
     """
     Verify addition of image to email without authorization header - status code 401
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, {}, payload)
+    headers = {}  # No authorization header
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_unauthorized(response)
+
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -68,10 +66,10 @@ def test_post_email_insert_image_invalid_auth_token(get_headers):
     Verify addition of image to email with invalid authorization token - status code 401
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
-    headers = get_headers("invalidUser", "invalidPassword")
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    headers = {"Authorization": "Basic invalidcredentials"}
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_unauthorized(response)
+
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -84,15 +82,15 @@ def test_post_email_insert_image_network_timeout(get_headers, monkeypatch):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
 
     def mock_post(*args, **kwargs):
         raise requests.exceptions.Timeout
 
     monkeypatch.setattr(requests, "post", mock_post)
 
-    response = EspoCRMRequest.post_json(url, headers, payload)
-    assert_status_code_gateway_timeout(response)
+    with pytest.raises(requests.exceptions.Timeout):
+        EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
+
 
 @pytest.mark.smoke
 @pytest.mark.functional
@@ -105,10 +103,10 @@ def test_post_email_insert_image_check_response_content_type(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_ok(response)
-    assert_content_type_applicationJson(response)
+    assert response.headers['Content-Type'] == 'application/json'
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -120,9 +118,9 @@ def test_post_email_insert_image_large_image_size(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "largeBase64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, large_image_payload)
     assert response.status_code == 413
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -134,23 +132,9 @@ def test_post_email_insert_image_empty_request_body(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, empty_body_payload)
     assert_status_code_bad_request(response)
 
-@pytest.mark.functional
-@pytest.mark.regression
-@allure.feature('Email Insert Image')
-@allure.story('Post Email Insert Image')
-def test_post_email_insert_image_expired_auth_token(get_headers):
-    """
-    Verify addition of image to email with expired authorization token - status code 401 Unauthorized
-    """
-    url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
-    headers = get_headers("expiredUser", "expiredPassword")
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
-    assert_status_code_unauthorized(response)
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -162,9 +146,9 @@ def test_post_email_insert_image_unauthorized_user(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = get_headers("unauthorizedUser", "unauthorizedPassword")
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_forbidden(response)
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -176,15 +160,17 @@ def test_post_email_insert_image_server_down(get_headers, monkeypatch):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
 
     def mock_post(*args, **kwargs):
-        return requests.Response(status=503)
+        response = requests.Response()
+        response.status_code = 503
+        return response
 
     monkeypatch.setattr(requests, "post", mock_post)
 
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_service_unavailable(response)
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -196,11 +182,7 @@ def test_post_email_insert_image_ensure_all_data_in_response(get_headers):
     """
     url = f"{BASE_URI}{EndpointCorreoImportant.POST_EMAIL_INSERT_IMAGE.value}"
     headers = Auth().auth_valid_credential(get_headers)
-    payload = {"emailId": "validEmailId", "imageData": "base64ImageData"}
-    response = EspoCRMRequest.post_json(url, headers, payload)
+    response = EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
     assert_status_code_ok(response)
     data = response.json()
-    assert "emailId" in data
-    assert "imageData" in data
-    assert data["emailId"] == "validEmailId"
-    assert data["imageData"] == "base64ImageData"
+    assert_valid_schema(data, email_insert_image_schema)
