@@ -22,7 +22,7 @@ def test_post_create_call_with_only_required_data(get_header_cookie):
     assert_status_code_created(response)
     data_response = response.json()
     id_of_new_call = data_response["id"]
-    teardown_call(id_of_new_call,headers)
+    teardown_call(id_of_new_call, headers)
 
     print("\n This is the ID of the call created: " + str(id_of_new_call))
     print("\n This is the status-code of the response when a call is created only with the required data: "+str(response.status_code))
