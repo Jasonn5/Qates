@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 
 from api.request.api_request import EspoCRMRequest
 from core.assertions.status import assert_status_code_ok, assert_status_bad_request, assert_status_code_unauthorized
@@ -43,7 +43,7 @@ def test_post_task_invalid_token(get_headers):
     url = TaskEnpoints.post_task_without_params()
     headers = Auth().auth_invalid_credentials(get_headers)
     response = EspoCRMRequest.post(url, headers, payload_task)
-    assert_status_code_unauthorized(response)'''
+    assert_status_code_unauthorized(response)
 
 '''@pytest.mark.functional
 @pytest.mark.regression

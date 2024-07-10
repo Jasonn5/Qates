@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 
 from api.request.api_request import EspoCRMRequest
 from core.assertions.status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_code_not_found
@@ -44,4 +44,4 @@ def test_delete_task_invalid_token(get_headers):
     headers = Auth().auth_invalid_credentials(get_headers)
     response = EspoCRMRequest.delete(url, headers)
     assert_status_code_unauthorized(response)
-'''
+

@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 import requests
 from api.params.task_params import TASK_PARAM
 from api.params.task_params_list import TASK_PARAM_LIST
@@ -111,4 +111,4 @@ def test_get_tasks_list_invalid_order_parameter(get_headers):
     url = f"{BASE_URI}{EndpointTask.GET_TASK_WITHOUT_PARAMS.value}{TASK_PARAM}"
     headers = Auth().auth_valid_credential(get_headers)
     response = requests.get(url, params=TASK_PARAM, headers=headers)
-    assert_status_bad_request(response)'''
+    assert_status_bad_request(response)
