@@ -8,11 +8,15 @@ from core.assertions.status import (
     assert_status_code_unauthorized
 )
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Important')
 @allure.story('Delete Email Important')
+@allure.tag('author: Ericka')
+
 def test_delete_email_important_success(get_headers, create_important_email):
     """
     Verify successful deletion of important email - status code 200 OK
@@ -23,11 +27,14 @@ def test_delete_email_important_success(get_headers, create_important_email):
     response = EspoCRMRequest.delete(url, headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Important')
 @allure.story('Delete Email Important')
+@allure.tag('author: Ericka')
 def test_delete_multiple_important_emails(get_headers, create_important_email):
     """
     Verify deletion of multiple important emails - status code 200 OK
@@ -40,11 +47,14 @@ def test_delete_multiple_important_emails(get_headers, create_important_email):
         response = EspoCRMRequest.delete(url, headers)
         assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Important')
 @allure.story('Delete Email Important')
+@allure.tag('author: Ericka')
 def test_delete_email_important_without_auth_header(create_important_email):
     """
     Verify deletion of important email without authorization header - status code 401 Unauthorized
@@ -55,11 +65,14 @@ def test_delete_email_important_without_auth_header(create_important_email):
     response = EspoCRMRequest.delete(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Important')
 @allure.story('Delete Email Important')
+@allure.tag('author: Ericka')
 def test_delete_email_important_invalid_auth_token(get_headers, create_important_email):
     """
     Verify deletion of important email with invalid authorization token - status code 401 Unauthorized
@@ -70,11 +83,14 @@ def test_delete_email_important_invalid_auth_token(get_headers, create_important
     response = EspoCRMRequest.delete(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
 @allure.feature('Email Important')
 @allure.story('Delete Email Important')
+@allure.tag('author: Ericka')
 def test_delete_email_important_check_response_content_type(get_headers, create_important_email):
     """
     Verify deletion of important email and check response content type - status code 200 OK

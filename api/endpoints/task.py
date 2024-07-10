@@ -18,6 +18,10 @@ class TaskEnpoints:
         return f"{BASE_URI}/Kanban/Task?{params}"
 
     @staticmethod
+    def get_task_list_with_params(params: str) -> str:
+        return f"{BASE_URI}/Task?{params}"
+
+    @staticmethod
     def get_task_in_list() -> str:
         return f"{BASE_URI}/Task?"
 

@@ -9,8 +9,12 @@ from resources.auth.auth import Auth
 from api.endpoints.meeting import MeetingEndpoints
 import allure
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.smoke
 @pytest.mark.functional
 def test_get_meetings_success(setup_teardown_meeting):
@@ -19,8 +23,12 @@ def test_get_meetings_success(setup_teardown_meeting):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_meetings_schema_validation(setup_teardown_meeting):
@@ -29,8 +37,12 @@ def test_get_meetings_schema_validation(setup_teardown_meeting):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_schema_presentation(response.json())
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_get_meetings_response_format(setup_teardown_meeting):
     headers, meeting_id = setup_teardown_meeting
@@ -38,8 +50,12 @@ def test_get_meetings_response_format(setup_teardown_meeting):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_content_type_application_json(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_get_meetings_max_size(get_headers):
     params = MEETING_PARAM.copy()
@@ -50,8 +66,12 @@ def test_get_meetings_max_size(get_headers):
     data = response.json()['list']
     assert_less_than_or_equal_to(len(data), 1)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.smoke
 @pytest.mark.functional
 def test_get_meetings_unauthorized():
@@ -59,8 +79,12 @@ def test_get_meetings_unauthorized():
     response = EspoCRMRequest.get_with_url(url)
     assert_status_code_unauthorized(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.smoke
 @pytest.mark.functional
 def test_get_meetings_invalid_auth(get_headers):
@@ -69,8 +93,12 @@ def test_get_meetings_invalid_auth(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_get_meetings_pagination(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
@@ -99,8 +127,12 @@ def test_get_meetings_pagination(get_headers):
         actual_first_item_with_offset = data_list_with_offset[0]
         assert_equal_to(actual_first_item_with_offset["id"], expected_first_item_with_offset["id"])
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_meetings_order_desc(get_headers):
@@ -118,8 +150,12 @@ def test_get_meetings_order_desc(get_headers):
 
     assert_equal_to(dates, sorted(dates, reverse=True))
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_meetings_order_asc(get_headers):
@@ -137,8 +173,12 @@ def test_get_meetings_order_asc(get_headers):
 
     assert_equal_to(dates, sorted(dates))
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Get Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Get Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_get_meetings_invalid_param(get_headers):
     params = MEETING_PARAM.copy()
