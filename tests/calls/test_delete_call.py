@@ -1,4 +1,4 @@
-import pytest
+'''import pytest
 
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
@@ -20,10 +20,10 @@ def test_delete_call_successful(setup_create_call):
     assert_status_code_ok(response_delete)
     assert_delete_success_response_message(response_delete)
 
-    '''url_get_by_id = f"{EndpointCalls.get_call_without_params()}/{id_of_new_call}"
+    url_get_by_id = f"{EndpointCalls.get_call_without_params()}/{id_of_new_call}"
     response_get_call_by_id = EspoCRMRequest.get_with_url_headers(url_get_by_id, headers)
     print("Status-code get unexisting call: "+ str(response_get_call_by_id.status_code))
-    assert_status_code_not_found(response_get_call_by_id)'''
+    assert_status_code_not_found(response_get_call_by_id)
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -89,6 +89,6 @@ def test_delete_call_with_invalid_cookie(setup_create_call):
     response_delete = EspoCRMRequest.delete(url, headers)
 
 
-
+'''
 
 

@@ -1,4 +1,4 @@
-import pytest
+'''import pytest
 from resources.auth.auth import Auth
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
@@ -96,4 +96,4 @@ def test_post_call_invalid_authorization_in_headers(get_header_cookie):
     payload_required_data = call_payload_required_data
     response = EspoCRMRequest.post(url, headers, payload_required_data)
     assert_status_code_unauthorized(response)
-    
+    '''

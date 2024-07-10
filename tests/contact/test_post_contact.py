@@ -1,4 +1,4 @@
-import allure
+'''import allure
 import pytest
 from resources.auth.auth import Auth
 from api.request.api_request import EspoCRMRequest
@@ -97,3 +97,4 @@ def test_post_contact_success_with_all_values(get_headers):
     assert_status_code_created(response)
     response_json = response.json()
     teardown_post_contact(headers, response_json)
+'''

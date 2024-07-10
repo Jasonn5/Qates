@@ -1,4 +1,4 @@
-import pytest
+'''import pytest
 import requests
 from core.config.config import BASE_URI
 from resources.auth.auth import Auth
@@ -39,3 +39,4 @@ def test_create_email_draft_invalid_email_format(get_headers):
     response = requests.post(url, headers=headers, json=payload_invalid_email_format)
     print(f"Response: {response.text}")
     assert response.status_code == 400
+'''

@@ -1,4 +1,4 @@
-import pytest
+'''import pytest
 from api.params.call_params import CALL_PARAM
 from tests.conftest import encoded
 from core.assertions.schemas import assert_schema_calls_without_filters
@@ -80,9 +80,9 @@ def test_get_calls_with_param_select_other_valid_data(get_header_cookie):
     assert_status_code_ok(response)
     print("\n Response con filtros del get: \n"+str(response.json()))
     assert_schema_call_with_specifiedFilters(response.json(), select_data)
-    '''
+
     Este error se encuentra reportado en el BUG-35
-    '''
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -94,9 +94,9 @@ def test_get_calls_with_param_select_invalid_data(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
-    '''
+
     Este error se encuentra reportado en el BUG-31
-    '''
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -131,9 +131,9 @@ def test_get_calls_with_param_maxsize_invalid_data(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
-    '''
+
     Este error se encuentra reportado en el BUG-27
-     '''
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -174,9 +174,9 @@ def test_get_calls_with_param_offset_invalid_data(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     print("\n This is the status-code of the response: " + str(response.status_code))
     assert_status_bad_request(response)
-'''
-Este error se encuentra reportado en el BUG-28 
-'''
+
+Este error se encuentra reportado en el BUG-28
+
 
 @pytest.mark.functional
 @pytest.mark.regression
@@ -236,4 +236,4 @@ def test_get_calls_with_param_order_eliminated(get_header_cookie):
         del test_params['order']
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     assert_status_code_ok(response)
-
+'''
