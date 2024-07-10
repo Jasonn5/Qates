@@ -3,7 +3,6 @@ import json
 import pytest
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
-from core.payloads.calls.pyload_call import call_payload_required_data
 from resources.auth.auth import Auth
 
 @pytest.fixture(scope="module")

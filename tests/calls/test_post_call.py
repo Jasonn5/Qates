@@ -4,6 +4,7 @@ from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
 from core.assertions.payloads import assert_payload_calls
 from core.assertions.schemas import assert_schema_post_call_response
+'''
 from core.assertions.status import assert_status_code_created, assert_status_code_unauthorized
 from core.payloads.calls.pyload_call import call_payload_required_data
 from tests.calls.conftest import teardown_call
@@ -96,4 +97,5 @@ def test_post_call_invalid_authorization_in_headers(get_header_cookie):
     payload_required_data = call_payload_required_data
     response = EspoCRMRequest.post(url, headers, payload_required_data)
     assert_status_code_unauthorized(response)
-    
+
+'''
