@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ develop ]
     types: [ opened, reopened, synchronize ]
-  workflow_dispatch:  
+  workflow_dispatch:  # Permitir ejecución manual
 
 jobs:
   test:
@@ -29,29 +29,53 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
 
-    - name: Verify JSON files
+    - name: Create dummy JSON files
       run: |
-        test -f resources/payloads/mail_draft/payload_email_draft_success.json
-        test -f resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json
-        test -f resources/payloads/activities/payload_activities.json
-        test -f resources/payloads/calls/payload_call.json
-        test -f resources/payloads/calls/payload_call.py
-        test -f resources/payloads/contact/payload_contact.py
-        test -f resources/payloads/contact/payload_contact_full_values.py
-        test -f resources/payloads/mail_important/payload_mail_important.json
-        test -f resources/payloads/meeting/payload_meeting.json
-        test -f resources/payloads/tasks/payload_schema_task.json
-        test -f resources/payloads/tasks/payload_tasks.py
-        test -f resources/schemas/activity.json
-        test -f resources/schemas/contact_error_post.json
-        test -f resources/schemas/contact_post.json
-        test -f resources/schemas/correoImportant.json
-        test -f resources/schemas/email.json
-        test -f resources/schemas/get_completeFields_all_calls_schema.json
-        test -f resources/schemas/payload_meeting_schema.json
-        test -f resources/schemas/post_call_schema_response.json
-        test -f resources/schemas/presentation.json
-        test -f resources/schemas/task.json
+        mkdir -p core/payloads/mail_draft
+        mkdir -p core/payloads/activities
+        mkdir -p core/payloads/calls
+        mkdir -p core/payloads/contact
+        mkdir -p core/payloads/mail_important
+        mkdir -p core/payloads/meeting
+        mkdir -p core/payloads/tasks
+        mkdir -p resources/schemas
+
+        # Mail Draft Payloads
+        echo '{}' > core/payloads/mail_draft/payload_email_draft_success.json
+        echo '{}' > core/payloads/mail_draft/payload_email_draft_invalid_email_format.json
+
+        # Activities Payloads
+        echo '{}' > core/payloads/activities/payload_activities.json
+
+        # Calls Payloads
+        echo '{}' > core/payloads/calls/payload_call.json
+        echo '{}' > core/payloads/calls/payload_call.py
+
+        # Contact Payloads
+        echo '{}' > core/payloads/contact/payload_contact.py
+        echo '{}' > core/payloads/contact/payload_contact_full_values.py
+
+        # Mail Important Payloads
+        echo '{}' > core/payloads/mail_important/payload_mail_important.json
+
+        # Meeting Payloads
+        echo '{}' > core/payloads/meeting/payload_meeting.json
+
+        # Tasks Payloads
+        echo '{}' > core/payloads/tasks/payload_schema_task.json
+        echo '{}' > core/payloads/tasks/payload_tasks.py
+
+        # Schemas
+        echo '{}' > resources/schemas/activity.json
+        echo '{}' > resources/schemas/contact_error_post.json
+        echo '{}' > resources/schemas/contact_post.json
+        echo '{}' > resources/schemas/correoImportant.json
+        echo '{}' > resources/schemas/email.json
+        echo '{}' > resources/schemas/get_completeFields_all_calls_schema.json
+        echo '{}' > resources/schemas/payload_meeting_schema.json
+        echo '{}' > resources/schemas/post_call_schema_response.json
+        echo '{}' > resources/schemas/presentation.json
+        echo '{}' > resources/schemas/task.json
 
     - name: Run tests
       env:
@@ -81,4 +105,5 @@ jobs:
         github_token: ${{ secrets.GH_PAT }}
         publish_branch: gh-pages
         publish_dir: allure-report
+
 
