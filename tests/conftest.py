@@ -1,5 +1,6 @@
 import base64
 import pytest
+from resources.auth.auth import Auth
 
 @pytest.fixture
 def get_headers():
@@ -8,7 +9,6 @@ def get_headers():
         return {
             'Espo-Authorization': espo_authorization
         }
-
     return _get_headers
 
 def encoded(username, password):
@@ -21,7 +21,7 @@ def get_header_cookie():
     def _get_headers_withCookie_and_auth(username, password):
         encodedAuth = encoded(username, password)
         return {
-            'Authorization': 'Basic'+encodedAuth,
+            'Authorization': 'Basic ' + encodedAuth,
             'Cookie': 'auth-token-secret=b51d5dc9ee9eafa0aaa329612425ad63; auth-token=288eacade0b7e816569a85a5d07f165a'
         }
     return _get_headers_withCookie_and_auth
