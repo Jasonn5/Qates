@@ -15,7 +15,11 @@ class EndpointCalls:
         return f"{BASE_URI}/Call"
 
     @staticmethod
-    def delete_call() -> str:
-        return f"{BASE_URI}/Call"
+    def delete_call(id_call) -> str:
+        return f"{BASE_URI}/Call/{id_call}"
+
+    @staticmethod
+    def delete_call_more_than_one_call() -> str:
+        return f"{BASE_URI}/MassAction"
 
 
