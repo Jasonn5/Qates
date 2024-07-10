@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 import allure
 from core.config.config import BASE_URI
 from core.assertions.schemas import assert_schema_correoImportant
@@ -8,9 +8,7 @@ from api.request.api_request import EspoCRMRequest
 from api.endpoints.mail_important import EndpointCorreoImportant
 from resources.auth.auth import Auth
 
-
-
-@allure.suite('EspoCRM')
+'''@allure.suite('EspoCRM')
 @allure.sub_suite('Ericka')
 @allure.feature('Get email important')
 @allure.story('Get email important')
@@ -43,7 +41,7 @@ def test_get_email_schema_validation(get_headers):
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     print("\n reponce del Get de correos \n" + str(response.json()))
-    assert_schema_correoImportant(response.json())
+    assert_schema_correoImportant(response.json())'''
 
 @allure.suite('EspoCRM')
 @allure.sub_suite('Ericka')
@@ -175,4 +173,4 @@ def test_get_mail_invalid_basic_authorization(get_header_cookie):
     url = f"{BASE_URI}/Email"
     headers = {"Authorization": "Basic invalidcredentials"}
     response = EspoCRMRequest.get_with_url_headers(url, headers)
-    assert_status_code_unauthorized(response)'''
+    assert_status_code_unauthorized(response)

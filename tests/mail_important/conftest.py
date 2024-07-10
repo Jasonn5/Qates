@@ -1,7 +1,6 @@
 import pytest
 import base64
 import requests
-from core.config.config import BASE_URI
 from resources.auth.auth import Auth
 from api.endpoints.mail_important import EndpointCorreoImportant
 
