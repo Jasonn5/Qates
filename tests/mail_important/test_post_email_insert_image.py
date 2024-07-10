@@ -1,4 +1,3 @@
-
 import pytest
 import allure
 from api_endpoints.api_request import EspoCRMRequest
@@ -7,6 +6,7 @@ from assertions.assertion_status import *
 from assertions.assertion_schemas import assert_valid_schema, email_insert_image_schema
 from config.config import BASE_URI, USERNAME, PASSWORD
 from resources.auth.auth import Auth
+from tests.conftest import *
 import requests
 
 @pytest.mark.smoke
@@ -45,7 +45,7 @@ def test_post_email_insert_image_invalid_email_id(get_headers, invalid_email_id_
 @pytest.mark.regression
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
-def test_post_email_insert_image_without_auth_header(get_headers, email_insert_image_payload):
+def test_post_email_insert_image_without_auth_header(email_insert_image_payload):
     """
     Verify addition of image to email without authorization header - status code 401
     """

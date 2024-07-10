@@ -4,24 +4,24 @@ import requests
 from config.config import USERNAME, PASSWORD, BASE_URI
 
 @pytest.fixture
-def email_insert_image_payload():
-    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+def email_insert_image_payload(load_image_data):
+    return {"emailId": "validEmailId", "imageData": load_image_data}
 
 @pytest.fixture
-def invalid_email_id_payload():
-    return {"emailId": "invalidEmailId", "imageData": "base64ImageData"}
+def invalid_email_id_payload(load_image_data):
+    return {"emailId": "invalidEmailId", "imageData": load_image_data}
 
 @pytest.fixture
-def large_image_payload():
-    return {"emailId": "validEmailId", "imageData": "largeBase64ImageData"}
+def large_image_payload(load_large_image_data):
+    return {"emailId": "validEmailId", "imageData": load_large_image_data}
 
 @pytest.fixture
 def empty_body_payload():
     return {}
 
 @pytest.fixture
-def valid_email_payload():
-    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+def valid_email_payload(load_image_data):
+    return {"emailId": "validEmailId", "imageData": load_image_data}
 
 @pytest.fixture
 def teardown_email(get_headers):
@@ -36,18 +36,15 @@ def teardown_email(get_headers):
         assert response.status_code == 200, f"Failed to delete email {email_id}"
 
 @pytest.fixture
-def valid_email_payload():
-    return {
-        "emailId": "validEmailId",
-        "imageData": "base64ImageData"
-    }
+def load_image_data():
+    with open('resources/images/image.png', 'rb') as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
 
 @pytest.fixture
-def large_image_payload():
-    return {
-        "emailId": "validEmailId",
-        "imageData": "largeBase64ImageData"  # Simulated large image data
-    }
+def load_large_image_data():
+    with open('resources/images/large_image.png', 'rb') as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
+
 @pytest.fixture
 def create_important_email(get_headers):
     created_emails = []
