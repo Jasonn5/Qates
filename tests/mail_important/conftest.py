@@ -5,27 +5,27 @@ from core.config.config import BASE_URI
 from resources.auth.auth import Auth
 from api.endpoints.mail_important import EndpointCorreoImportant
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def email_insert_image_payload(load_image_data):
     return {"emailId": "validEmailId", "imageData": load_image_data}
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def invalid_email_id_payload(load_image_data):
     return {"emailId": "invalidEmailId", "imageData": load_image_data}
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def large_image_payload(load_large_image_data):
     return {"emailId": "validEmailId", "imageData": load_large_image_data}
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def empty_body_payload():
     return {}
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def valid_email_payload(load_image_data):
     return {"emailId": "validEmailId", "imageData": load_image_data}
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def teardown_email(get_headers):
     created_emails = []
 
