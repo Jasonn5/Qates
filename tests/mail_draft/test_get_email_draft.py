@@ -1,6 +1,6 @@
 import pytest
 import requests
-
+import allure
 from core.config.config import BASE_URI
 from core.assertions.status import (
     assert_status_code_ok,
@@ -11,6 +11,12 @@ from resources.auth.auth import Auth
 from api.endpoints.mail_draft import EndpointEmail
 from core.assertions.headers import assert_content_type_application_json
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 def test_get_email_succed(get_headers):
@@ -19,6 +25,12 @@ def test_get_email_succed(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -28,6 +40,12 @@ def test_get_all_drafts_status_code_200(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -40,6 +58,12 @@ def test_get_drafts_with_wrong_basic_auth(get_headers):
     Este error se encuentra reportado en el BUG-45
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_without_auth_token_secret(get_headers):
@@ -53,6 +77,12 @@ def test_get_drafts_without_auth_token_secret(get_headers):
     Este error se encuentra reportado en el BUG-44
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -66,6 +96,12 @@ def test_get_drafts_with_wrong_content_type(get_headers):
     Este error se encuentra reportado en el BUG-40
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_with_additional_parameters(get_headers):
@@ -74,6 +110,12 @@ def test_get_drafts_with_additional_parameters(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_with_empty_search_param(get_headers):
@@ -85,6 +127,12 @@ def test_get_drafts_with_empty_search_param(get_headers):
     Este error se encuentra reportado en el BUG-43
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -94,6 +142,12 @@ def test_get_drafts_with_invalid_search_fields(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_with_empty_maxsize_param(get_headers):
@@ -102,6 +156,12 @@ def test_get_drafts_with_empty_maxsize_param(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -114,6 +174,12 @@ def test_get_drafts_with_valid_maxsize_param(get_headers):
     Este error se encuentra reportado en el BUG-41
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -126,6 +192,12 @@ def test_get_drafts_with_invalid_maxsize_param(get_headers):
     Este error se encuentra reportado en el BUG-42
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_with_invalid_offset_type(get_headers):
@@ -134,6 +206,12 @@ def test_get_drafts_with_invalid_offset_type(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_drafts_with_invalid_order_type(get_headers):
@@ -145,6 +223,12 @@ def test_get_drafts_with_invalid_order_type(get_headers):
     Este error se encuentra reportado en el BUG-46
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -157,6 +241,12 @@ def test_search_term_present_in_drafts(get_headers):
     for item in data['list']:
         assert "Luis" in item['subject'] or "Luis" in item['personStringData']
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_search_partial_term_in_drafts(get_headers):
@@ -168,6 +258,12 @@ def test_search_partial_term_in_drafts(get_headers):
     for item in data['list']:
         assert "Lu" in item['subject'] or "Lu" in item['personStringData'], f"Expected 'Lu' in subject or personStringData, but got {item}"
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_search_no_term_present_in_drafts(get_headers):
@@ -178,6 +274,12 @@ def test_search_no_term_present_in_drafts(get_headers):
     data = response.json()
     assert len(data['list']) == 0, f"Expected 0 results, but got {len(data['list'])}. Data: {data['list']}"
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Diego')
+@allure.epic('EspoCRM')
+@allure.feature('Mail Draft')
+@allure.story('Get Mail Draft')
+@allure.tag('author: Diego')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
