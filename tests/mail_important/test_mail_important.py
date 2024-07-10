@@ -1,4 +1,5 @@
 import pytest
+import allure
 from core.config.config import BASE_URI
 from core.assertions.schemas import assert_schema_correoImportant
 from core.assertions.headers import assert_content_type_application_json
@@ -9,6 +10,11 @@ from resources.auth.auth import Auth
 
 
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -21,6 +27,11 @@ def test_get_email_success(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -34,6 +45,11 @@ def test_get_email_schema_validation(get_headers):
     print("\n reponce del Get de correos \n" + str(response.json()))
     assert_schema_correoImportant(response.json())
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -46,6 +62,11 @@ def test_get_email_response_format(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_content_type_application_json(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -58,6 +79,11 @@ def test_get_email_invalid_authorization_in_headers(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_email_invalid_cookie_in_headers(get_header_cookie):
@@ -70,6 +96,11 @@ def test_get_email_invalid_cookie_in_headers(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -82,6 +113,11 @@ def test_get_mail_valid_offset_parameter(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -94,6 +130,11 @@ def test_get_mail_valid_maxsize_parameter(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_mail_invalid_order_parameter(get_headers):
@@ -105,6 +146,11 @@ def test_get_mail_invalid_order_parameter(get_headers):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert response.status_code == 400
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_mail_missing_auth_token_secret():
@@ -116,6 +162,11 @@ def test_get_mail_missing_auth_token_secret():
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Get email important')
+@allure.story('Get email important')
+@allure.tag('author: Ericka')
 @pytest.mark.regression
 def test_get_mail_invalid_basic_authorization(get_header_cookie):
     """
