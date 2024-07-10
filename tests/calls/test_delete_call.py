@@ -1,14 +1,13 @@
 import pytest
 
-from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.calls_endpoints import EndpointCalls
-from assertions.assertion_calls import assert_delete_success_response_message, assert_delete_failed_response_message
-from assertions.assertion_headers import assert_content_type_application_json
-from assertions.assertion_status import assert_status_code_ok, assert_status_code_not_found, assert_status_bad_request, \
+from api.request.api_request import EspoCRMRequest
+from api.endpoints.calls import EndpointCalls
+from core.assertions.calls import assert_delete_success_response_message, assert_delete_failed_response_message
+from core.assertions.headers import assert_content_type_application_json
+from core.assertions.status import assert_status_code_ok, assert_status_code_not_found, assert_status_bad_request, \
     assert_status_code_unauthorized
-from config.config import USERNAME, PASSWORD
-from tests.calls.conftest import set_up_call
 from tests.conftest import encoded
+from resources.auth.auth import Auth
 
 
 @pytest.mark.smoke
@@ -46,7 +45,7 @@ def test_delete_more_than_one_call(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_delete_unexisting_call(get_header_cookie):
-    headers = get_header_cookie(USERNAME, PASSWORD)
+    headers = Auth().auth_valid_credential(get_header_cookie)
     id_unexisting_call = '48923894oieopikrfjfw078754754454'
     url = f"{EndpointCalls.delete_call()}/{id_unexisting_call}"
     response_delete = EspoCRMRequest.delete(url, headers)
@@ -56,7 +55,7 @@ def test_delete_unexisting_call(get_header_cookie):
 @pytest.mark.functional
 @pytest.mark.regression
 def test_delete_invalid_call_id(get_header_cookie):
-    headers = get_header_cookie(USERNAME, PASSWORD)
+    headers = Auth().auth_valid_credential(get_header_cookie)
     invalid_id_call = '*-/+-+!"#%##&/%$/'
     url = f"{EndpointCalls.delete_call()}/{invalid_id_call}"
     response_delete = EspoCRMRequest.delete(url, headers)
@@ -68,11 +67,7 @@ def test_delete_invalid_call_id(get_header_cookie):
 @pytest.mark.regression
 def test_delete_call_with_invalid_authentication(setup_create_call):
     headers, id_of_new_call, data_response = setup_create_call
-    invalid_authorization_header = headers
-    invalidAuth = encoded("invalidUser1232", "invalidPassword456")
-    invalid_authorization_header['Authorization'] = 'Basic ' + invalidAuth
-
-
+    invalid_authorization_header = Auth().auth_invalid_credentials(headers)
     url = f"{EndpointCalls.delete_call()}/{id_of_new_call}"
     response_delete = EspoCRMRequest.delete(url, invalid_authorization_header)
     assert_status_code_unauthorized(response_delete)

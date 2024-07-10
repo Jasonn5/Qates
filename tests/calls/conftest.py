@@ -1,9 +1,8 @@
 import pytest
-
-from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.calls_endpoints import EndpointCalls
-from config.config import USERNAME, PASSWORD
-from payloads.calls.pyload_call import call_payload_required_data
+from api.request.api_request import EspoCRMRequest
+from api.endpoints.calls import EndpointCalls
+from core.payloads.calls.pyload_call import call_payload_required_data
+from resources.auth.auth import Auth
 
 
 #@staticmethod
@@ -19,7 +18,7 @@ def set_up_call(headers):
 
 @pytest.fixture(scope="function")
 def setup_create_call(get_header_cookie):
-    headers = get_header_cookie(USERNAME, PASSWORD)
+    headers = Auth().auth_valid_credential(get_header_cookie)
     response = set_up_call(headers)
     call_id = response.json().get('id')
 

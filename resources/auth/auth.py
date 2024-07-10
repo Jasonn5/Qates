@@ -1,4 +1,4 @@
-from utils.load_resources import load_credential_resource
+from core.utils.load_resources import load_credential_resource
 
 class Auth:
     def __init__(self):

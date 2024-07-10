@@ -1,0 +1,42 @@
+{
+  "status": "Planned",
+  "dateStart": "2024-07-08 20:00:00",
+  "duration": 3600,
+  "assignedUserId": "66744ee8d0ffd7849",
+  "assignedUserName": "Admin",
+  "acceptanceStatus": "None",
+  "dateEnd": "2024-07-08 21:00:00",
+  "name": "test_post_payload",
+  "parentType": "Account",
+  "parentName": "cuenta 123",
+  "parentId": "667f373e22911f662",
+  "dateStartDate": null,
+  "isAllDay": false,
+  "dateEndDate": null,
+  "reminders": [],
+  "description": "test description",
+  "teamsIds": [],
+  "teamsNames": {},
+  "usersIds": [
+    "66744ee8d0ffd7849",
+    "667c99fd0ee24b999"
+  ],
+  "usersNames": {
+    "66744ee8d0ffd7849": "Admin",
+    "667c99fd0ee24b999": "Jeyson Valdivia"
+  },
+  "usersColumns": {
+    "66744ee8d0ffd7849": {
+      "status": "None"
+    },
+    "667c99fd0ee24b999": {
+      "status": "None"
+    }
+  },
+  "contactsIds": [],
+  "contactsNames": {},
+  "contactsColumns": {},
+  "leadsIds": [],
+  "leadsNames": {},
+  "leadsColumns": {}
+}

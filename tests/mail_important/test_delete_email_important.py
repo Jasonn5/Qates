@@ -1,14 +1,13 @@
 import pytest
 import allure
-from api_endpoints.api_request import EspoCRMRequest
-from config.config import BASE_URI
+from api.request.api_request import EspoCRMRequest
+from core.config.config import BASE_URI
 from resources.auth.auth import Auth
-from assertions.assertion_status import (
+from core.assertions.status import (
     assert_status_code_ok,
     assert_status_code_unauthorized,
     assert_status_code_not_found,
     assert_status_bad_request
-
 )
 
 @pytest.mark.smoke
