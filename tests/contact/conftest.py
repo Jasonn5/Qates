@@ -6,7 +6,6 @@ from config.config import BASE_URI
 from payloads.contact.payload_contact import CONTACT_PAYLOAD
 from payloads.contact.payload_contact_full_values import CONTACT_FULL_PAYLOAD
 from payloads.contact.payload_put_contact import CONTACT_PUT_PAYLOAD
-from tests.conftest import get_headers
 
 START_RANDOM = 1
 END_RANDOM = 100000
