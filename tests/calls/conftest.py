@@ -5,11 +5,11 @@ from core.payloads.calls.pyload_call import call_payload_required_data
 from resources.auth.auth import Auth
 
 
-#@staticmethod
+@staticmethod
 def teardown_call(id_call, headers):
     url = f"{EndpointCalls.delete_call()}/{id_call}"
     delete_response = EspoCRMRequest.delete(url, headers)
-#@staticmethod
+@staticmethod
 def set_up_call(headers):
     url = EndpointCalls.post_call()
     payload = call_payload_required_data
