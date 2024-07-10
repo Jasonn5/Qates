@@ -27,3 +27,15 @@ def teardown_delete_meeting(get_headers):
         delete_url = MeetingEndpoints.delete_meeting(meeting_id)
         headers = Auth().auth_valid_credential(get_headers)
         EspoCRMRequest.delete(delete_url, headers)
+
+@pytest.fixture(scope="function")
+def setup_teardown_meeting(get_headers, base_payload):
+    headers = Auth().auth_valid_credential(get_headers)
+    url = MeetingEndpoints.create_meeting()
+    response = EspoCRMRequest.post_json(url, headers, base_payload)
+    meeting_id = response.json().get('id')
+
+    yield headers, meeting_id
+
+    delete_url = MeetingEndpoints.delete_meeting(meeting_id)
+    EspoCRMRequest.delete(delete_url, headers)
