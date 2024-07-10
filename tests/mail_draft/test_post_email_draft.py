@@ -15,9 +15,6 @@ from core.utils.load_resources import load_payload, PayloadPaths
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-@pytest.mark.smoke
-@pytest.mark.functional
-@pytest.mark.regression
 def test_create_email_draft_success(get_headers):
     url = f"{BASE_URI}{EndpointEmail.POST_EMAIL_DRAFT.value}"
     headers = Auth().auth_valid_credential(get_headers)
