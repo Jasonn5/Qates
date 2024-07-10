@@ -1,0 +1,68 @@
+{
+    "status": "Planned",
+    "dateStart": "2024-07-10 23:15:00",
+    "duration": 300,
+    "direction": "Outbound",
+    "assignedUserId": "66744ee8d0ffd7849",
+    "assignedUserName": "Admin",
+    "acceptanceStatus": "None",
+    "dateEnd": "2024-07-10 23:15:00",
+    "name": "Llamada de Prueba 2 Sprint",
+    "parentType": "Account",
+    "parentName": "DuarteSoft",
+    "parentId": "667b9f92853b8f2dd",
+    "reminders": [],
+    "description": "Descripción de Llamadas prueba",
+    "teamsIds": [
+        "6685afe7a001ab0ec"
+    ],
+    "teamsNames": {
+        "6685afe7a001ab0ec": "Equipo 2"
+    },
+    "usersIds": [
+        "667620f85938976bd"
+    ],
+    "usersNames": {
+        "667620f85938976bd": "David Pérez"
+    },
+    "usersColumns": {
+        "667620f85938976bd": {
+            "status": "Tentative"
+        },
+        "66788c001d3b51e97": {
+            "status": "Accepted"
+        },
+        "667c99fd0ee24b999": {
+            "status": "Accepted"
+        },
+        "667779bfdacb3b4fe": {
+            "status": "Declined"
+        }
+    },
+    "contactsIds": [
+        "6685c148248c8b75d"
+    ],
+    "contactsNames": {
+        "667ba001ddd3b4ea9": "Fernando Duarte"
+    },
+    "contactsColumns": {
+        "6685c148248c8b75d": {
+            "status": "Accepted"
+        },
+        "667ba001ddd3b4ea9": {
+            "status": "Accepted"
+        }
+    },
+    "leadsIds": [
+        "667b9c285193dbb98"
+    ],
+    "leadsNames": {
+        "667b9c285193dbb98": "Alison Guzman"
+    },
+    "leadsColumns": {
+        "667b9c285193dbb98": {
+            "status": "Accepted"
+        }
+    },
+    "dateEndDate": "2024-07-10 23:20:00"
+}

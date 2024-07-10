@@ -55,7 +55,7 @@ QAstes/
 │   │   ├── activities/
 │   │   │   └── payload_activities.json
 │   │   ├── calls/
-│   │   │   ├── payload_call.json
+│   │   │   ├── payload_call_schema.json
 │   │   │   └── payload_call.py
 │   │   ├── contact/
 │   │   │   ├── payload_contact.py
