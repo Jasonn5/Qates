@@ -5,19 +5,22 @@ from api.endpoints.task import TaskEnpoints
 from api.request.api_request import EspoCRMRequest
 from resources.auth.auth import Auth
 
-
+@staticmethod
+@pytest.fixture(scope="function")
 def create_task(get_headers, payload_task):
     url = TaskEnpoints.post_task_without_params()
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.post(url, headers, payload_task)
     return response.json()
 
-
+@staticmethod
+@pytest.fixture(scope="function")
 def delete_task(task_id, get_headers):
     delete_url = f"{TaskEnpoints.post_task_without_params()}/{task_id}"
     headers = Auth().auth_valid_credential(get_headers)
     EspoCRMRequest.delete(delete_url, headers)
 
+@staticmethod
 @pytest.fixture(scope="function")
 def setup_teardown_task(get_headers, payload_task):
     url = TaskEnpoints.post_task_without_params()
