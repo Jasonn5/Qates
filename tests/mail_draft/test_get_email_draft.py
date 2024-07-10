@@ -1,15 +1,15 @@
 import pytest
 import requests
 
-from config.config import BASE_URI
-from assertions.assertion_status import (
+from core.config.config import BASE_URI
+from core.assertions.status import (
     assert_status_code_ok,
     assert_status_code_unauthorized,
     assert_status_bad_request
 )
 from resources.auth.auth import Auth
-from api_endpoints.mail_draft_endpoints import EndpointEmail
-from assertions.assertion_headers import assert_content_type_application_json
+from api.endpoints.mail_draft import EndpointEmail
+from core.assertions.headers import assert_content_type_application_json
 
 @pytest.mark.smoke
 @pytest.mark.functional

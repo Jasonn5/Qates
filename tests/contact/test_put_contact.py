@@ -1,12 +1,12 @@
 import allure
 import pytest
-
-from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.contact_endpoint import ContactEndpoint
-from assertions.assertion_schemas import assert_schema_contact_put
-from assertions.assertion_status import assert_status_code_ok, assert_status_code_not_found, \
+from resources.auth.auth import Auth
+from api.request.api_request import EspoCRMRequest
+from api.endpoints.contact import ContactEndpoint
+from core.assertions.schemas import assert_schema_contact_put
+from core.assertions.status import assert_status_code_ok, assert_status_code_not_found, \
     assert_status_code_unprocessable_entity, assert_status_code_unauthorized
-from config.config import BASE_URI
+from core.config.config import BASE_URI
 from tests.contact.conftest import modify_first_name_payload, put_payload, put_url
 
 
@@ -17,7 +17,7 @@ from tests.contact.conftest import modify_first_name_payload, put_payload, put_u
 @pytest.mark.smoke
 def test_update_contact_success(get_headers):
     put_payload['firstName'] = modify_first_name_payload()
-    headers = get_headers("admin", "admin")
+    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.put(put_url, headers=headers, payload=put_payload)
     assert_status_code_ok(response)
 
@@ -30,7 +30,7 @@ def test_update_contact_success(get_headers):
 def test_update_nonexistent_contact(get_headers):
     nonexistent_url = f"{BASE_URI}{ContactEndpoint.MAIN_ROUTE.value}/michi"
     put_payload['firstName'] = modify_first_name_payload()
-    headers = get_headers("admin", "admin")
+    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.put(url=nonexistent_url, headers=headers, payload=put_payload)
     assert_status_code_not_found(response)
 
@@ -42,7 +42,7 @@ def test_update_nonexistent_contact(get_headers):
 def test_update_contact_invalid_format(get_headers):
     put_payload['firstName'] = modify_first_name_payload()
     put_payload['michi'] = "michi"
-    headers = get_headers("admin", "admin")
+    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.put(put_url, headers=headers, payload=put_payload)
     assert_status_code_unprocessable_entity(response)
 
@@ -66,7 +66,7 @@ def test_update_contact_without_authentication(get_headers):
 @pytest.mark.smoke
 def test_update_contact_schema_validation(get_headers):
     put_payload['firstName'] = modify_first_name_payload()
-    headers = get_headers("admin", "admin")
+    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.put(put_url, headers=headers, payload=put_payload)
     response_json = response.json()
     assert_schema_contact_put(response_json)

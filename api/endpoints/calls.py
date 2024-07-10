@@ -1,6 +1,4 @@
-from enum import Enum
-
-from config.config import BASE_URI
+from core.config.config import BASE_URI
 
 
 class EndpointCalls:

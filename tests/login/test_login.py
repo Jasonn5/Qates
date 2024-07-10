@@ -1,6 +1,6 @@
 import requests
-from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized
-from config.config import BASE_URI
+from core.assertions.status import assert_status_code_ok, assert_status_code_unauthorized
+from core.config.config import BASE_URI
 from resources.auth.auth import Auth
 
 

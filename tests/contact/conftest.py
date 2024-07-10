@@ -1,11 +1,11 @@
 import random
+from api.request.api_request import EspoCRMRequest
+from api.endpoints.contact import ContactEndpoint
+from core.config.config import BASE_URI
+from core.payloads.contact.payload_contact import CONTACT_PAYLOAD
+from core.payloads.contact.payload_contact_full_values import CONTACT_FULL_PAYLOAD
+from core.payloads.contact.payload_put_contact import CONTACT_PUT_PAYLOAD
 
-from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.contact_endpoint import ContactEndpoint
-from config.config import BASE_URI
-from payloads.contact.payload_contact import CONTACT_PAYLOAD
-from payloads.contact.payload_contact_full_values import CONTACT_FULL_PAYLOAD
-from payloads.contact.payload_put_contact import CONTACT_PUT_PAYLOAD
 
 START_RANDOM = 1
 END_RANDOM = 100000

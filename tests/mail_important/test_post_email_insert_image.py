@@ -1,11 +1,11 @@
 
 import pytest
 import allure
-from api_endpoints.api_request import EspoCRMRequest
-from api_endpoints.mail_important_endpoints import EndpointCorreoImportant
-from assertions.assertion_status import *
-from assertions.assertion_schemas import assert_valid_schema, email_insert_image_schema
-from config.config import BASE_URI, USERNAME, PASSWORD
+from api.request.api_request import EspoCRMRequest
+from api.endpoints.mail_important import EndpointCorreoImportant
+from core.assertions.status import *
+from core.assertions.schemas import assert_valid_schema, email_insert_image_schema
+from core.config.config import BASE_URI
 from resources.auth.auth import Auth
 import requests
 

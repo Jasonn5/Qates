@@ -1,7 +1,8 @@
 import pytest
 import base64
 import requests
-from config.config import USERNAME, PASSWORD, BASE_URI
+from core.config.config import BASE_URI
+from resources.auth.auth import Auth
 
 @pytest.fixture
 def email_insert_image_payload():
@@ -31,7 +32,7 @@ def teardown_email(get_headers):
 
     for email_id in created_emails:
         url = f"https://espo.spartan-soft.com/api/v1/Email/{email_id}"
-        headers = get_headers(USERNAME, PASSWORD)
+        headers = Auth().auth_valid_credential(get_headers)
         response = requests.delete(url, headers=headers)
         assert response.status_code == 200, f"Failed to delete email {email_id}"
 
@@ -71,12 +72,3 @@ def create_important_email(get_headers):
         response = requests.delete(url, headers=headers)
         assert response.status_code == 200, f"Failed to delete important email {email_id}"
 
-@pytest.fixture
-def get_headers():
-    def _get_headers(username=USERNAME, password=PASSWORD):
-        auth = base64.b64encode(f"{username}:{password}".encode()).decode()
-        return {
-            "Authorization": f"Basic {auth}",
-            "Content-Type": "application/json"
-        }
-    return _get_headers
