@@ -1,11 +1,13 @@
 import base64
 import pytest
+from core.config.config import X_Api_Key
 @pytest.fixture
 def get_headers():
     def _get_headers(username, password):
         espo_authorization = encoded(username, password)
         return {
-            'Espo-Authorization': espo_authorization
+            'Espo-Authorization': espo_authorization,
+            'X-Api-Key': X_Api_Key
         }
     return _get_headers
 
