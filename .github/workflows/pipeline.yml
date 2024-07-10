@@ -27,23 +27,7 @@ jobs:
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-
-    - name: Copy JSON files
-      run: |
-        mkdir -p resources/{payloads/{mail_draft,activities,calls,contact,mail_important,meeting,tasks},schemas}
         
-        # Copy payloads
-        cp path/to/local/*.json resources/payloads/mail_draft/
-        cp path/to/local/*.json resources/payloads/activities/
-        cp path/to/local/*.{json,py} resources/payloads/calls/
-        cp path/to/local/*.py resources/payloads/contact/
-        cp path/to/local/*.json resources/payloads/mail_important/
-        cp path/to/local/*.json resources/payloads/meeting/
-        cp path/to/local/*.{json,py} resources/payloads/tasks/
-        
-        # Copy schemas
-        cp path/to/local/*.json resources/schemas/
-
     - name: Run tests
       env:
         PYTHONPATH: ${{ github.workspace }}
