@@ -6,101 +6,101 @@ on:
   pull_request:
     branches: [ develop ]
     types: [ opened, reopened, synchronize ]
-  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
 
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-          
-      - name: Copy JSON files
-        run: |
-         mkdir -p resources/payloads/mail_draft
-         mkdir -p resources/payloads/activities
-         mkdir -p resources/payloads/calls
-         mkdir -p resources/payloads/contact
-         mkdir -p resources/payloads/mail_important
-         mkdir -p resources/payloads/meeting
-         mkdir -p resources/payloads/tasks
-         mkdir -p resources/schemas
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        
+    - name: Copy JSON files
+      run: |
+        mkdir -p resources/payloads/mail_draft
+        mkdir -p resources/payloads/activities
+        mkdir -p resources/payloads/calls
+        mkdir -p resources/payloads/contact
+        mkdir -p resources/payloads/mail_important
+        mkdir -p resources/payloads/meeting
+        mkdir -p resources/payloads/tasks
+        mkdir -p resources/schemas
 
-         # Mail Draft Payloads
-         cp path/to/local/payload_email_draft_success.json resources/payloads/mail_draft/payload_email_draft_success.json
-         cp path/to/local/payload_email_draft_invalid_email_format.json resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json
+        # Mail Draft Payloads
+        cp resources/payloads/mail_draft/payload_email_draft_success.json resources/payloads/mail_draft/payload_email_draft_success.json
+        cp resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json
 
-         # Activities Payloads
-         cp path/to/local/payload_activities.json resources/payloads/activities/payload_activities.json
+        # Activities Payloads
+        cp resources/payloads/activities/payload_activities.json resources/payloads/activities/payload_activities.json
 
-         # Calls Payloads
-         cp path/to/local/payload_call.json resources/payloads/calls/payload_call.json
-         cp path/to/local/payload_call.py resources/payloads/calls/payload_call.py
+        # Calls Payloads
+        cp resources/payloads/calls/payload_call.json resources/payloads/calls/payload_call.json
+        cp resources/payloads/calls/payload_call.py resources/payloads/calls/payload_call.py
 
-         # Contact Payloads
-         cp path/to/local/payload_contact.py resources/payloads/contact/payload_contact.py
-         cp path/to/local/payload_contact_full_values.py resources/payloads/contact/payload_contact_full_values.py
+        # Contact Payloads
+        cp resources/payloads/contact/payload_contact.py resources/payloads/contact/payload_contact.py
+        cp resources/payloads/contact/payload_contact_full_values.py resources/payloads/contact/payload_contact_full_values.py
 
-         # Mail Important Payloads
-         cp path/to/local/payload_mail_important.json resources/payloads/mail_important/payload_mail_important.json
+        # Mail Important Payloads
+        cp resources/payloads/mail_important/payload_mail_important.json resources/payloads/mail_important/payload_mail_important.json
 
-         # Meeting Payloads
-         cp path/to/local/payload_meeting.json resources/payloads/meeting/payload_meeting.json
+        # Meeting Payloads
+        cp resources/payloads/meeting/payload_meeting.json resources/payloads/meeting/payload_meeting.json
 
-         # Tasks Payloads
-         cp path/to/local/payload_schema_task.json resources/payloads/tasks/payload_schema_task.json
-         cp path/to/local/payload_tasks.py resources/payloads/tasks/payload_tasks.py
+        # Tasks Payloads
+        cp resources/payloads/tasks/payload_schema_task.json resources/payloads/tasks/payload_schema_task.json
+        cp resources/payloads/tasks/payload_tasks.py resources/payloads/tasks/payload_tasks.py
 
-         # Schemas
-         cp path/to/local/activity.json resources/schemas/activity.json
-         cp path/to/local/contact_error_post.json resources/schemas/contact_error_post.json
-         cp path/to/local/contact_post.json resources/schemas/contact_post.json
-         cp path/to/local/correoImportant.json resources/schemas/correoImportant.json
-         cp path/to/local/email.json resources/schemas/email.json
-         cp path/to/local/get_completeFields_all_calls_schema.json resources/schemas/get_completeFields_all_calls_schema.json
-         cp path/to/local/payload_meeting_schema.json resources/schemas/payload_meeting_schema.json
-         cp path/to/local/post_call_schema_response.json resources/schemas/post_call_schema_response.json
-         cp path/to/local/presentation.json resources/schemas/presentation.json
-         cp path/to/local/task.json resources/schemas/task.json  
-      - name: Run tests
-        env:
-          PYTHONPATH: ${{ github.workspace }}
-        run: |
-          source venv/bin/activate
-          pytest --alluredir=allure-results
+        # Schemas
+        cp resources/schemas/activity.json resources/schemas/activity.json
+        cp resources/schemas/contact_error_post.json resources/schemas/contact_error_post.json
+        cp resources/schemas/contact_post.json resources/schemas/contact_post.json
+        cp resources/schemas/correoImportant.json resources/schemas/correoImportant.json
+        cp resources/schemas/email.json resources/schemas/email.json
+        cp resources/schemas/get_completeFields_all_calls_schema.json resources/schemas/get_completeFields_all_calls_schema.json
+        cp resources/schemas/payload_meeting_schema.json resources/schemas/payload_meeting_schema.json
+        cp resources/schemas/post_call_schema_response.json resources/schemas/post_call_schema_response.json
+        cp resources/schemas/presentation.json resources/schemas/presentation.json
+        cp resources/schemas/task.json resources/schemas/task.json
+    
+    - name: Run tests
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+      run: |
+        source venv/bin/activate
+        pytest --alluredir=allure-results
 
-      - name: Publish Allure Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-results
-          path: allure-results
+    - name: Publish Allure Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-results
+        path: allure-results
 
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        with:
-          allure_results: allure-results
-          allure_report: allure-report
-          allure_history: allure-history
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      with:
+        allure_results: allure-results
+        allure_report: allure-report
+        allure_history: allure-history
 
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          publish_branch: gh-pages
-          publish_dir: allure-report
+    - name: Deploy report to Github Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GH_PAT }}
+        publish_branch: gh-pages
+        publish_dir: allure-report
