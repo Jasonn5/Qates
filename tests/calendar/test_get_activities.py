@@ -1,4 +1,4 @@
-'''import allure
+import allure
 import pytest
 from resources.auth.auth import Auth
 from api.request.api_request import EspoCRMRequest
@@ -239,4 +239,3 @@ def test_get_activity_with_agenda_any_value(get_headers, setup_data):
 
     assert_status_code_ok(response)
     assert_size_array(response)
-'''
