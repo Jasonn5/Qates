@@ -13,9 +13,9 @@ import allure
 @allure.story('Get Presentations')
 @pytest.mark.smoke
 @pytest.mark.functional
-def test_get_meetings_success(get_headers):
-    url = MeetingEndpoints.get_meeting_without_params()
-    headers = Auth().auth_valid_credential(get_headers)
+def test_get_meetings_success(setup_teardown_meeting):
+    headers, meeting_id = setup_teardown_meeting
+    url = MeetingEndpoints.get_meeting_by_id(meeting_id)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
 
@@ -23,18 +23,18 @@ def test_get_meetings_success(get_headers):
 @allure.story('Get Presentations')
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_meetings_schema_validation(get_headers):
+def test_get_meetings_schema_validation(setup_teardown_meeting):
+    headers, meeting_id = setup_teardown_meeting
     url = MeetingEndpoints.get_meeting_without_params()
-    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_schema_presentation(response.json())
 
 @allure.feature('Presentations - Jeyson Valdivia')
 @allure.story('Get Presentations')
 @pytest.mark.functional
-def test_get_meetings_response_format(get_headers):
+def test_get_meetings_response_format(setup_teardown_meeting):
+    headers, meeting_id = setup_teardown_meeting
     url = MeetingEndpoints.get_meeting_without_params()
-    headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_content_type_application_json(response)
 
