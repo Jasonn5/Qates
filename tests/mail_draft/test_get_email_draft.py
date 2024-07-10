@@ -220,7 +220,7 @@ def test_get_drafts_with_invalid_order_type(get_headers):
     response = requests.get(url, headers=headers)
     assert_status_bad_request(response)
     '''
-    Este error se encuentra reportado en el BUG-46
+    Este error se encuentra reportado en el BUG--46
     '''
 
 @allure.suite('EspoCRM')
