@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ develop ]
     types: [ opened, reopened, synchronize ]
-  workflow_dispatch:  
+  workflow_dispatch:  # Para permitir ejecuciones manuales
 
 jobs:
   test:
@@ -29,54 +29,6 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
 
-    - name: Copy JSON files
-      run: |
-        mkdir -p resources/payloads/mail_draft
-        mkdir -p resources/payloads/activities
-        mkdir -p resources/payloads/calls
-        mkdir -p resources/payloads/contact
-        mkdir -p resources/payloads/mail_important
-        mkdir -p resources/payloads/meeting
-        mkdir -p resources/payloads/tasks
-        mkdir -p resources/schemas
-
-        # Mail Draft Payloads
-        cp resources/payloads/mail_draft/payload_email_draft_success.json resources/payloads/mail_draft/payload_email_draft_success.json
-        cp resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json
-
-        # Activities Payloads
-        cp resources/payloads/activities/payload_activities.json resources/payloads/activities/payload_activities.json
-
-        # Calls Payloads
-        cp resources/payloads/calls/payload_call.json resources/payloads/calls/payload_call.json
-        cp resources/payloads/calls/payload_call.py resources/payloads/calls/payload_call.py
-
-        # Contact Payloads
-        cp resources/payloads/contact/payload_contact.py resources/payloads/contact/payload_contact.py
-        cp resources/payloads/contact/payload_contact_full_values.py resources/payloads/contact/payload_contact_full_values.py
-
-        # Mail Important Payloads
-        cp resources/payloads/mail_important/payload_mail_important.json resources/payloads/mail_important/payload_mail_important.json
-
-        # Meeting Payloads
-        cp resources/payloads/meeting/payload_meeting.json resources/payloads/meeting/payload_meeting.json
-
-        # Tasks Payloads
-        cp resources/payloads/tasks/payload_schema_task.json resources/payloads/tasks/payload_schema_task.json
-        cp resources/payloads/tasks/payload_tasks.py resources/payloads/tasks/payload_tasks.py
-
-        # Schemas
-        cp resources/schemas/activity.json resources/schemas/activity.json
-        cp resources/schemas/contact_error_post.json resources/schemas/contact_error_post.json
-        cp resources/schemas/contact_post.json resources/schemas/contact_post.json
-        cp resources/schemas/correoImportant.json resources/schemas/correoImportant.json
-        cp resources/schemas/email.json resources/schemas/email.json
-        cp resources/schemas/get_completeFields_all_calls_schema.json resources/schemas/get_completeFields_all_calls_schema.json
-        cp resources/schemas/payload_meeting_schema.json resources/schemas/payload_meeting_schema.json
-        cp resources/schemas/post_call_schema_response.json resources/schemas/post_call_schema_response.json
-        cp resources/schemas/presentation.json resources/schemas/presentation.json
-        cp resources/schemas/task.json resources/schemas/task.json
-    
     - name: Run tests
       env:
         PYTHONPATH: ${{ github.workspace }}
