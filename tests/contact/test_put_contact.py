@@ -1,4 +1,4 @@
-'''import allure
+import allure
 import pytest
 from resources.auth.auth import Auth
 from api.request.api_request import EspoCRMRequest
@@ -70,4 +70,3 @@ def test_update_contact_schema_validation(get_headers):
     response = EspoCRMRequest.put(put_url, headers=headers, payload=put_payload)
     response_json = response.json()
     assert_schema_contact_put(response_json)
-'''
