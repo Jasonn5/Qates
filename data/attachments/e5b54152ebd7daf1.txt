@@ -1,0 +1,2 @@
+test initialized
+{'messageTranslation': {'label': 'validationFailure', 'scope': None, 'data': {'field': 'dateStart', 'type': 'valid'}}}
