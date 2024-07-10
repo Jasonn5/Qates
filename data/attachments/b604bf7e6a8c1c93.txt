@@ -1,2 +1,0 @@
-
- This is the status-code of the response: 200
