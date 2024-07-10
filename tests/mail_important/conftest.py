@@ -3,6 +3,7 @@ import base64
 import requests
 from core.config.config import BASE_URI
 from resources.auth.auth import Auth
+from api.endpoints.mail_important import EndpointCorreoImportant
 
 @pytest.fixture
 def email_insert_image_payload(load_image_data):
@@ -31,7 +32,7 @@ def teardown_email(get_headers):
     yield created_emails
 
     for email_id in created_emails:
-        url = f"{BASE_URI}/Email/{email_id}"
+        url = f"{EndpointCorreoImportant.GET_MAIL_IMPORTANT}{email_id}"
         headers = Auth().auth_valid_credential(get_headers)
         response = requests.delete(url, headers=headers)
         assert response.status_code == 200, f"Failed to delete email {email_id}"

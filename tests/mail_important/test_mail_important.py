@@ -16,7 +16,7 @@ def test_get_email_success(get_headers):
     """
     1. Verificar que obtenga todos los mensajes marcados como Importantes - Status code 200 OK
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_IMPORTANT.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
@@ -28,7 +28,7 @@ def test_get_email_schema_validation(get_headers):
     """
     2. Verificar que el parámetro 'select' contenga algunos campos válidos - Status code 200 OK
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_IMPORTANT.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     print("\n reponce del Get de correos \n" + str(response.json()))
@@ -41,7 +41,7 @@ def test_get_email_response_format(get_headers):
     """
     3. Verificar que el formato de la respuesta sea 'application/json'
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_IMPORTANT.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_content_type_application_json(response)
@@ -53,7 +53,7 @@ def test_get_email_invalid_authorization_in_headers(get_headers):
     """
     4. Verificar que el header tenga una BasicAuthorization errónea - Status code 401 Unauthorized
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_IMPORTANT.value}"
     headers = Auth().auth_invalid_credentials(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
@@ -64,7 +64,7 @@ def test_get_email_invalid_cookie_in_headers(get_header_cookie):
     """
     5. Verificar que el header tenga una cookie sin auth-token-secret - Status code 401 Unauthorized
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_IMPORTANT.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_IMPORTANT.value}"
     headers = Auth().auth_valid_credential(get_header_cookie)
     headers['Cookie'] = 'wrongCookie'
     response = EspoCRMRequest.get_with_url_headers(url, headers)
