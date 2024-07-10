@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 import allure
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.mail_important import EndpointCorreoImportant
@@ -154,4 +154,4 @@ def test_post_email_insert_image_server_down(get_headers, email_insert_image_pay
     print(f"Response status code: {response.status_code}")
     assert_status_code_service_unavailable(response)
 
-'''
+
