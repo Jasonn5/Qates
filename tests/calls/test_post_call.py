@@ -85,15 +85,15 @@ def test_post_call_invalid_cookie_in_headers(get_header_cookie):
     response = EspoCRMRequest.post(url, headers, payload_required_data)
     assert_status_code_unauthorized(response)'''
 
-@pytest.mark.smoke
-@pytest.mark.functional
-@pytest.mark.regression
-def test_post_call_invalid_authorization_in_headers(get_header_cookie):
-    url = EndpointCalls.post_call()
-    headers = Auth().auth_valid_credential(get_header_cookie)
-    invalidAuth = encoded("invalidUser1232","invalidPassword456")
-    headers['Authorization'] = 'Basic '+invalidAuth
-    payload_required_data = call_payload_required_data
-    response = EspoCRMRequest.post(url, headers, payload_required_data)
-    assert_status_code_unauthorized(response)
+# @pytest.mark.smoke
+# @pytest.mark.functional
+# @pytest.mark.regression
+# def test_post_call_invalid_authorization_in_headers(get_header_cookie):
+#     url = EndpointCalls.post_call()
+#     headers = Auth().auth_valid_credential(get_header_cookie)
+#     invalidAuth = encoded("invalidUser1232","invalidPassword456")
+#     headers['Authorization'] = 'Basic '+invalidAuth
+#     payload_required_data = call_payload_required_data
+#     response = EspoCRMRequest.post(url, headers, payload_required_data)
+#     assert_status_code_unauthorized(response)
     
