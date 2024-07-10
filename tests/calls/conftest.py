@@ -1,9 +1,20 @@
+import json
+
 import pytest
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
 from core.payloads.calls.pyload_call import call_payload_required_data
 from resources.auth.auth import Auth
 
+@pytest.fixture(scope="module")
+def base_payload_post():
+    with open('core/payloads/calls/payload_call_data.json', 'r') as file:
+        return json.load(file)
+
+@pytest.fixture(scope="module")
+def base_payload_delete():
+    with open('payloads/calls/payload_delete_more_than_one_call.json', 'r') as file:
+        return json.load(file)
 
 #@staticmethod
 def teardown_call(id_call, headers):
