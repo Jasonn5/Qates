@@ -29,54 +29,6 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
 
-    - name: Create dummy JSON files
-      run: |
-        mkdir -p core/payloads/mail_draft
-        mkdir -p core/payloads/activities
-        mkdir -p core/payloads/calls
-        mkdir -p core/payloads/contact
-        mkdir -p core/payloads/mail_important
-        mkdir -p core/payloads/meeting
-        mkdir -p core/payloads/tasks
-        mkdir -p resources/schemas
-
-        # Mail Draft Payloads
-        echo '{}' > core/payloads/mail_draft/payload_email_draft_success.json
-        echo '{}' > core/payloads/mail_draft/payload_email_draft_invalid_email_format.json
-
-        # Activities Payloads
-        echo '{}' > core/payloads/activities/payload_activities.json
-
-        # Calls Payloads
-        echo '{}' > core/payloads/calls/payload_call.json
-        echo '{}' > core/payloads/calls/payload_call.py
-
-        # Contact Payloads
-        echo '{}' > core/payloads/contact/payload_contact.py
-        echo '{}' > core/payloads/contact/payload_contact_full_values.py
-
-        # Mail Important Payloads
-        echo '{}' > core/payloads/mail_important/payload_mail_important.json
-
-        # Meeting Payloads
-        echo '{}' > core/payloads/meeting/payload_meeting.json
-
-        # Tasks Payloads
-        echo '{}' > core/payloads/tasks/payload_schema_task.json
-        echo '{}' > core/payloads/tasks/payload_tasks.py
-
-        # Schemas
-        echo '{}' > resources/schemas/activity.json
-        echo '{}' > resources/schemas/contact_error_post.json
-        echo '{}' > resources/schemas/contact_post.json
-        echo '{}' > resources/schemas/correoImportant.json
-        echo '{}' > resources/schemas/email.json
-        echo '{}' > resources/schemas/get_completeFields_all_calls_schema.json
-        echo '{}' > resources/schemas/payload_meeting_schema.json
-        echo '{}' > resources/schemas/post_call_schema_response.json
-        echo '{}' > resources/schemas/presentation.json
-        echo '{}' > resources/schemas/task.json
-
     - name: Run tests
       env:
         PYTHONPATH: ${{ github.workspace }}
