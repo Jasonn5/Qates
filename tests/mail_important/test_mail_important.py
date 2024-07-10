@@ -108,7 +108,7 @@ def test_get_mail_valid_offset_parameter(get_header_cookie):
     """
     6. Verificar que el parámetro 'offset' tenga un valor máximo válido - Status code 200 OK
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_OFFSET_1000.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_OFFSET_1000.value}"
     headers = Auth().auth_valid_credential(get_header_cookie)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
@@ -125,7 +125,7 @@ def test_get_mail_valid_maxsize_parameter(get_headers):
     """
     7. Verificar que el parámetro 'maxsize' tenga un valor mínimo válido - Status code 200 OK
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_MAXSIZE_1.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_MAXSIZE_1.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_ok(response)
@@ -141,7 +141,7 @@ def test_get_mail_invalid_order_parameter(get_headers):
     """
     8. Verificar que el parámetro 'order' contenga valores numéricos/booleanos/strings - Status code 400 Bad Request
     """
-    url = f"{BASE_URI}{EndpointCorreoImportant.GET_CORREO_INVALID_ORDER.value}"
+    url = f"{BASE_URI}{EndpointCorreoImportant.GET_MAIL_INVALID_ORDER.value}"
     headers = Auth().auth_valid_credential(get_headers)
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert response.status_code == 400
