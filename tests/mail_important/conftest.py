@@ -2,27 +2,28 @@ import pytest
 import base64
 import requests
 from core.config.config import BASE_URI
+from api.params.email_important_params import USERNAME, PASSWORD
 from resources.auth.auth import Auth
 
 @pytest.fixture
-def email_insert_image_payload():
-    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+def email_insert_image_payload(load_image_data):
+    return {"emailId": "validEmailId", "imageData": load_image_data}
 
 @pytest.fixture
-def invalid_email_id_payload():
-    return {"emailId": "invalidEmailId", "imageData": "base64ImageData"}
+def invalid_email_id_payload(load_image_data):
+    return {"emailId": "invalidEmailId", "imageData": load_image_data}
 
 @pytest.fixture
-def large_image_payload():
-    return {"emailId": "validEmailId", "imageData": "largeBase64ImageData"}
+def large_image_payload(load_large_image_data):
+    return {"emailId": "validEmailId", "imageData": load_large_image_data}
 
 @pytest.fixture
 def empty_body_payload():
     return {}
 
 @pytest.fixture
-def valid_email_payload():
-    return {"emailId": "validEmailId", "imageData": "base64ImageData"}
+def valid_email_payload(load_image_data):
+    return {"emailId": "validEmailId", "imageData": load_image_data}
 
 @pytest.fixture
 def teardown_email(get_headers):
@@ -31,44 +32,40 @@ def teardown_email(get_headers):
     yield created_emails
 
     for email_id in created_emails:
-        url = f"https://espo.spartan-soft.com/api/v1/Email/{email_id}"
-        headers = Auth().auth_valid_credential(get_headers)
+        url = f"{BASE_URI}/Email/{email_id}"
+        headers = get_headers(USERNAME, PASSWORD)
         response = requests.delete(url, headers=headers)
         assert response.status_code == 200, f"Failed to delete email {email_id}"
 
 @pytest.fixture
-def valid_email_payload():
-    return {
-        "emailId": "validEmailId",
-        "imageData": "base64ImageData"
-    }
+def load_image_data():
+    try:
+        with open('resources/images/image.png', 'rb') as image_file:
+            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+            print(f"Loaded image data: {image_data[:100]}...")  # Debugging output
+            return image_data
+    except Exception as e:
+        print(f"Failed to load image: {e}")
+        raise
 
 @pytest.fixture
-def large_image_payload():
-    return {
-        "emailId": "validEmailId",
-        "imageData": "largeBase64ImageData"  # Simulated large image data
-    }
+def load_large_image_data():
+    try:
+        with open('resources/images/large_image.png', 'rb') as image_file:
+            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+            print(f"Loaded large image data: {image_data[:100]}...")  # Debugging output
+            return image_data
+    except Exception as e:
+        print(f"Failed to load large image: {e}")
+        raise
+
 @pytest.fixture
-def create_important_email(get_headers):
-    created_emails = []
-
-    def _create_important_email():
-        url = f"{BASE_URI}/Email"
-        headers = get_headers()
-        payload = {"emailId": "importantEmailId", "isImportant": True}
-        response = requests.post(url, headers=headers, json=payload)
-        assert response.status_code == 200, "Failed to create important email"
-        email_id = response.json().get('id')
-        created_emails.append(email_id)
-        return email_id
-
-    yield _create_important_email
-
-    # Teardown: Eliminar correos importantes creados
-    for email_id in created_emails:
-        url = f"{BASE_URI}/Email/inbox/important/{email_id}"
-        headers = get_headers()
-        response = requests.delete(url, headers=headers)
-        assert response.status_code == 200, f"Failed to delete important email {email_id}"
+def get_headers():
+    def _get_headers(username=USERNAME, password=PASSWORD):
+        auth = base64.b64encode(f"{username}:{password}".encode()).decode()
+        return {
+            "Authorization": f"Basic {auth}",
+            "Content-Type": "application/json"
+        }
+    return _get_headers
 
