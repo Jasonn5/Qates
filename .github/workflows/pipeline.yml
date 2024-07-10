@@ -4,7 +4,6 @@ on:
   push:
     branches: [ develop ]
   pull_request:
-    branches: [ develop ]
     types: [ opened, reopened, synchronize ]
 
 jobs:
@@ -56,4 +55,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: allure-history
+
 
