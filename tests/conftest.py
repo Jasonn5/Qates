@@ -1,7 +1,5 @@
 import base64
 import pytest
-from resources.auth.auth import Auth
-
 @pytest.fixture
 def get_headers():
     def _get_headers(username, password):
