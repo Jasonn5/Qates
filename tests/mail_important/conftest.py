@@ -2,7 +2,6 @@ import pytest
 import base64
 import requests
 from core.config.config import BASE_URI
-from api.params.email_important_params import USERNAME, PASSWORD
 from resources.auth.auth import Auth
 
 @pytest.fixture
@@ -33,7 +32,7 @@ def teardown_email(get_headers):
 
     for email_id in created_emails:
         url = f"{BASE_URI}/Email/{email_id}"
-        headers = get_headers(USERNAME, PASSWORD)
+        headers = Auth().auth_valid_credential(get_headers)
         response = requests.delete(url, headers=headers)
         assert response.status_code == 200, f"Failed to delete email {email_id}"
 
@@ -59,13 +58,5 @@ def load_large_image_data():
         print(f"Failed to load large image: {e}")
         raise
 
-@pytest.fixture
-def get_headers():
-    def _get_headers(username=USERNAME, password=PASSWORD):
-        auth = base64.b64encode(f"{username}:{password}".encode()).decode()
-        return {
-            "Authorization": f"Basic {auth}",
-            "Content-Type": "application/json"
-        }
-    return _get_headers
+
 

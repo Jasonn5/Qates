@@ -5,5 +5,3 @@ EMAIL_IMPORTANT_PARAM = {
     'orderBy': 'dateStart',
     'order': 'asc'
 }
-USERNAME = "admin"
-PASSWORD = "admin"

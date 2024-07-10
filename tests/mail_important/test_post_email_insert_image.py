@@ -7,10 +7,16 @@ from core.config.config import BASE_URI
 from resources.auth.auth import Auth
 import requests
 
-@pytest.mark.functional
-@pytest.mark.regression
+
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+
 def test_post_email_insert_image_invalid_email_id(get_headers, invalid_email_id_payload):
     """
     Verify addition of image to email with invalid email ID - status code 400 Bad Request
@@ -21,11 +27,15 @@ def test_post_email_insert_image_invalid_email_id(get_headers, invalid_email_id_
     print(f"Response status code: {response.status_code}")
     assert_status_bad_request(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Email Insert Image')
+@allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-@allure.feature('Email Insert Image')
-@allure.story('Post Email Insert Image')
+
 def test_post_email_insert_image_without_auth_header(email_insert_image_payload):
     """
     Verify addition of image to email without authorization header - status code 401
@@ -36,11 +46,15 @@ def test_post_email_insert_image_without_auth_header(email_insert_image_payload)
     print(f"Response status code: {response.status_code}")
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Email Insert Image')
+@allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-@allure.feature('Email Insert Image')
-@allure.story('Post Email Insert Image')
+
 def test_post_email_insert_image_invalid_auth_token(get_headers, email_insert_image_payload):
     """
     Verify addition of image to email with invalid authorization token - status code 401
@@ -51,11 +65,15 @@ def test_post_email_insert_image_invalid_auth_token(get_headers, email_insert_im
     print(f"Response status code: {response.status_code}")
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
+@allure.feature('Email Insert Image')
+@allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-@allure.feature('Email Insert Image')
-@allure.story('Post Email Insert Image')
+
 def test_post_email_insert_image_network_timeout(get_headers, email_insert_image_payload, monkeypatch):
     """
     Verify addition of image to email with network timeout - status code 504 Gateway Timeout
@@ -71,10 +89,15 @@ def test_post_email_insert_image_network_timeout(get_headers, email_insert_image
     with pytest.raises(requests.exceptions.Timeout):
         EspoCRMRequest.post_json(url, headers, email_insert_image_payload)
 
-@pytest.mark.functional
-@pytest.mark.regression
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+
 def test_post_email_insert_image_empty_request_body(get_headers, empty_body_payload):
     """
     Verify addition of image to email with empty request body - status code 400 Bad Request
@@ -85,10 +108,15 @@ def test_post_email_insert_image_empty_request_body(get_headers, empty_body_payl
     print(f"Response status code: {response.status_code}")
     assert_status_bad_request(response)
 
-@pytest.mark.functional
-@pytest.mark.regression
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+
 def test_post_email_insert_image_unauthorized_user(get_headers, email_insert_image_payload):
     """
     Verify addition of image to email by unauthorized user - status code 401
@@ -99,10 +127,15 @@ def test_post_email_insert_image_unauthorized_user(get_headers, email_insert_ima
     print(f"Response status code: {response.status_code}")
     assert_status_code_unauthorized(response)
 
-@pytest.mark.functional
-@pytest.mark.regression
+@allure.suite('EspoCRM')
+@allure.sub_suite('Ericka')
 @allure.feature('Email Insert Image')
 @allure.story('Post Email Insert Image')
+@allure.tag('author: Ericka')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+
 def test_post_email_insert_image_server_down(get_headers, email_insert_image_payload, monkeypatch):
     """
     Verify addition of image to email when server is down - status code 503 Service Unavailable
