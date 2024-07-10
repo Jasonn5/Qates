@@ -1,4 +1,4 @@
-from config.config import BASE_URI
+from core.config.config import BASE_URI
 
 class MeetingEndpoints:
     @staticmethod

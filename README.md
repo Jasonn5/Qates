@@ -2,7 +2,7 @@
 
 ## Team: Qates
 
-Este repositorio contiene pruebas automatizadas para la API de EspoCRM, específicamente para el manejo de reuniones (`Calendar`) (`Calls`) (`Mails`) (`Presentations`) (`Task`). Utiliza `pytest` como marco de pruebas y `requests` para realizar las solicitudes HTTP.
+Este repositorio contiene pruebas automatizadas para la API de EspoCRM, específicamente para el manejo de reuniones (`Calendar`) (`Calls`) (`Mails`) (`Meetings`) (`Task`). Utiliza `pytest` como marco de pruebas y `requests` para realizar las solicitudes HTTP.
 
 ## Estructura del Proyecto
 
@@ -18,26 +18,117 @@ Este repositorio contiene pruebas automatizadas para la API de EspoCRM, específ
 El proyecto tiene la siguiente estructura:
 
 ```bash 
-├── src
-│ ├── assertions
-│ ├── api_endpoints
-│ ├── resources
-│   ├── auth
-│   ├── credentials
-│   ├── schemas
-│ ├── utils
-├── tests
-│ ├── calendar
-│ ├── calls
-│ ├── correo_borrador
-│ ├── coreo_importante
-│ ├── login
-│ ├── presentations
-│ ├── tasks
+QAstes/
+│
+├── api/
+│   ├── endpoints/
+│   │   ├── activities.py
+│   │   ├── calls.py
+│   │   ├── contact.py
+│   │   ├── mail_draft.py
+│   │   ├── mail_important.py
+│   │   ├── meeting.py
+│   │   └── task.py
+│   ├── requests/
+│   │   └── api_request.py
+│   ├── params/
+│       ├── activities_params.py
+│       ├── call_params.py
+│       ├── email_important_params.py
+│       ├── meeting_params.json
+│       └── task_params.json
+│       └── task_params_list.json
+│
+├── core/
+│   ├── assertions/
+│   │   ├── calendar.py
+│   │   ├── comparison.py
+│   │   ├── content.py
+│   │   ├── headers.py
+│   │   ├── payloads.py
+│   │   ├── response_data.py
+│   │   ├── schemas.py
+│   │   └── status.py
+│   ├── config/
+│   │   └── config.py
+│   ├── payloads/
+│   │   ├── activities/
+│   │   │   └── payload_activities.json
+│   │   ├── calls/
+│   │   │   ├── payload_call.json
+│   │   │   └── payload_call.py
+│   │   ├── contact/
+│   │   │   ├── payload_contact.py
+│   │   │   └── payload_contact_full_values.py
+│   │   ├── mail_draft/
+│   │   │   ├── payload_email_draft.json
+│   │   │   ├── payload_email_draft_invalid_email_format.json
+│   │   │   └── payload_email_draft_success.json
+│   │   ├── mail_important/
+│   │   │   └── payload_mail_important.json
+│   │   ├── meeting/
+│   │   │   └── payload_meeting.json
+│   │   ├── tasks/
+│   │   │   ├── payload_schema_task.json
+│   │   │   └── payload_tasks.py
+│   ├── utils/
+│       └── load_resources.py
+│
+├── resources/
+│   ├── auth/
+│   │   └── auth.py
+│   ├── credentials/
+│   │   └── user.json
+│   └── schemas/
+│       ├── activity.json
+│       ├── contact_error_post.json
+│       ├── contact_post.json
+│       ├── correoImportant.json
+│       ├── email.json
+│       ├── get_completeFields_all_calls_schema.json
+│       ├── payload_meeting_schema.json
+│       ├── post_call_schema_response.json
+│       ├── presentation.json
+│       └── task.json
+│
+├── tests/
+│   ├── calendar/
+│   │   ├── conftest.py
+│   │   └── test_get_activities.py
+│   ├── calls/
+│   │   ├── conftest.py
+│   │   ├── test_delete_calls.py
+│   │   ├── test_get_calls.py
+│   │   └── test_post_call.py
+│   ├── contact/
+│   │   ├── conftest.py
+│   │   └── test_post_contact.py
+│   │   └── test_put_contact.py
+│   ├── login/
+│   │   └── test_login.py
+│   ├── mail_draft/
+│   │   ├── conftest.py
+│   │   ├── test_get_email_draft.py
+│   │   └── test_post_email_draft.py
+│   ├── mail_important/
+│   │   ├── conftest.py
+│   │   └── test_delete_mail_important.py
+│   │   └── test_mail_important.py
+│   │   └── test_post_email_insert_important.py
+│   ├── meeting/
+│   │   ├── conftest.py
+│   │   ├── test_delete_meeting.py
+│   │   ├── test_get_meeting.py
+│   │   └── test_post_meeting.py
+│   └── task/
+│       ├── conftest.py
+│       ├── test_get_task.py
+│       └── test_post_create_task.py
+│
 ├── .gitignore
-├── config.py
-├── conftest.py
-└── README.md
+├── README.md
+├── requirements.txt
+└── venv/
 ```
 
 ## Instalación

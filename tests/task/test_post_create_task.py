@@ -1,11 +1,11 @@
 import pytest
 
-from api_endpoints.api_request import EspoCRMRequest
-from assertions.assertion_status import assert_status_code_ok, assert_status_bad_request, assert_status_code_unauthorized, assert_status_code_method_not_allowed
-from api_endpoints.task_ednpoints import TaskEnpoints
+from api.request.api_request import EspoCRMRequest
+from core.assertions.status import assert_status_code_ok, assert_status_bad_request, assert_status_code_unauthorized
+from api.endpoints.task import TaskEnpoints
 from tests.task.conftest import delete_task
 from resources.auth.auth import Auth
-from payloads.tasks.payload_tasks import payload_task
+from core.payloads.tasks.payload_tasks import payload_task
 
 @pytest.mark.smoke
 @pytest.mark.functional

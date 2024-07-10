@@ -1,12 +1,12 @@
 import pytest
 import json
-from api_endpoints.meeting_endpoints import MeetingEndpoints
-from api_endpoints.api_request import EspoCRMRequest
+from api.endpoints.meeting import MeetingEndpoints
+from api.request.api_request import EspoCRMRequest
 from resources.auth.auth import Auth
 
 @pytest.fixture(scope="module")
 def base_payload():
-    with open('payloads/meeting/payload_meeting.json', 'r') as file:
+    with open('core/payloads/meeting/payload_meeting.json', 'r') as file:
         return json.load(file)
 
 @pytest.fixture(scope="function")

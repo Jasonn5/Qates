@@ -78,7 +78,7 @@ def load_schema(schema_path):
     with open(schema_path, "r") as schema_file:
         return json.load(schema_file)
 
-email_insert_image_schema = load_schema("payloads/mail_important/payload_schema_email_insert_image.json")
+email_insert_image_schema = load_schema("core/payloads/mail_important/payload_schema_email_insert_image.json")
 
 
 

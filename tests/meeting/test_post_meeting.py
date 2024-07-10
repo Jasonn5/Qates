@@ -1,9 +1,9 @@
 import pytest
-from assertions.assertion_status import *
-from assertions.assertion_schemas import assert_payload_presentation_schema
+from core.assertions.status import *
+from core.assertions.schemas import assert_payload_presentation_schema
 from resources.auth.auth import Auth
-from api_endpoints.meeting_endpoints import MeetingEndpoints
-from api_endpoints.api_request import EspoCRMRequest
+from api.endpoints.meeting import MeetingEndpoints
+from api.request.api_request import EspoCRMRequest
 import allure
 
 @allure.feature('Presentations - Jeyson Valdivia')

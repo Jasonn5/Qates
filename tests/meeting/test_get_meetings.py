@@ -1,12 +1,12 @@
 import pytest
-from api_endpoints.api_request import EspoCRMRequest
-from config.config import MEETING_PARAM
-from assertions.assertion_schemas import assert_schema_presentation
-from assertions.assertion_status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_bad_request
-from assertions.assertion_headers import assert_content_type_application_json
-from assertions.assertion_comparison import assert_less_than_or_equal_to, assert_equal_to
+from api.request.api_request import EspoCRMRequest
+from api.params.meeting_params import MEETING_PARAM
+from core.assertions.schemas import assert_schema_presentation
+from core.assertions.status import assert_status_code_ok, assert_status_code_unauthorized, assert_status_bad_request
+from core.assertions.headers import assert_content_type_application_json
+from core.assertions.comparison import assert_less_than_or_equal_to, assert_equal_to
 from resources.auth.auth import Auth
-from api_endpoints.meeting_endpoints import MeetingEndpoints
+from api.endpoints.meeting import MeetingEndpoints
 import allure
 
 @allure.feature('Presentations - Jeyson Valdivia')

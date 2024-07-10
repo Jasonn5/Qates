@@ -1,9 +1,9 @@
 import pytest
-from assertions.assertion_status import *
+from core.assertions.status import *
 from resources.auth.auth import Auth
-from api_endpoints.meeting_endpoints import MeetingEndpoints
-from api_endpoints.api_request import EspoCRMRequest
-from assertions.assertion_headers import *
+from api.endpoints.meeting import MeetingEndpoints
+from api.request.api_request import EspoCRMRequest
+from core.assertions.headers import *
 import allure
 
 @allure.feature('Presentations - Jeyson Valdivia')
@@ -12,7 +12,6 @@ import allure
 @pytest.mark.smoke
 def test_delete_existing_meeting(setup_create_meeting):
     headers, meeting_id = setup_create_meeting
-    print(meeting_id)
     delete_url = MeetingEndpoints.delete_meeting(meeting_id)
     response = EspoCRMRequest.delete(delete_url, headers)
     assert_status_code_ok(response)

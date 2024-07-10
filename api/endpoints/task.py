@@ -6,7 +6,7 @@ class EndpointTask(Enum):
     GET_TASK_IN_LIST = "/Task?"
     POST_TASK_WITHOUT_PARAMS = "/Task"
 
-from config.config import BASE_URI
+from core.config.config import BASE_URI
 
 class TaskEnpoints:
     @staticmethod

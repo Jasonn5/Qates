@@ -1,8 +1,8 @@
 import pytest
 import requests
 
-from api_endpoints.task_ednpoints import TaskEnpoints
-from api_endpoints.api_request import EspoCRMRequest
+from api.endpoints.task import TaskEnpoints
+from api.request.api_request import EspoCRMRequest
 from resources.auth.auth import Auth
 
 
