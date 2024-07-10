@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ develop ]
     types: [ opened, reopened, synchronize ]
-  workflow_dispatch:  # Para permitir ejecuciones manuales
+  workflow_dispatch:  
 
 jobs:
   test:
@@ -28,6 +28,30 @@ jobs:
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
+
+    - name: Verify JSON files
+      run: |
+        test -f resources/payloads/mail_draft/payload_email_draft_success.json
+        test -f resources/payloads/mail_draft/payload_email_draft_invalid_email_format.json
+        test -f resources/payloads/activities/payload_activities.json
+        test -f resources/payloads/calls/payload_call.json
+        test -f resources/payloads/calls/payload_call.py
+        test -f resources/payloads/contact/payload_contact.py
+        test -f resources/payloads/contact/payload_contact_full_values.py
+        test -f resources/payloads/mail_important/payload_mail_important.json
+        test -f resources/payloads/meeting/payload_meeting.json
+        test -f resources/payloads/tasks/payload_schema_task.json
+        test -f resources/payloads/tasks/payload_tasks.py
+        test -f resources/schemas/activity.json
+        test -f resources/schemas/contact_error_post.json
+        test -f resources/schemas/contact_post.json
+        test -f resources/schemas/correoImportant.json
+        test -f resources/schemas/email.json
+        test -f resources/schemas/get_completeFields_all_calls_schema.json
+        test -f resources/schemas/payload_meeting_schema.json
+        test -f resources/schemas/post_call_schema_response.json
+        test -f resources/schemas/presentation.json
+        test -f resources/schemas/task.json
 
     - name: Run tests
       env:
@@ -57,3 +81,4 @@ jobs:
         github_token: ${{ secrets.GH_PAT }}
         publish_branch: gh-pages
         publish_dir: allure-report
+
