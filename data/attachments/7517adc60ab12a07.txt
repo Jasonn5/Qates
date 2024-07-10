@@ -1,0 +1,6 @@
+
+ This is the maxsize sent through params: 1
+
+ This is the size of the list of the response: 1
+
+ {'total': 942, 'list': [{'id': '6685e01a2b0e18d2d', 'dateStart': '2024-07-10 23:15:00', 'dateEnd': '2024-07-11 01:15:00', 'parentName': None, 'createdById': '66744ee8d0ffd7849', 'assignedUserId': '66744ee8d0ffd7849'}]}
