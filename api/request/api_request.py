@@ -24,6 +24,7 @@ class EspoCRMRequest:
 
     @staticmethod
     def delete(url, headers):
+        print("headers sent: "+ str(headers))
         response = requests.delete(url, headers=headers)
         return response
 
@@ -45,4 +46,9 @@ class EspoCRMRequest:
     @staticmethod
     def put(url, headers, payload):
         response = requests.put(url, headers=headers, data=payload)
+        return response
+
+    @staticmethod
+    def delete_more_than_one_item(url, headers, payload):
+        response = requests.delete(url, headers=headers, data=payload)
         return response

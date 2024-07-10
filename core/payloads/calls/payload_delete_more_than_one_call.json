@@ -1,0 +1,18 @@
+{
+    "entityType": "Call",
+    "action": "delete",
+    "params": {
+        "ids": [
+            "668e1abd0461abbcf",
+            "668e1abb9eb270253",
+            "668e1a20ac7ba7d6d",
+            "668e1a1f1d593400e",
+            "668e1a128ef2c6476",
+            "668e1a11158130daa",
+            "668e11bc380d4781d",
+            "668e11baaa017a8fb",
+            "668e11ae94ddfb9ae"
+        ]
+    },
+    "idle": false
+}

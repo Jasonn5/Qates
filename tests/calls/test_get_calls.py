@@ -1,3 +1,4 @@
+import allure
 import pytest
 from api.params.call_params import CALL_PARAM
 from tests.conftest import encoded
@@ -7,20 +8,82 @@ from core.assertions.response_data import assert_itemList_size_is_maxsize, \
 from core.assertions.schemas import assert_schema_call_with_specifiedFilters
 from core.assertions.headers import assert_content_type_application_json
 from core.assertions.status import assert_status_code_ok, assert_status_code_unauthorized, \
-    assert_status_bad_request
+    assert_status_bad_request, assert_status_code_not_found
 from api.request.api_request import EspoCRMRequest
 from api.endpoints.calls import EndpointCalls
 from resources.auth.auth import Auth
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-def test_get_calls_with_no_params_success(get_header_cookie):
+def test_get_call_by_id(get_header_cookie, setup_teardown_call):
+    headers, call_id = setup_teardown_call
+    test_params = CALL_PARAM.copy()
+    url = EndpointCalls.gel_call_by_id(call_id)
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
+    assert_status_code_ok(response)
+
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_non_existent_call_by_id(get_header_cookie, setup_teardown_call):
+    headers, call_id = setup_teardown_call
+    call_id = '111e1f1234818da20'
+    test_params = CALL_PARAM.copy()
+    url = EndpointCalls.gel_call_by_id(call_id)
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
+    assert_status_code_not_found(response)
+
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_call_by_invalid_id(get_header_cookie, setup_teardown_call):
+    headers, call_id = setup_teardown_call
+    call_id = '!""&#"%$/&/&=)(/='
+    test_params = CALL_PARAM.copy()
+    url = EndpointCalls.gel_call_by_id(call_id)
+    response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
+    assert_status_code_not_found(response)
+
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
+@pytest.mark.smoke
+@pytest.mark.functional
+@pytest.mark.regression
+def test_get_calls_with_no_params_success(get_header_cookie, setup_teardown_call):
     url = EndpointCalls.get_call_without_params()
     headers = Auth().auth_valid_credential(get_header_cookie)
     response = EspoCRMRequest.get_with_url_headers(url, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -31,6 +94,12 @@ def test_get_calls_with_no_params_schema_validation(get_header_cookie):
     assert_schema_calls_without_filters(response.json())
 
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_allCalls_with_no_params_format(get_header_cookie):
@@ -39,6 +108,12 @@ def test_get_allCalls_with_no_params_format(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers=headers)
     assert_content_type_application_json(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -49,6 +124,12 @@ def test_get_calls_invalid_cookie_in_headers(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
@@ -60,6 +141,12 @@ def test_get_calls_invalid_authorization_in_headers(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers(url, headers)
     assert_status_code_unauthorized(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_default_param(get_header_cookie):
@@ -68,6 +155,12 @@ def test_get_calls_with_default_param(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=CALL_PARAM, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_select_other_valid_data(get_header_cookie):
@@ -84,6 +177,12 @@ def test_get_calls_with_param_select_other_valid_data(get_header_cookie):
     Este error se encuentra reportado en el BUG-35
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_select_invalid_data(get_header_cookie):
@@ -98,6 +197,12 @@ def test_get_calls_with_param_select_invalid_data(get_header_cookie):
     Este error se encuentra reportado en el BUG-31
     '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_select_eliminated(get_header_cookie):
@@ -110,6 +215,12 @@ def test_get_calls_with_param_select_eliminated(get_header_cookie):
     assert_status_code_ok(response)
     assert_schema_calls_without_filters(response.json())
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_maxsize_other_valid_data(get_header_cookie):
@@ -121,6 +232,12 @@ def test_get_calls_with_param_maxsize_other_valid_data(get_header_cookie):
     assert_status_code_ok(response)
     assert_itemList_size_is_maxsize(response.json(), test_params_maxsize_changed['maxSize'])
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_maxsize_invalid_data(get_header_cookie):
@@ -135,6 +252,12 @@ def test_get_calls_with_param_maxsize_invalid_data(get_header_cookie):
     Este error se encuentra reportado en el BUG-27
      '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
@@ -146,6 +269,12 @@ def test_get_calls_with_param_maxsize_eliminated(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_offset_other_valid_data(get_header_cookie):
@@ -164,6 +293,12 @@ def test_get_calls_with_param_offset_other_valid_data(get_header_cookie):
 
     assert_offset_pagination_correctData(response_without_offset.json(), response_with_offset.json(), offset)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_offset_invalid_data(get_header_cookie):
@@ -178,6 +313,12 @@ def test_get_calls_with_param_offset_invalid_data(get_header_cookie):
 Este error se encuentra reportado en el BUG-28 
 '''
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_offset_eliminated(get_header_cookie):
@@ -189,6 +330,12 @@ def test_get_calls_with_param_offset_eliminated(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     assert_status_code_ok(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_order_by_and_order_other_valid_data(get_header_cookie):
@@ -201,6 +348,12 @@ def test_get_calls_with_param_order_by_and_order_other_valid_data(get_header_coo
     assert_status_code_ok(response)
     assert_list_acsOrder_with_OrderBy_Order_params(response.json())
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_order_by_and_order_invalid_data(get_header_cookie):
@@ -215,6 +368,12 @@ def test_get_calls_with_param_order_by_and_order_invalid_data(get_header_cookie)
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params_change_order, headers=headers)
     assert_status_bad_request(response)
 
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_order_by_eliminated(get_header_cookie):
@@ -226,6 +385,13 @@ def test_get_calls_with_param_order_by_eliminated(get_header_cookie):
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     assert_status_code_ok(response)
 
+
+@allure.suite('EspoCRM')
+@allure.sub_suite('Alison')
+@allure.epic('EspoCRM')
+@allure.feature('Calls')
+@allure.story('Get Call')
+@allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_get_calls_with_param_order_eliminated(get_header_cookie):
@@ -236,4 +402,7 @@ def test_get_calls_with_param_order_eliminated(get_header_cookie):
         del test_params['order']
     response = EspoCRMRequest.get_with_url_headers_params(url, params=test_params, headers=headers)
     assert_status_code_ok(response)
+
+
+
 
