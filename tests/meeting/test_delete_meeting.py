@@ -4,6 +4,7 @@ from resources.auth.auth import Auth
 from api.endpoints.meeting import MeetingEndpoints
 from api.request.api_request import EspoCRMRequest
 from core.assertions.headers import *
+from core.assertions.comparison import assert_equal_to
 import allure
 
 @allure.feature('Presentations - Jeyson Valdivia')
@@ -102,4 +103,4 @@ def test_delete_meeting_confirmation_response_body(get_headers, setup_create_mee
     delete_url = MeetingEndpoints.delete_meeting(meeting_id)
     delete_response = EspoCRMRequest.delete(delete_url, headers)
     assert_status_code_ok(delete_response)
-    assert delete_response.text == 'true'
+    assert_equal_to(delete_response.text, 'true')
