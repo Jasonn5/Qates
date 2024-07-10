@@ -1,4 +1,4 @@
-'''import pytest
+import pytest
 import allure
 from core.config.config import BASE_URI
 from core.assertions.schemas import assert_schema_correoImportant
@@ -175,4 +175,4 @@ def test_get_mail_invalid_basic_authorization(get_header_cookie):
     url = f"{BASE_URI}/Email"
     headers = {"Authorization": "Basic invalidcredentials"}
     response = EspoCRMRequest.get_with_url_headers(url, headers)
-    assert_status_code_unauthorized(response)'''
+    assert_status_code_unauthorized(response)
