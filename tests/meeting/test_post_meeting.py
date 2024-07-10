@@ -6,8 +6,12 @@ from api.endpoints.meeting import MeetingEndpoints
 from api.request.api_request import EspoCRMRequest
 import allure
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.smoke
 def test_post_meeting_success(get_headers, base_payload, teardown_delete_meeting):
@@ -19,8 +23,12 @@ def test_post_meeting_success(get_headers, base_payload, teardown_delete_meeting
     meeting_id = response.json().get('id')
     teardown_delete_meeting.append(meeting_id)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.regression
 def test_post_meetings_schema_validation(get_headers, base_payload, teardown_delete_meeting):
@@ -32,8 +40,12 @@ def test_post_meetings_schema_validation(get_headers, base_payload, teardown_del
     meeting_id = response.json().get('id')
     teardown_delete_meeting.append(meeting_id)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.smoke
 def test_post_meeting_with_invalid_auth(get_headers, base_payload):
@@ -43,8 +55,12 @@ def test_post_meeting_with_invalid_auth(get_headers, base_payload):
 
     assert_status_code_unauthorized(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.smoke
 def test_post_meetings_unauthorized(base_payload):
@@ -53,8 +69,12 @@ def test_post_meetings_unauthorized(base_payload):
 
     assert_status_code_unauthorized(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_missing_status(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -64,8 +84,12 @@ def test_post_meeting_missing_status(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_missing_date_start(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -75,8 +99,12 @@ def test_post_meeting_missing_date_start(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_negative_duration(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -86,8 +114,12 @@ def test_post_meeting_negative_duration(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_missing_assigned_user_id(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -97,8 +129,12 @@ def test_post_meeting_missing_assigned_user_id(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_invalid_status(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -108,8 +144,12 @@ def test_post_meeting_invalid_status(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_without_date_end(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -119,8 +159,12 @@ def test_post_meeting_without_date_end(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_with_all_day(get_headers, base_payload, teardown_delete_meeting):
     url = MeetingEndpoints.create_meeting()
@@ -132,8 +176,12 @@ def test_post_meeting_with_all_day(get_headers, base_payload, teardown_delete_me
     meeting_id = response.json().get('id')
     teardown_delete_meeting.append(meeting_id)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_invalid_parent_type(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -143,8 +191,12 @@ def test_post_meeting_invalid_parent_type(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_empty_reminder(get_headers, base_payload, teardown_delete_meeting):
     url = MeetingEndpoints.create_meeting()
@@ -156,8 +208,12 @@ def test_post_meeting_empty_reminder(get_headers, base_payload, teardown_delete_
     meeting_id = response.json().get('id')
     teardown_delete_meeting.append(meeting_id)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_empty_description(get_headers, base_payload, teardown_delete_meeting):
     url = MeetingEndpoints.create_meeting()
@@ -169,8 +225,12 @@ def test_post_meeting_empty_description(get_headers, base_payload, teardown_dele
     meeting_id = response.json().get('id')
     teardown_delete_meeting.append(meeting_id)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_invalid_date_start_format(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -180,8 +240,12 @@ def test_post_meeting_invalid_date_start_format(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_past_date_start(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -191,8 +255,12 @@ def test_post_meeting_past_date_start(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_string_duration(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -202,8 +270,12 @@ def test_post_meeting_string_duration(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_string_users_ids(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -213,8 +285,12 @@ def test_post_meeting_string_users_ids(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 def test_post_meeting_invalid_input_data(get_headers, base_payload):
     url = MeetingEndpoints.create_meeting()
@@ -224,8 +300,12 @@ def test_post_meeting_invalid_input_data(get_headers, base_payload):
 
     assert_status_bad_request(response)
 
-@allure.feature('Presentations - Jeyson Valdivia')
-@allure.story('Create Presentations')
+@allure.suite('EspoCRM')
+@allure.sub_suite('Jeyson')
+@allure.epic('EspoCRM')
+@allure.feature('Meetings')
+@allure.story('Post Meeting')
+@allure.tag('author: Jeyson')
 @pytest.mark.functional
 @pytest.mark.smoke
 def test_post_meeting_without_credentials(base_payload):
