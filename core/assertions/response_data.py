@@ -24,3 +24,9 @@ def assert_offset_pagination_correctData(response_without_offset, response_with_
     print("\n This is the first id of the call taken from the list of calls with offset: "+str(firstId_in_idItemsWithOffset))
     assert id_in_positionOffset_idItemsWithOutOffset == firstId_in_idItemsWithOffset
 
+def assert_post_response_message_bad_request(response):
+    assert 'messageTranslation' in response, "La respuesta no contiene el campo 'messageTranslation'"
+    assert 'label' in response[
+        'messageTranslation'], "La respuesta no contiene el campo 'label' en 'messageTranslation'"
+    assert response['messageTranslation']['label'] == 'validationFailure', f"Se esperaba 'validationFailure' pero se obtuvo {response['messageTranslation']['label']}"
+

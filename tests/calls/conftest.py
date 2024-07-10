@@ -6,8 +6,13 @@ from api.endpoints.calls import EndpointCalls
 from resources.auth.auth import Auth
 
 @pytest.fixture(scope="module")
-def base_payload_post():
+def base_payload_required_data_post():
     with open('core/payloads/calls/payload_call_data.json', 'r') as file:
+        return json.load(file)
+
+@pytest.fixture(scope="module")
+def base_payload_required_and_optional_data_post():
+    with open('core/payloads/calls/payload_post_required_and_optional_data.json', 'r') as file:
         return json.load(file)
 
 @pytest.fixture(scope="module")
@@ -27,34 +32,34 @@ def teardown_delete_call(get_header_cookie):
 
 
 @pytest.fixture(scope="function")
-def setup_create_call(get_header_cookie, base_payload_post):
+def setup_create_call(get_header_cookie, base_payload_required_data_post):
     headers = Auth().auth_valid_credential(get_header_cookie)
     url = EndpointCalls.post_call()
-    create_response = EspoCRMRequest.post(url, headers, base_payload_post)
+    create_response = EspoCRMRequest.post(url, headers, base_payload_required_data_post)
     call_id = create_response.json().get('id')
 
     yield headers, call_id
 
 
 @pytest.fixture(scope="function")
-def setup_create_call_get_response(get_header_cookie, base_payload_post):
+def setup_create_call_get_response(get_header_cookie, base_payload_required_data_post):
     headers = Auth().auth_valid_credential(get_header_cookie)
     url = EndpointCalls.post_call()
-    create_response = EspoCRMRequest.post(url, headers, base_payload_post)
+    create_response = EspoCRMRequest.post(url, headers, base_payload_required_data_post)
     call_id = create_response.json().get('id')
 
     yield headers, call_id, create_response
 
 @pytest.fixture(scope="function")
-def setup_teardown_call(get_header_cookie, base_payload_post):
+def setup_teardown_call(get_header_cookie, base_payload_required_data_post):
     headers = Auth().auth_valid_credential(get_header_cookie)
     url = EndpointCalls.post_call()
-    response = EspoCRMRequest.post(url, headers, base_payload_post)
+    response = EspoCRMRequest.post(url, headers, base_payload_required_data_post)
     call_id = response.json().get('id')
 
     yield headers, call_id
 
-    delete_url = url = f"{EndpointCalls.delete_call()}/{call_id}"
+    delete_url = url = f"{EndpointCalls.delete_call(call_id)}"
     EspoCRMRequest.delete(delete_url, headers)
 
 

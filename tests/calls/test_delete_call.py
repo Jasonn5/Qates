@@ -23,7 +23,6 @@ from resources.auth.auth import Auth
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-#Verify that deleting a call with invalid authentication returns 401
 def test_delete_call_with_invalid_authentication(setup_create_call):
     headers, id_of_new_call = setup_create_call
     invalid_authorization_header = headers
@@ -44,7 +43,6 @@ def test_delete_call_with_invalid_authentication(setup_create_call):
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-#Verify that an existing call can be deleted - status code 200 and response message
 def test_delete_call_successful(setup_create_call):
     headers, id_of_new_call = setup_create_call
     url_delete = EndpointCalls.delete_call(id_of_new_call)
@@ -61,7 +59,6 @@ def test_delete_call_successful(setup_create_call):
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-#Verify that a deleted call cannot be recovered afterwards
 def test_delete_call_recoverable_with_deleted_field_true(setup_create_call_get_response):
     headers, id_of_new_call, call_created_response = setup_create_call_get_response
     assert_created_success_response_deleted_field(call_created_response)
@@ -86,7 +83,6 @@ def test_delete_call_recoverable_with_deleted_field_true(setup_create_call_get_r
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-# Verify deletion of more than one call- status code 200 OK
 def test_delete_more_than_one_call(setup_create_call, base_payload_delete):
     headers, id_of_new_call_1 = setup_create_call
     headers, id_of_new_call_2 = setup_create_call
@@ -112,7 +108,6 @@ The system uses a POST, which is the wrong VERB, sending a body with the IDs of 
 @pytest.mark.smoke
 @pytest.mark.functional
 @pytest.mark.regression
-# Verify that deleting a non-existent call returns 404
 def test_delete_non_existing_call(get_header_cookie):
     headers = Auth().auth_valid_credential(get_header_cookie)
     id_non_existing_call = '111e1f1234818da20'
@@ -129,7 +124,6 @@ def test_delete_non_existing_call(get_header_cookie):
 @allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
-# Verify deletion of a call with invalid ID format - status code 400 Bad Request
 def test_delete_invalid_call_id(get_header_cookie):
     headers = Auth().auth_valid_credential(get_header_cookie)
     invalid_id_call = '*-/+-+!"#%##&/%$/'
@@ -149,7 +143,6 @@ it returns a satus_code 200 ok'''
 @allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
-# Verify deletion of a call with invalid authorization cookie- status code 401 Unauthorized
 def test_delete_call_with_invalid_cookie(setup_create_call, get_header_cookie):
     headers, id_of_new_call = setup_create_call
     print("This is the headers before: " + str(headers))
@@ -171,7 +164,6 @@ def test_delete_call_with_invalid_cookie(setup_create_call, get_header_cookie):
 @allure.tag('author: Alison')
 @pytest.mark.functional
 @pytest.mark.regression
-# Verify deletion of  a call and check response content type - application/json
 def test_delete_call_header_format_content_type(setup_create_call):
     headers, id_of_new_call = setup_create_call
     url_delete = EndpointCalls.delete_call(id_of_new_call)
